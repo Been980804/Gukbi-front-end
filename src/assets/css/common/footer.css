@@ -1,0 +1,85 @@
+/* common */
+* {
+  margin: 0;
+  padding: 0;
+}
+ul {
+  list-style: none;
+}
+a {
+  display: block; /* 링크를 블록 레벨 요소로 설정하여 전체 영역을 클릭 가능하게 함 */
+  text-decoration: none; /* 링크 밑줄 제거 */
+  color: black; /* 링크 색상 설정 */
+}
+
+/* footer start */
+.footer {
+  min-height: 30vh;
+  width: 100%;
+  height: 17rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.footer_contents {
+  width: 100%;
+  height: 90%;
+  display: flex;
+  justify-content: space-between; /* notice와 recent를 가로정렬 */
+}
+.footer_contents > * {
+  margin: 2rem auto; /* notice와 recent에게 공통으로 상하 */
+}
+.notice {
+  width: 40%;
+  height: 80%;
+  margin-left: 5%;
+  display: flex;
+  flex-direction: column; /* 자식을 세로로 */
+  align-items: center; /* 자식 중앙 정렬 */
+}
+.notice_title {
+  width: 90%;
+  height: 20%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.notice_contents {
+  width: 90%;
+  height: 80%;
+  font-size: 0.8rem;
+}
+.recent {
+  width: 40%;
+  height: 80%;
+  margin-right: 5%;
+}
+.footer_copyright {
+  width: 100%;
+  height: 10%;
+  margin-top: auto;
+  /* background-color: rgb(206, 198, 234); */
+  display: flex;
+  justify-content: flex-end; /* span태그를 오른쪽에 위치하게 */
+  align-items: flex-end; /* span태그를 아래에 위치하게 */
+}
+/* footer end */
+.notice_contents ul {
+  display: flex;
+  flex-direction: column; /* 자식 요소들을 세로로 나열합니다. */
+}
+.notice_contents li a {
+  margin: 0.3rem 0;
+  display: flex;
+  justify-content: space-between;
+}
+.noti {
+  flex: 1; /* 내용이 왼쪽으로 치우치도록 함 */
+  white-space: nowrap; /* 텍스트가 가로로 넘칠 때 줄바꿈을 방지 */
+  overflow: hidden; /* 넘치는 텍스트를 숨김 */
+  text-overflow: ellipsis; /* 넘치는 텍스트를 "..."으로 대체 */
+}
+.date {
+  margin-left: 10px; /* 날짜와 내용 사이의 간격 조절 */
+}

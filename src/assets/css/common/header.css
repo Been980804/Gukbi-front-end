@@ -1,0 +1,112 @@
+/* root = 16px */
+/* common start */
+* {
+    margin: 0;
+    padding: 0;
+}
+input {
+    text-indent: 10px;
+}
+a {
+    text-decoration: none;
+    color: rgb(53, 53, 53);
+}
+ul {
+    padding-inline-start: 0;
+}
+hr {
+    width: 100%;
+    border: 0;
+    height: 0;
+    border-top: 1px solid #c7c7c7;
+}
+/* common end */
+
+/* header start */
+.header { 
+    width:100%;
+	/* height: 12.5rem; */
+	/* position: absolute; */
+    min-height: 20vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* background-color: pink; */
+}
+.navbar { 
+	background-color: white;
+	width:100%;
+	height:6rem;
+	position: relative;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.navbar_logo {
+    margin-left: 20%;
+    margin-right: 2rem; /* vertical_line이 오른쪽으로 2rem 위치에 붙게됨 */
+}
+.navbar_logo > img {
+    height: 5rem;
+}
+.vertical_line {
+    margin-right: 2rem; /* navbar_menu가 오른쪽으로 2rem 위치에 붙게됨 */
+    height : 50%;
+    border-left : 1px solid #c7c7c7;
+}
+.navbar_menu { 
+    list-style: none; /* li 태그 기호 없앰 */
+    display: flex; /* 가로로 정렬 */
+    margin-right: auto; /* navbar_icons가 왼쪽으로 붙도록 설정 */
+}
+.navbar_menu_item {
+    list-style: none; /* li 태그 기호 없앰 */
+    display: flex; /* 가로로 정렬 */
+}
+.navbar_menu_item li {
+    padding: 8px 30px;
+  }
+.navbar_icons {
+    display: flex;
+    margin-right: 20%;
+}
+.navbar_icons button {
+    padding: 8px 12px;
+}
+.search {
+	background-color: white;
+	width: 100%;
+	height: 5.5rem;
+	position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.search_input { 
+    background-color: rgb(236, 236, 236);
+    width: 40%;
+    height: 50px;
+    border: none;
+    border-radius: 10px;
+    outline: none;
+    padding-right: 4rem; /* 버튼과 겹치지 않게 패딩 */
+    font-size: 0.9rem;
+}
+input:focus {
+    outline: 1px solid gray;
+}
+.btn_search {
+    position: relative;
+    right: 50px;
+    height: 1.7rem;
+    width: 1.7rem;
+    border: 0;
+    border-radius: 0.5rem;
+    background: none;
+    display: flex; /* 버튼을 flex로 (버튼 안의 이미지 정렬을 위함) */
+    justify-content: center; /* 수평 가운데 정렬 */
+    align-items: center; /* 수직 가운데 정렬 */
+}
+
+/* header end */
