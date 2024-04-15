@@ -111,13 +111,13 @@ export default {
       return `${year}.${month}.${day} ${hours}:${minutes}:${seconds}`;
     },
 
-    regist() { // 추천도서 테이블 등록
-      api.put(`/manage/book/sugRegist`, {params: Object.fromEntries(this.sqlData)})
+    regist() { // 추천도서 정보 등록
+      api.put(`/manage/book/sugRegist/${this.bookInfo.book_isbn}`)
       .then(res => {
           if(res.common.res_code == 200) {
-            console.log("sugRegist:::" + res.data.sugRegist)
+            console.log("sugRegist:::" + res.data.sugRegist);
           } else {
-            console.log("BookDetailView book/descript 응답실패")
+            console.log("BookDetailView book/descript 응답실패");
           }
         })
     },
