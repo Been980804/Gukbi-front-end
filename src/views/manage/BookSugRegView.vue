@@ -115,7 +115,8 @@ export default {
       api.put(`/manage/book/sugRegist/${this.bookInfo.book_isbn}`)
       .then(res => {
           if(res.common.res_code == 200) {
-            console.log("sugRegist:::" + res.data.sugRegist);
+            // 추천도서 등록에 성공하면 다시 목록 화면으로 이동
+            this.$router.push({path: 'MgrBookSug'});
           } else {
             console.log("BookDetailView book/descript 응답실패");
           }
