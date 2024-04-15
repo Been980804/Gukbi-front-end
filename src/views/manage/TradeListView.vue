@@ -198,7 +198,8 @@ export default {
 
     goDetailView(tradeNo) {
       sessionStorage.setItem("currentPage", this.currentPage);
-      this.$router.push({ name: 'MgrTradeDetail', params: { tradeNo }})
+      this.$router.push({ name: 'MgrTradeDetail', params: { tradeNo },
+        query: { path: `${this.$route.path}`, menuNo: `${this.$route.query.menuNo}` }});
     }
   },
 

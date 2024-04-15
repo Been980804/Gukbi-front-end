@@ -83,7 +83,7 @@ export default {
 
   // DOM이 만들어진 후 실행
   mounted() {
-    this.$refs.mgrSidebar.getLargeMenu(9);
+    this.$refs.mgrSidebar.setCurrentMenu(9, this.$route.query.path, this.$route.query.menuNo);
   },
 
   methods: {
@@ -91,7 +91,8 @@ export default {
       // 이전 화면으로 돌아올 때 데이터를 sessionStorage에 저장
       sessionStorage.setItem("memName", this.memName);
       sessionStorage.setItem("notiNo", this.notiNo);
-      this.$router.push({ name: 'MgrNotiDetailReg', params: { 'notiInfo': JSON.stringify(this.notiInfo), 'memName': this.memName} });
+      this.$router.push({ name: 'MgrNotiDetailReg', params: { 'notiInfo': JSON.stringify(this.notiInfo), 'memName': this.memName},
+        query: { path: `${this.$route.query.path}`, menuNo: `${this.$route.query.menuNo}` }});
     },
 
     deleteNoti() {

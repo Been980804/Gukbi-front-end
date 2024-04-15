@@ -209,7 +209,7 @@ export default {
 
     goRegView() {
       sessionStorage.setItem("currentPage", this.currentPage);
-      this.$router.push({ name: 'MgrBookSugReg', params: { bookInfo: "" } });
+      this.$router.push({ name: 'MgrBookSugReg', params: { bookInfo: "" }, query: { path: `${this.$route.path}`, menuNo: `${this.$route.query.menuNo}` } });
     }
   },
 

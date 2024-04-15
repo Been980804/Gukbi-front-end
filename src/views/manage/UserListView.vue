@@ -206,7 +206,8 @@ export default {
     goDetailView(user) {
       // 이전 화면으로 돌아올 때 데이터를 sessionStorage에 저장
       sessionStorage.setItem("currentPage", this.currentPage);
-      this.$router.push({ name: 'MgrUserInfoView', params: { "memName": user.mem_name, "memNo": user.mem_no, "rentYN": user.mem_rent_yn } });
+      this.$router.push({ name: 'MgrUserInfoView', params: { "memName": user.mem_name, "memNo": user.mem_no, "rentYN": user.mem_rent_yn },
+        query: { path: `${this.$route.path}`, menuNo: `${this.$route.query.menuNo}` }});
     },
   },
 
