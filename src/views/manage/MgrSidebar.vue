@@ -69,8 +69,6 @@ export default {
         this.currentPath = null;
         this.showSubMenu = menuNo; // 서브메뉴를 보일지말지
         this.currentSubPath = menuLink; // 어떤 서브메뉴를 선택표시할지
-        console.log(this.currentSubPath);
-        console.log(this.showSubMenu);
       } else {
         this.showSubMenu = null;
         this.currentSubPath = null;

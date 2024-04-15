@@ -18,7 +18,7 @@
 
         <div class="inline_blank24" v-show="status == `등록`"></div>
 
-        <img class="m_img_book" :src="bookInfo.book_url"/>
+        <img class="m_img_book" :src="replaceImg(bookInfo.book_url)"/>
       
         <div class="inline_blank24"></div>
 
@@ -145,6 +145,12 @@ export default {
 
     goPrevView() {
       this.$router.go(-1);
+    },
+
+    replaceImg(url) { // 이미지가 없을 경우 기본 이미지로 대체
+      if(url == undefined || url == '' || url == null) {
+        return require("@/assets/images/default-img.png");
+      }
     }
   },
 }
