@@ -154,5 +154,5 @@ export default {
 </script>
 
 <style scoped>
-/* @import "../../assets/css/mypage/myInquiry.css"; */
+@import "../../assets/css/mypage/myInquiry.css";
 </style>

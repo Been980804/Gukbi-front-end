@@ -102,5 +102,5 @@ export default {
 </script>
 
 <style>
-/* @import "../../../assets/css/mypage/popup/addBookPlyP.css"; */
+@import "../../../assets/css/mypage/popup/addBookPlyP.css";
 </style>

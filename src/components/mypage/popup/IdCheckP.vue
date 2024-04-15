@@ -115,5 +115,5 @@ export default {
 </script>
 
 <style scoped>
-/* @import "../../../assets/css/mypage/popup/idCheckP.css"; */
+@import "../../../assets/css/mypage/popup/idCheckP.css";
 </style>

@@ -299,5 +299,5 @@ export default {
 </script>
 
 <style scoped>
-/* @import "../../assets/css/mypage/rentReservation.css"; */
+@import "../../assets/css/mypage/rentReservation.css";
 </style>

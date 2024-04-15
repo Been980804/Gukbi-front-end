@@ -1,0 +1,82 @@
+.rentReservation_page {
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    min-height: 900px;
+  }
+  
+  .rentReservation_page_title {
+    margin-left: 20px;
+  }
+  
+  .rentList,
+  .reserveList {
+    margin-top: 20px;
+    border-top: 2px solid black;
+    min-height: 500px;
+  }
+  
+  .rentList_table,
+  .reserveList_table {
+    width: 100%;
+    margin-top: 20px;
+  }
+  
+  .rentList_title,
+  .reserveList_title {
+    margin-top: 20px;
+  }
+  
+  .rent_bookCode,
+  .rent_userName,
+  .reserve_bookCode,
+  .reserve_userName {
+    width: 10%;
+  }
+  
+  .rent_bookTitle,
+  .rent_lateDate,
+  .reserve_bookTitle,
+  .reserve_rent_dueDate {
+    width: 20%;
+  }
+  
+  .rent_rentDate,
+  .rent_returnDate,
+  .reserve_reserveDate,
+  .reserve_publisher {
+    width: 15%;
+  }
+  
+  .rentList_table_header,
+  .reserveList_table_header {
+    border-bottom: 2px solid #e6edff;
+    margin-bottom: 10px;
+    height: 2rem;
+  }
+  
+  .list_row {
+    text-align: center;
+    padding: 10px;
+    height: 4.4rem;
+    border-bottom: 2px solid #e6edff;
+  }
+  
+  .list_row_btn {
+    width: 5rem !important;
+    height: 2rem !important;
+  }
+
+  .t_header{
+    text-align: center;
+  }
+
+  .t_list{
+    padding: 0;
+    vertical-align: middle;
+    text-align: center;
+  }
+
+  .text_red{
+    color: red;
+  }

@@ -174,5 +174,5 @@ export default {
 </script>
 
 <style scoped>
-/* @import "../../../assets/css/mypage/popup/updateBookPlyP.css"; */
+@import "../../../assets/css/mypage/popup/updateBookPlyP.css";
 </style>

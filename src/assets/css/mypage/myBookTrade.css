@@ -1,0 +1,62 @@
+.myBookTrade_page {
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    min-height: 900px;
+  }
+  
+  .myBookTrade_page_title {
+    margin-left: 20px;
+  }
+  
+  .myBookTradeList {
+    margin-top: 20px;
+    border-top: 2px solid black;
+  }
+  
+  .myTrade_table {
+    width: 100%;
+    margin-top: 20px;
+  }
+  
+  .myTrade_table_header {
+    border-bottom: 2px solid #e6edff;
+    margin-bottom: 10px;
+    height: 2rem;
+  }
+  
+  .myTrade_num,
+  .myTrade_state {
+    width: 5%;
+  }
+  
+  .myTrade_userName,
+  .myTrade_publisher,
+  .myTrade_price {
+    width: 10%;
+  }
+  
+  .myTrade_title,
+  .myTrade_bookTitle {
+    width: 15%;
+  }
+  
+  .myTrade_update,
+  .myTrade_delete {
+    width: 10%;
+    button {
+      width: 5rem !important;
+      height: 2rem !important;
+      margin-left: 30px;
+    }
+  }
+  
+  .myTrade_create {
+    margin: 20px;
+    float: right;
+    button {
+      width: 5rem !important;
+      height: 2rem !important;
+    }
+  }
+  

@@ -83,5 +83,5 @@ export default {
 </script>
 
 <style scoped>
-/* @import "../../../assets/css/mypage/popup/reviewP.css"; */
+@import "../../../assets/css/mypage/popup/reviewP.css";
 </style>

@@ -1,0 +1,76 @@
+.addBookPly_popup {
+    position: fixed;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 100;
+  }
+  
+  .addBookPly_popup_main {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -30%);
+    display: flex;
+    flex-direction: column;
+
+    width: 500px;
+    height: 500px;
+    background-color: transparent;
+    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);    
+    border-radius: 10px;
+
+  }
+  
+  .addBookPly_popup_body {
+    width: 100%;
+    height: 500px;
+    background-color: white;
+    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+    padding: 10px;
+    border-radius: 10px;
+    border: 2px solid black;
+}
+
+.addBookPly_popup_title {
+    text-align: center;
+    padding: 10px 0 10px 0;
+    width: 100%;  
+    font-size: 20px;
+    border-bottom: 2px solid black;
+}
+
+.addBookPlyList{
+    max-height: 420px;
+    border-collapse: collapse;
+    overflow-y: scroll;
+  }
+
+  .addBookPly_img{
+    width: 25%;
+    img{
+      width: 100px;
+      height: 150px;
+    }
+  }
+
+  .addBookPly_updateDate{
+    width: 25%;
+  }
+
+  .addBookPly_userName,.addBookPly_bplName{
+    width: 20%;
+  }
+
+  .addBookPly_num{
+    width: 10%;
+  }
+
+  .cancelAddBookPly_popup{
+    position: absolute;
+    top: 15px;
+    right: 0;
+  }

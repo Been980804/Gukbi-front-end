@@ -166,5 +166,5 @@ export default {
 </script>
 
 <style scoped>
-/* @import "../../assets/css/mypage/hopeBook.css"; */
+@import "../../assets/css/mypage/hopeBook.css";
 </style>

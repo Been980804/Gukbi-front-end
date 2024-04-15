@@ -151,5 +151,5 @@ export default {
 </script>
 
 <style scoped>
-/* @import "../../assets/css/mypage/myBookTrade.css"; */
+@import "../../assets/css/mypage/myBookTrade.css";
 </style>

@@ -261,5 +261,5 @@ export default {
 </script>
 
 <style scoped>
-/* @import "../../assets/css/mypage/myBookPly.css"; */
+@import "../../assets/css/mypage/myBookPly.css";
 </style>

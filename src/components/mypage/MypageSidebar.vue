@@ -125,5 +125,5 @@ export default {
 </script>
 
 <style>
-/* @import "../../assets/css/common/sidebar.css"; */
+@import "../../assets/css/common/sidebar.css";
 </style>

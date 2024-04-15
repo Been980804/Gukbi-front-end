@@ -158,5 +158,5 @@ export default {
 </script>
 
 <style scoped>
-/* @import "../../../assets/css/mypage/popup/pwdUpdateP.css"; */
+@import "../../../assets/css/mypage/popup/pwdUpdateP.css";
 </style>

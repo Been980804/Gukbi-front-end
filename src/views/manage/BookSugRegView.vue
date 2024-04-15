@@ -112,7 +112,7 @@ export default {
     },
 
     regist() { // 추천도서 테이블 등록
-      api.put(`/manage/book/sugRegist`, {params: Object.fromEntries(sqlData)})
+      api.put(`/manage/book/sugRegist`, {params: Object.fromEntries(this.sqlData)})
       .then(res => {
           if(res.common.res_code == 200) {
             console.log("sugRegist:::" + res.data.sugRegist)

@@ -1,0 +1,45 @@
+.rentedList_page {
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    min-height: 900px;
+  }
+  
+  .rentedList_page_title {
+    margin-left: 20px;
+  }
+  
+  .rentedList {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-top: 2px solid black;
+  }
+  
+  .rentedList_table {
+    width: 100%;
+    margin-top: 20px;
+  }
+  
+  .rentedList_title {
+    margin-top: 20px;
+  }
+  
+  .rented_bookCode,
+  .rented_userName {
+    width: 10%;
+  }
+  
+  .rented_bookTitle {
+    width: 30%;
+  }
+  
+  .rented_rentDate,
+  .rented_returnDate {
+    width: 20%;
+  }
+  
+  .rentedList_table_header {
+    border-bottom: 2px solid #e6edff;
+    margin-bottom: 10px;
+    height: 2rem;
+  }

@@ -126,5 +126,5 @@ export default {
 </script>
 
 <style scoped>
-/* @import "../../assets/css/mypage/rentedList.css"; */
+@import "../../assets/css/mypage/rentedList.css";
 </style>

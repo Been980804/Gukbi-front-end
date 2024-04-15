@@ -195,5 +195,5 @@ export default {
 </script>
 
 <style scoped>
-/* @import "../../assets/css/mypage/userinfo.css"; */
+@import "../../assets/css/mypage/userinfo.css";
 </style>

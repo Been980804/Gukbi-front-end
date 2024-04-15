@@ -40,6 +40,9 @@ html, body {height: 100%;}
 .button_blue {
   background: #5181B8;
 }
+.button_charcoal{
+  background: #42403e;
+}
 
 /* 텍스트 색상 관련 변경 */
 .text_white {color: white;}

@@ -1,0 +1,95 @@
+.review_popup {
+    position: fixed;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+  
+  .review_popup_main {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -30%);
+    display: flex;
+    flex-direction: column;
+  
+    width: 500px;
+    height: 300px;
+    background-color: transparent;
+    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+  }
+  
+  .review_popup_body {
+    width: 500px;
+    height: 300px;
+    background-color: white;
+    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+    padding: 10px;
+    border-radius: 10px;
+    border: 2px solid black;
+  }
+  
+  .rating {
+    display: flex;
+    margin-left: 20px;
+  }
+  
+  .review_content {
+    text-align: center;
+    margin-top: 20px;
+  
+    textarea {
+      width: 90%;
+      background-color: #f7f8fa;
+      border: 1px solid #d6dce1;
+      border-radius: 5px;
+      resize: none;
+      outline: none;
+      font-size: 20px;
+    }
+  
+    textarea::placeholder {
+      color: #a3a3a3;
+    }
+  }
+  
+  .review_buttonBox {
+    text-align: center;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+  
+     button:first-child {
+      margin-right: 10px;
+    }
+  }
+  
+  .review_btn{
+    width: 4rem !important;
+    height: 2rem !important;
+  }
+  
+  .before_click {
+    font-size: 25px;
+    color: transparent;
+    text-shadow: 0 0 0 #f0f0f0;
+    cursor: pointer;
+  }
+  
+  .after_click {
+    font-size: 25px;
+    color: transparent;
+    text-shadow: 0 0 0 rgb(255, 229, 31);
+    cursor: pointer;
+  }
+  
+  .starCnt {
+    margin-left: 7px;
+    line-height: 1.5;
+    font-size: 1.5rem;
+    color:rgb(255, 229, 31);
+  }
+  

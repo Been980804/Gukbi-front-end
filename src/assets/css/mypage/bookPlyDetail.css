@@ -1,0 +1,168 @@
+.bookPly_detail {
+    border-top: 2px solid black;
+  }
+  
+  .detail_header {
+    margin-top: 20px;
+  }
+  
+  .detail_intro {
+    width: 100%;
+    border-bottom: 2px solid black;
+  }
+  
+  .detail_intro_table {
+    margin: 20px 20px 10px 20px;
+    td {
+      padding: 0;
+      border: 0;
+    }
+  }
+  
+  .detail_img {
+    img {
+      width: 200px;
+      height: 300px;
+    }
+  }
+  
+  .detail_list {
+    position: absolute;
+    text-align: left;
+    left: 530px;
+  }
+  
+  .detail_plyName {
+    font-size: 2rem;
+    margin-top: 50px;
+  }
+  
+  .detail_plyUserName {
+    font-size: 1.5rem;
+    margin-top: 150px;
+  }
+  .updateDateAndLike {
+    font-size: 1.5rem;
+    display: flex;
+    margin-top: 200px;
+  }
+  .detail_updateDate {
+    margin-top: 10px;
+    margin-right: 700px;
+  }
+  .detail_like {
+    fieldset {
+      display: flex;
+      align-items: center;
+      border: 0;
+    }
+  
+    input[type="checkbox"] {
+      display: none;
+    }
+  
+    input[type="checkbox"]:checked + label {
+      color: red;
+    }
+  
+    label {
+      cursor: pointer;
+      padding: 0 10px 0 0;
+      color: rgb(232, 232, 232);
+      font-size: 45px;
+    }
+  
+    #likeCount {
+      font-size: 25px;
+    }
+  }
+  
+  .detail_content {
+    border-bottom: 2px solid black;
+  }
+  
+  .content_head {
+    font-size: 30px;
+    margin: 20px 0 0 20px;
+  }
+  
+  .content_content {
+    margin-top: 20px;
+    margin-left: 20px;
+    font-size: 20px;
+    min-height: 150px;
+  }
+  
+  .detail_bookList {
+    overflow-y: scroll;
+    max-height: 550px;
+  }
+  
+  .detail_bookList_header {
+    font-size: 20px;
+    margin: 10px 0 0 30px;
+  }
+  
+  .detail_bookList_button {
+    display: flex;
+    margin: 10px 0 0 10px;
+    justify-content: space-between;
+  }
+  
+  .margin-right {
+    margin-right: 10px;
+  }
+  
+  .detail_bookList_table {
+    margin-top: 10px;
+  }
+  .bookList_table_header {
+    border-bottom: 2px solid #e6edff;
+  }
+  
+  .bookList_checkox,
+  .bookList_num {
+    width: 5%;
+  }
+  
+  .bookList_bookTitle {
+    width: 20%;
+  }
+  
+  .bookList_author,
+  .bookList_publisher {
+    width: 15%;
+  }
+  
+  .bookList_bookImg {
+    width: 10%;
+    img {
+      width: 100px;
+      height: 150px;
+    }
+  }
+  
+  .bookList_detailInfo,
+  .bookList_addMyBookPly {
+    width: 20%;
+    align-items: center;
+    button {
+      margin: 0 auto;
+    }
+  }
+  
+  .bookList_row {
+    box-sizing: border-box;
+    border-bottom: 2px solid #e6edff;
+    padding: 5px 0 5px 0;
+  }
+  
+  .detail_modi_button {
+    float: right;
+    margin-right: 50px;
+  }
+  
+  .btn_flex{
+    display: flex;
+  }
+  

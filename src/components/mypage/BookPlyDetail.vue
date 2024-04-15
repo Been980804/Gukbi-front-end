@@ -330,5 +330,5 @@ export default {
 </script>
 
 <style scoped>
-/* @import "../../assets/css/mypage/bookPlyDetail.css"; */
+@import "../../assets/css/mypage/bookPlyDetail.css";
 </style>

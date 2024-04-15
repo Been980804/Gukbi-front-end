@@ -105,5 +105,5 @@ export default {
 </script>
 
 <style scoped>
-    /* @import "../../../assets/css/mypage/popup/accountDeleteP.css"; */
+    @import "../../../assets/css/mypage/popup/accountDeleteP.css";
 </style>
