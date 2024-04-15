@@ -110,6 +110,7 @@ export default {
   // DOM이 만들어진 후 실행
   mounted() {
     this.$refs.mgrSidebar.getLargeMenu(9);
+    this.$refs.mgrSidebar.setCurrentMenu(this.$route.path);
   },
 
   methods: {
