@@ -10,6 +10,8 @@ import RentReserve from "../views/mypage/RentReservationView.vue";
 import RentedList from "../views/mypage/RentedListView.vue";
 import HopeBook from "../views/mypage/HopeBookView.vue";
 import MyBookPly from "../views/mypage/MyBookPlyView.vue";
+import MyInquiry from "../views/mypage/MyInquiryView.vue";
+import MyBookTrade from "../views/mypage/MyBookTradeView.vue";
 
 // 관리자화면 import
 import MgrBookList from "../views/manage/BookListView.vue";	// 도서관리
@@ -31,7 +33,7 @@ import MgrTradeDetail from "../views/manage/TradeDetailView.vue"; // 게시판�
 import MgrApplList from "../views/manage/ApplListView.vue"; // 게시판관리-희망도서
 
 // 도서마당
-import NotificationList from "../views/madang/NotificationListView.vue";	// 공지사항
+// import NotificationList from "../views/madang/NotificationListView.vue";	// 공지사항
 
 const routes = [
 	{ path: "/", name: "Main", component: Main, },
@@ -44,6 +46,8 @@ const routes = [
 	{ path: "/RentedList", name: "RentedList", component: RentedList},
 	{ path: "/HopeBook", name: "HopeBook", component: HopeBook},
 	{ path: "/MyBookPly", name: "MyBookPly", component: MyBookPly},
+	{ path: "/MyInquiry", name: "MyInquiry", component: MyInquiry},
+	{ path: "/MyBookTrade", name: "MyBookTrade", component: MyBookTrade},
 
 	// 관리자화면
 	{ path: "/MgrBookList", name: "MgrBookList", component: MgrBookList},
@@ -65,7 +69,7 @@ const routes = [
 	{ path: "/MgrApplList", name: "MgrApplList", component: MgrApplList},
 
 	// 도서마당
-	{ path: "/NotificationList", name: "NotificationList", component: NotificationList},
+	// { path: "/NotificationList", name: "NotificationList", component: NotificationList},
 ];
 
 const router = createRouter({
