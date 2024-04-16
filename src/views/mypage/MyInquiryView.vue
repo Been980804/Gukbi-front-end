@@ -145,10 +145,6 @@ export default {
       }
       
     },
-
-    updateMyInquiry(){
-
-    }
   },
 };
 </script>

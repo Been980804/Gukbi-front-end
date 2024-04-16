@@ -1,141 +1,139 @@
-
 .myInquiry_page {
-    padding: 20px 20px 0 20px;
-    background-color: white;
-    border-radius: 10px;
-    box-sizing: border-box;
-    min-height: 900px !important;
+  padding: 20px 20px 0 20px;
+  background-color: white;
+  border-radius: 10px;
+  box-sizing: border-box;
+  min-height: 900px !important;
+}
+
+.myInquiry_header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.inquiryCreate_btn {
+  width: 5rem !important;
+  height: 2rem !important;
+}
+
+.myInquiry_header_title {
+  margin-top: 20px;
+  padding: 10px;
+  border-bottom: 2px solid black;
+}
+
+.myInquiry_table {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.myInquiry_table_header {
+  border-bottom: 2px solid #e6edff;
+}
+
+.myInquiry_num {
+  width: 10%;
+}
+
+.pst_fixed {
+  vertical-align: top;
+  padding-top: 35px;
+}
+.myInquiry_title {
+  width: 70%;
+}
+
+.myInquiry_delete {
+  width: 10%;
+}
+
+.list_fixed {
+  vertical-align: top;
+  padding-top: 30px;
+}
+
+.inquiry_list {
+  text-align: left;
+}
+
+.pd_left {
+  padding-left: 45px;
+}
+
+/* .accordion_wrap {
+} */
+
+.que {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  position: relative;
+  align-items: center;
+  padding: 15px 0 35px 0;
+  cursor: pointer;
+  height: 600x;
+  max-height: 0px;
+  overflow: hidden;
+  transition: max-height 0.3s linear;
+}
+
+.que.opened {
+  margin: 10px 0 10px 0;
+  max-height: 600px;
+}
+
+.que b {
+  margin-right: 10px;
+}
+
+.que::before {
+  content: "Q";
+  margin: 0 5px;
+  color: rgb(207, 145, 243);
+}
+
+.ans {
+  padding: 20px 10px 0 10px;
+  height: fit-content;
+  overflow: hidden;
+}
+
+.ans_list {
+  min-height: 70px;
+  padding: 10px 0 10px 10px;
+  border-top: 1px solid #ccc;
+  div {
+    padding: 5px 0 5px 0;
   }
-  
-  .myInquiry_header {
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .inquiryCreate_btn {
-    width: 5rem !important;
-    height: 2rem !important;
-  }
-  
-  .myInquiry_header_title {
-    margin-top: 20px;
-    padding: 10px;
-    border-bottom: 2px solid black;
-  }
-  
-  .myInquiry_table{
-    width: 100%;
-    margin-bottom: 20px;
-  }
-  
-  .myInquiry_table_header {
-    border-bottom: 2px solid #e6edff;
-  }
-  
-  .myInquiry_num {
-    width: 10%;
-  }
-  
-  .pst_fixed {
-    vertical-align: top;
-    padding-top: 35px;
-  }
-  .myInquiry_title {
-    width: 70%;
-  }
-  
-  .myInquiry_delete{
-    width: 10%;
-  }
-  
-  .list_fixed {
-    vertical-align: top;
-    padding-top: 30px;
-  }
-  
-  .inquiry_list {
-    text-align: left;
-  }
-  
-  .pd_left {
-    padding-left: 45px;
-  }
-  
-  .accordion_wrap {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  .que {
-      position: relative;
-      align-items: center;
-      padding: 15px 0 35px 0;
-      cursor: pointer;
-      height: 600x;
-      max-height: 0px;
-      overflow: hidden;
-      transition: max-height 0.3s linear;
-  }
-  
-  .que.opened{
-      max-height: 600px;
-  }
-  
-  .que b {
-    margin-right: 10px;
-  }
-  
-  .que::before {
-    content: "Q";
-    margin: 0 5px;
-    color: rgb(207, 145, 243);
-  }
-  
-  .ans {
-    padding: 20px 10px 0 10px;
-    height: fit-content;
-    overflow: hidden;
-  }
-  
-  .ans_list {
-    min-height: 70px;
-    padding: 10px 0 10px 10px;
-    border-top: 1px solid #ccc;
-    div {
-      padding: 5px 0 5px 0;
-    }
-  }
-  
-  .arrow_wrap {
-    position: absolute;
-    right: 10px;
-    top: 23.5px;
-    transform: translateY(-50%);
-  }
-  
-  .arrow {
-    display: inline-block;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 0 7px 7px 7px;
-    border-color: transparent transparent #000000 transparent;
-    transition: transform 0.3s ease;
-  }
-  
-  .rotated {
-    transform: rotate(180deg);
-  }
-  
-  .inquiryDelete_btn{
-    width:5rem !important;
-    height: 2rem !important;
-  }
-  
-  .myInquiry_btn{
-    margin: 10px 0 0 30px;
-    width: 5rem !important;
-    height: 2rem !important;
-  }
-  
-  
+}
+
+.arrow_wrap {
+  position: absolute;
+  right: 10px;
+  top: 23.5px;
+  transform: translateY(-50%);
+}
+
+.arrow {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 7px 7px 7px;
+  border-color: transparent transparent #000000 transparent;
+  transition: transform 0.3s ease;
+}
+
+.rotated {
+  transform: rotate(180deg);
+}
+
+.inquiryDelete_btn {
+  width: 5rem !important;
+  height: 2rem !important;
+}
+
+.myInquiry_btn {
+  margin: 10px 0 0 30px;
+  width: 5rem !important;
+  height: 2rem !important;
+}
