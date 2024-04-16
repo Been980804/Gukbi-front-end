@@ -101,4 +101,5 @@ export default {
 </script>
 <style>
   @import "../../assets/css/common/index.css";
+  @import "../../assets/css/common/sidebar.css";
 </style>
