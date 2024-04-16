@@ -1,4 +1,3 @@
-<!-- TODO 일단 이렇게 테스트하고 나중에 Component로 빼서 사용 -->
 <template>
   <div id="sidebar">
     <div id="sidebar_title">관리자 페이지</div>
