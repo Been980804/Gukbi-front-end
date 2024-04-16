@@ -9,7 +9,7 @@
         <tr>
           <td class="detail_img" rowspan="4">
             <img v-if="bookPlyDetail.book_url" :src="bookPlyDetail.book_url" />
-            <img v-else src="" />
+            <img v-else :src="defaultImg" />
           </td>
         </tr>
         <tr>
@@ -155,7 +155,7 @@
 
 <script>
 import { useUserStore } from "@/stores/user.js";
-// import defaultImg from "@/assets/images/free-icon-book-4693705.png";
+import defaultImg from "@/assets/images/default-img.png";
 import UpdateBplP from "@/components/mypage/popup/UpdateBookPlyP.vue";
 import AddBookPly from "@/components/mypage/popup/AddBookPlyP.vue";
 
@@ -164,7 +164,7 @@ export default {
   data() {
     return {
       user: useUserStore().getUser,
-      // defaultImg: defaultImg,
+      defaultImg: defaultImg,
       detailBookList: [],
       isLiked: false,
       currentBpl_no: null,

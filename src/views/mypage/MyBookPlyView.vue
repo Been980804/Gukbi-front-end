@@ -41,7 +41,7 @@
                   @click="showBookPlyDetail(bookPly)"
                 >
                   <img v-if="bookPly.book_url" :src="bookPly.book_url" />
-                  <img v-else src="" />
+                  <img v-else :src="defaultImg" />
                 </td>
                 <td
                   class="bookPly_bplName t_list"
@@ -134,7 +134,7 @@
 <script>
 import { useUserStore } from "@/stores/user.js";
 import MypageSidebar from "@/components/mypage/MypageSidebar.vue";
-// import defaultImg from "@/assets/images/free-icon-book-4693705.png";
+import defaultImg from "@/assets/images/default-img.png";
 import bookPlyDetail from "@/components/mypage/BookPlyDetail.vue";
 import CreateBplP from "@/components/mypage/popup/CreateBookPlyP.vue";
 
@@ -144,7 +144,7 @@ export default {
     return {
       user: useUserStore().getUser,
       bookPlyList: [],
-      // defaultImg: defaultImg,
+      defaultImg: defaultImg,
       selectedBookPly: null,
       createBplP: false,
       checkedBpls: [],
