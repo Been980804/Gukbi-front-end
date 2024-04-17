@@ -26,6 +26,33 @@
       <div class="inline_blank24"></div>
 
       <div class="m_show_box">
+        <div class="m_show_box_title">추천도서</div>
+        <table class="m_table">
+          <colgroup>
+            <col v-for="range in columnRange" :key="range" :width="range">
+          </colgroup>
+          <thead class="m_thead">
+            <tr>
+              <th v-for="column in tableColumn" :key="column" class="m_th">{{ column }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="m_td">{{ sugBookInfo.book_no }}</td>
+              <td class="m_td"><img class="m_img_book" :src="sugBookInfo.book_url" /></td>
+              <td class="m_td">{{ sugBookInfo.book_title }}</td>
+              <td class="m_td">{{ sugBookInfo.book_author }}</td>
+              <td class="m_td">{{ sugBookInfo.book_publisher }}</td>
+              <td class="m_td">{{ sugBookInfo.book_isbn }}</td>
+              <td class="m_td">{{ sugBookInfo.reg_date }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="inline_blank24"></div>
+
+      <div class="m_show_box">
         <div class="m_show_box_title">추천도서 전체 목록</div>
         <div class="inline_blank12"></div>
         <div class="table_line_box">
@@ -95,7 +122,8 @@ export default {
       pagingCount: 5, // pagination에 보여질 페이지 개수
 
       sugList: {},
-      pageList: {}
+      pageList: {},
+      sugBookInfo: {}
     }
   },
 
@@ -105,6 +133,7 @@ export default {
     }
 
     this.getSugCount();
+    this.getSugBook();
   },
         
   // DOM이 만들어진 후 실행
@@ -168,7 +197,18 @@ export default {
           if (res.common.res_code == 200) { // 응답성공
             this.sugList = res.data.sugList;
           } else { // 응답실패
-            console.log("BookListView book/bookList 응답실패");
+            console.log("BookSugView book/sugList 응답실패");
+          }
+        })
+    },
+
+    getSugBook() { // 추천도서로 등록된 책 가져오기
+      api.get(`/manage/book/sugBookInfo`)
+        .then(res => {
+          if (res.common.res_code == 200) { // 응답성공
+            this.sugBookInfo = res.data.sugBookInfo;
+          } else { // 응답실패
+            console.log("BookSugView book/sugBook 응답실패");
           }
         })
     },
