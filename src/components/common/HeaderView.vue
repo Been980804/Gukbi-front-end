@@ -10,10 +10,10 @@
         <ul class="navbar_menu_item">
           <li v-for="(navMenu, i) in navMenus" :key="i" :ref="`${i}`" @mouseover="showSubMenu(i)" @mouseleave="hideSubMenu(i)">
             <a href="#">{{ navMenu }}</a>
-            <ul class="sub_menu" style="display: none; position: absolute">
-              <li><a href="#">Festival 소개</a></li>
-              <li><a href="#">행사장 안내</a></li>
-              <li><a href="#">조직위원회</a></li>
+            <ul>
+              <template v-for="menu in largeMenus" :key="menu">
+                <li v-if="menu.menu_level == menuLevels[i]" @click="goMenu(menu.menu_link, menu.menu_no)"><a href="#">{{ menu.menu_name }}</a></li>
+              </template>
             </ul>
           </li>
         </ul>
@@ -48,9 +48,9 @@ export default {
       user: useUserStore().getUser,
 
       navMenus: ["도서대여/예약", "도서신청", "도서마당", "고객센터", "사서페이지"],
+      menuLevels: [1, 2, 3, 4, 9],
 
       largeMenus: {},
-      smallMenus: {}
     }
   },
 
@@ -69,10 +69,7 @@ export default {
   
   methods:{
     goMain() { this.$router.push({ name: 'Main' }) }, // 메인으로
-    goMenu() { // 선택한 메뉴 화면으로 이동
-
-    },
-
+    goMenu(menuLink, menuNo) { this.$router.push({path: `${menuLink}`, query: {menuNo: `${menuNo}`}}); }, // 선택한 메뉴 화면으로 이동
     showSubMenu(num) { this.$refs[num][0].children[1].style.display = 'block'; },
     hideSubMenu(num) { this.$refs[num][0].children[1].style.display = 'none'; }
   }
