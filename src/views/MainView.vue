@@ -1,14 +1,28 @@
 <template>
-  <div class="main_page">
-    <h1>Main Page</h1>
-    <button @click="apiTest">apiTest</button>
-    <button @click="dbTest">dbTest</button>
-    <button @click="goLogin">login</button>
+  <div class="container">
+    <div class="main_container">
+      <div class="aa m_content_box">
+        <div class="aa m_sug_box">
+          <div class="aa">
 
-    <br><br>
-    <input type="text" v-model="user.mem_name" readonly>
-    <br>
-    <button @click="logout">logout</button>
+          </div>
+
+          <div class="margin_right20"></div>
+
+          <div class="aa m_sug_img_box">
+
+          </div>
+        </div>
+      </div>
+
+      <div class="inline_blank24"></div>
+
+      <div class="aa m_content_box" style="flex-direction: column;">
+        <div class="aa m_content_title">현재 급상승 중인 도서!</div>
+        <div class="aa m_card_box">
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -30,19 +44,6 @@ export default {
       this.$router.push({ name: 'Login' })
     },
 
-    apiTest() {
-      this.$api
-      .put(`/api/test/${this.number}`, {
-        msg: this.msg
-      })
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => {
-        console.log(err);
-      })
-    },
-
     dbTest() {
       this.$api
       .get(`/api/test/user/${this.number}`)
@@ -59,17 +60,14 @@ export default {
 			userStore.setUser({});
       this.$router.push({ name: 'Main' })
       window.location.reload(true);
-      // 메뉴 로직 구현 후 작성
-			// const menuStore = useMenuStore();
-			// menuStore.setMenu({});
     },
-
   }
 }
 </script>
-
-<style scoped>
-.main_page {
-  min-height: 50vh;
-}
+<style>
+  @import "../assets/css/main/main.css";
+  @import "../assets/css/common/index.css";
+  .aa {
+    border: 1px solid black;
+  }
 </style>
