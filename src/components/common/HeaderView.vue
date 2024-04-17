@@ -8,11 +8,14 @@
       </div>
       <div class="navbar_menu">
         <ul class="navbar_menu_item">
-          <li><a href="#">도서대여/예약</a></li>
-          <li><a href="#">도서신청</a></li>
-          <li><a href="#">도서마당</a></li>
-          <li><a href="#">고객센터</a></li>
-          <li><a href="#">사서페이지</a></li>
+          <li v-for="(navMenu, i) in navMenus" :key="i" :ref="`${i}`" @mouseover="showSubMenu(i)" @mouseleave="hideSubMenu(i)">
+            <a href="#">{{ navMenu }}</a>
+            <ul class="sub_menu" style="display: none; position: absolute">
+              <li><a href="#">Festival 소개</a></li>
+              <li><a href="#">행사장 안내</a></li>
+              <li><a href="#">조직위원회</a></li>
+            </ul>
+          </li>
         </ul>
       </div>
       <div class=navbar_icons>
@@ -44,6 +47,8 @@ export default {
     return{
       user: useUserStore().getUser,
 
+      navMenus: ["도서대여/예약", "도서신청", "도서마당", "고객센터", "사서페이지"],
+
       largeMenus: {},
       smallMenus: {}
     }
@@ -66,7 +71,10 @@ export default {
     goMain() { this.$router.push({ name: 'Main' }) }, // 메인으로
     goMenu() { // 선택한 메뉴 화면으로 이동
 
-    }
+    },
+
+    showSubMenu(num) { this.$refs[num][0].children[1].style.display = 'block'; },
+    hideSubMenu(num) { this.$refs[num][0].children[1].style.display = 'none'; }
   }
 }
 </script>
