@@ -39,7 +39,7 @@
           <tbody>
             <tr>
               <td class="m_td">{{ sugBookInfo.book_no }}</td>
-              <td class="m_td"><img class="m_img_book" :src="sugBookInfo.book_url" /></td>
+              <td class="m_td"><img class="m_img_book" :src="replaceImg(sugBookInfo.book_url)"/></td>
               <td class="m_td">{{ sugBookInfo.book_title }}</td>
               <td class="m_td">{{ sugBookInfo.book_author }}</td>
               <td class="m_td">{{ sugBookInfo.book_publisher }}</td>
@@ -68,7 +68,7 @@
             <tbody>
               <tr v-for="book in sugList" :key="book">
                 <td class="m_td">{{ book.book_no }}</td>
-                <td class="m_td"><img class="m_img_book" :src="book.book_url" /></td>
+                <td class="m_td"><img class="m_img_book" :src="replaceImg(book.book_url)"/></td>
                 <td class="m_td">{{ book.book_title }}</td>
                 <td class="m_td">{{ book.book_author }}</td>
                 <td class="m_td">{{ book.book_publisher }}</td>
@@ -250,6 +250,13 @@ export default {
     goRegView() {
       sessionStorage.setItem("currentPage", this.currentPage);
       this.$router.push({ name: 'MgrBookSugReg', params: { bookInfo: "" }, query: { path: `${this.$route.path}`, menuNo: `${this.$route.query.menuNo}` } });
+    },
+
+    replaceImg(url) { // 이미지가 없을 경우 기본 이미지로 대체
+      if(url == undefined || url == '' || url == null) {
+        return require("@/assets/images/default-img.png");
+      }
+      return url;
     }
   },
 
