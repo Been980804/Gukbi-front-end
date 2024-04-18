@@ -68,7 +68,7 @@
         <div class="inline_blank24"></div>
 
         <div class="m_button_line_box">
-          <div class="button button_purple" v-show="status == `등록`">
+          <div class="button button_purple" v-show="status == `등록`" @click="regist()">
             <div class="text_white">등록</div>
           </div>
           <div class="button button_purple" v-show="status != `등록`" @click="setBookInfo()">
@@ -119,7 +119,7 @@ export default {
 
   methods: {
     sumCategory() { // 카테고리 번호, 이름 합치기
-      if(this.status == "등록" && this.bookInfo != null || "") {
+      if(this.status == "등록" && this.bookInfo.book_no != null || "") {
         this.category = `${this.bookInfo.book_category_no}. ${this.bookInfo.book_category_name}`;
         return;  
       }
@@ -161,13 +161,25 @@ export default {
         })
     },
 
+    regist() { // 도서 정보 등록
+      api.post(`/manage/book/books`, this.bookInfo)
+        .then(res => {
+          if(res.common.res_code == 200 && res.data.book == 1) {
+            this.$router.push({ name: 'MgrBookList' })
+          } else {
+            console.log(res.common.res_msg);
+            console.log("BookDetailView book/books 응답실패");
+          }
+        })
+    },
+
     getDescript(value) { // 도서정보마루 api 통신
       api.get(`/manage/book/descript/${value}`)
         .then(res => {
           if(res.common.res_code == 200) {
             this.descript = res.data.descript;
           } else {
-            console.log("BookDetailView book/descript 응답실패")
+            console.log("BookDetailView book/descript 응답실패");
           }
         })
     },
