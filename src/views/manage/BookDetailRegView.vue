@@ -29,15 +29,15 @@
           </div>
           <div class="m_table_row">
             <div class="m_table_column">도서명</div>
-            <input type="text" class="m_table_column_result_insert" :value="bookInfo.book_title">
+            <input type="text" class="m_table_column_result_insert" :value="bookInfo.book_title" ref="book_title">
           </div>
           <div class="m_table_row">
             <div class="m_table_column">저자</div>
-            <input type="text" class="m_table_column_result_insert" :value="bookInfo.book_author">
+            <input type="text" class="m_table_column_result_insert" :value="bookInfo.book_author" ref="book_author">
           </div>
           <div class="m_table_row">
             <div class="m_table_column">출판사</div>
-            <input type="text" class="m_table_column_result_insert" :value="bookInfo.book_publisher">
+            <input type="text" class="m_table_column_result_insert" :value="bookInfo.book_publisher" ref="book_publisher">
           </div>
           <div class="m_table_row">
             <div class="m_table_column">카테고리</div>
@@ -45,7 +45,7 @@
           </div>
           <div class="m_table_row">
             <div class="m_table_column">출판년도</div>
-            <input type="text" class="m_table_column_result_insert" :value="bookInfo.book_pub_year">
+            <input type="text" class="m_table_column_result_insert" :value="bookInfo.book_pub_year" ref="book_pub_year">
           </div>
           <div class="m_table_row">
             <div class="m_table_column">ISBN</div>
@@ -64,9 +64,11 @@
         <div class="inline_blank24"></div>
 
         <div class="m_button_line_box">
-          <div class="button button_purple">
-            <div class="text_white" v-if="status == `등록`">등록</div>
-            <div class="text_white" v-else>수정</div>
+          <div class="button button_purple" v-show="status == `등록`">
+            <div class="text_white">등록</div>
+          </div>
+          <div class="button button_purple" v-show="status != `등록`" @click="setBookInfo()">
+            <div class="text_white">수정</div>
           </div>
           <div class="margin_right10"></div>
           <div class="button" @click="goPrevView()">
@@ -116,16 +118,34 @@ export default {
       return `${this.bookInfo.book_category_no}. ${this.bookInfo.book_category_name}`;
     },
 
-    getBookInfo(event) {
+    getBookInfo(event) { // 도서 정보 가져오기
       api.get(`/manage/book/bookInfo/${event.target.value}`)
-      .then(res => {
-        if(res.common.res_code == 200 && res.data.book_no != '') {
-          this.bookInfo = res.data.bookInfo;
-          this.getDescript();
-        } else {
-          console.log("BookDetailView book/bookInfo 응답실패");
-        }
-      })
+        .then(res => {
+          if(res.common.res_code == 200 && res.data.book_no != '') {
+            this.bookInfo = res.data.bookInfo;
+            this.getDescript();
+          } else {
+            console.log("BookDetailView book/bookInfo 응답실패");
+          }
+        })
+    },
+
+    setBookInfo() { // 도서 정보 수정하기
+      let sqlData = new Map();
+      sqlData.set("isbn", this.bookInfo.book_isbn);
+      sqlData.set("book_title", this.$refs.book_title.value);
+      sqlData.set("book_author", this.$refs.book_author.value);
+      sqlData.set("book_publisher", this.$refs.book_publisher.value);
+      sqlData.set("book_pub_year", this.$refs.book_pub_year.value);
+
+      api.put(`/manage/book/bookModify`, Object.fromEntries(sqlData))
+        .then(res => {
+          if(res.common.res_code == 200 && res.data.book == 1) {
+            this.$router.go(-1);
+          } else {
+            console.log("BookDetailView book/bookInfo 응답실패");
+          }
+        })
     },
 
     getDescript() { // 도서정보마루 api 통신
