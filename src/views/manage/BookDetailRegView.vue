@@ -151,6 +151,7 @@ export default {
       if(url == undefined || url == '' || url == null) {
         return require("@/assets/images/default-img.png");
       }
+      return url;
     }
   },
 }
