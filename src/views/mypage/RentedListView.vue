@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <MyPageSidebar></MyPageSidebar>
+    <Sidebar ref="Sidebar"></Sidebar>
     <div class="main_container">
       <div class="rentedList_page">
         <div class="rentedList_page_title f2-5rem">
@@ -57,11 +57,11 @@
 
 <script>
 import { useUserStore } from "@/stores/user.js";
-import MyPageSidebar from "@/components/mypage/MypageSidebar.vue";
+import Sidebar from "@/components/common/SidebarView.vue";
 import ReviewP from "@/components/mypage/popup/ReviewP.vue";
 
 export default {
-  components: { MyPageSidebar, ReviewP},
+  components: { Sidebar, ReviewP},
   data() {
     return {
       user: useUserStore().getUser,
@@ -74,6 +74,15 @@ export default {
   created(){
     this.getRentedList();
   },
+
+  mounted() {
+    this.$refs.Sidebar.setCurrentMenu(
+      8,
+      this.$route.path,
+      this.$route.query.menuNo
+    );
+  },
+
   methods:{
     // 대여했던 도서목록 조회
     getRentedList(){

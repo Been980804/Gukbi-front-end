@@ -23,7 +23,7 @@
           <img src="@/assets/images/cart_icon.svg" alt="cart_icon">
         </button>
         <button class="imgbtn">
-          <img src="@/assets/images/user_icon.svg" alt="user_icon">
+          <img src="@/assets/images/user_icon.svg" alt="user_icon" >
         </button>
       </div>
     </div>
@@ -47,8 +47,8 @@ export default {
     return{
       user: useUserStore().getUser,
 
-      navMenus: ["도서대여/예약", "도서신청", "도서마당", "고객센터", "사서페이지"],
-      menuLevels: [1, 2, 3, 4, 9],
+      navMenus: ["도서대여/예약", "도서신청", "도서마당", "고객센터", "마이페이지", "사서페이지"],
+      menuLevels: [1, 2, 3, 4, 8, 9],
 
       largeMenus: {},
     }

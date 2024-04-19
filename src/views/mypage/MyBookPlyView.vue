@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <MypageSidebar />
+    <Sidebar ref="Sidebar"></Sidebar>
     <div class="main_container">
       <div class="myBookPly_page">
         <div class="myBookPly_page_title f2-5rem">
@@ -133,13 +133,13 @@
 
 <script>
 import { useUserStore } from "@/stores/user.js";
-import MypageSidebar from "@/components/mypage/MypageSidebar.vue";
+import Sidebar from "@/components/common/SidebarView.vue";
 import defaultImg from "@/assets/images/default-img.png";
 import bookPlyDetail from "@/components/mypage/BookPlyDetail.vue";
 import CreateBplP from "@/components/mypage/popup/CreateBookPlyP.vue";
 
 export default {
-  components: { MypageSidebar, bookPlyDetail, CreateBplP },
+  components: { Sidebar, bookPlyDetail, CreateBplP },
   data() {
     return {
       user: useUserStore().getUser,
@@ -152,6 +152,13 @@ export default {
   },
   created() {
     this.getBookPlyList();
+  },
+  mounted() {
+    this.$refs.Sidebar.setCurrentMenu(
+      8,
+      this.$route.path,
+      this.$route.query.menuNo
+    );
   },
   methods: {
     // 북플리 목록 조회

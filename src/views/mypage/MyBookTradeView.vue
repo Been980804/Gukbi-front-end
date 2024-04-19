@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <MyPageSidebar />
+    <Sidebar ref="Sidebar"></Sidebar>
     <div class="main_container">
       <div class="myBookTrade_page">
         <div class="myBookTrade_page_title f2-5rem">
@@ -74,10 +74,10 @@
 
 <script>
 import { useUserStore } from "@/stores/user";
-import MyPageSidebar from "@/components/mypage/MypageSidebar.vue";
+import Sidebar from "@/components/common/SidebarView.vue";
 
 export default {
-  components: { MyPageSidebar },
+  components: { Sidebar },
   data() {
     return {
       user: useUserStore().getUser,
@@ -87,7 +87,13 @@ export default {
   created() {
     this.getMyTradeList();
   },
-
+  mounted() {
+    this.$refs.Sidebar.setCurrentMenu(
+      8,
+      this.$route.path,
+      this.$route.query.menuNo
+    );
+  },
   methods: {
     // 도서거래 리스트 조회
     getMyTradeList() {

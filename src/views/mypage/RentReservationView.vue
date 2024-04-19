@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <MyPageSidebar></MyPageSidebar>
+    <Sidebar ref="Sidebar"></Sidebar>
     <div class="main_container">
       <div class="rentReservation_page">
         <div class="rentReservation_page_title f2-5rem">
@@ -119,9 +119,9 @@
 
 <script>
 import { useUserStore } from "@/stores/user.js";
-import MyPageSidebar from "@/components/mypage/MypageSidebar.vue";
+import Sidebar from "@/components/common/SidebarView.vue";
 export default {
-  components: { MyPageSidebar },
+  components: { Sidebar },
   data() {
     return {
       user: useUserStore().getUser,
@@ -133,6 +133,14 @@ export default {
   created() {
     this.getRentList();
     this.getReserveList();
+  },
+
+  mounted() {
+    this.$refs.Sidebar.setCurrentMenu(
+      8,
+      this.$route.path,
+      this.$route.query.menuNo
+    );
   },
 
   methods: {
@@ -227,19 +235,19 @@ export default {
 
       if (confirm("정말 취소하시겠습니까?")) {
         this.$api
-        .post("mypage/rent/cancelReserveBook", reqBody)
-        .then((res) => {
-          const common = res.common;
-          if (common.res_code == 200) {
-            alert("취소 되었습니다.");
-            window.location.reload(true);
-          }else{
-            alert('실패');
-          }
-        })
-        .catch(err => {
-          console.log(err);
-        })
+          .post("mypage/rent/cancelReserveBook", reqBody)
+          .then((res) => {
+            const common = res.common;
+            if (common.res_code == 200) {
+              alert("취소 되었습니다.");
+              window.location.reload(true);
+            } else {
+              alert("실패");
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       }
     },
   },

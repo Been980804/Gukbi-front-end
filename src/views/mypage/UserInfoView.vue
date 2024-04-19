@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <MyPageSidebar></MyPageSidebar>
+    <Sidebar ref="Sidebar"></Sidebar>
     <div class="main_container">
       <div class="userInfo_page">
         <div class="userInfo_page_title f2-5rem">
@@ -108,13 +108,13 @@
 
 <script>
 import { useUserStore } from "@/stores/user.js";
-import MyPageSidebar from "@/components/mypage/MypageSidebar.vue";
+import Sidebar from "@/components/common/SidebarView.vue";
 import IdCheckP from "@/components/mypage/popup/IdCheckP.vue";
 import PwdUpdateP from "@/components/mypage/popup/PwdUpdateP.vue";
 import AccountDeleteP from "@/components/mypage/popup/AccountDeleteP.vue";
 
 export default {
-  components: { MyPageSidebar, IdCheckP, PwdUpdateP, AccountDeleteP,},
+  components: { Sidebar, IdCheckP, PwdUpdateP, AccountDeleteP,},
   data() {
     return {
       user: useUserStore().getUser,
@@ -131,6 +131,10 @@ export default {
 
       return this.user.mem_phone.replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3");
     },
+  },
+
+  mounted(){
+    this.$refs.Sidebar.setCurrentMenu(8, this.$route.path, this.$route.query.menuNo);
   },
 
   methods:{

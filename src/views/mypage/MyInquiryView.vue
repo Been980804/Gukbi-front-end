@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <MyPageSidebar />
+    <Sidebar ref="Sidebar"></Sidebar>
     <div class="main_container">
       <div class="myInquiry_page">
         <div class="myInquiry_header">
@@ -74,10 +74,10 @@
 
 <script>
 import { useUserStore } from "@/stores/user";
-import MyPageSidebar from "@/components/mypage/MypageSidebar.vue";
+import Sidebar from "@/components/common/SidebarView.vue";
 
 export default {
-  components: { MyPageSidebar },
+  components: { Sidebar },
   data() {
     return {
       user: useUserStore().getUser,
@@ -87,7 +87,13 @@ export default {
   created(){
     this.getMyInquiry();
   },
-
+  mounted() {
+    this.$refs.Sidebar.setCurrentMenu(
+      8,
+      this.$route.path,
+      this.$route.query.menuNo
+    );
+  },
   methods: {
     // 어떤 게시물이 열려있는지 확인
     accordion(index) {

@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <MypageSidebar></MypageSidebar>
+    <Sidebar ref="Sidebar"></Sidebar>
     <div class="main_container">
       <div class="hopeBook_page">
         <div class="hopeBook_page_title f2-5rem">
@@ -70,10 +70,10 @@
 
 <script>
 import { useUserStore } from "@/stores/user.js";
-import MypageSidebar from "@/components/mypage/MypageSidebar.vue";
+import Sidebar from "@/components/common/SidebarView.vue";
 
 export default {
-  components: { MypageSidebar,},
+  components: { Sidebar,},
   data() {
     return {
       user: useUserStore().getUser,
@@ -84,6 +84,13 @@ export default {
   },
   created() {
     this.getHopeBookList();
+  },
+  mounted() {
+    this.$refs.Sidebar.setCurrentMenu(
+      8,
+      this.$route.path,
+      this.$route.query.menuNo
+    );
   },
 
   methods: {
