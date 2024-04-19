@@ -57,15 +57,11 @@
         </div>
 
         <div class="page_line_box">
-          <div class="page_box_img">
-            <img src="../../assets/images/arrow-left.svg" />
-          </div>
-          <div class="page_box_text">
-            &nbsp;1&nbsp;&nbsp;2&nbsp;&nbsp;3&nbsp;&nbsp;4&nbsp;&nbsp;5&nbsp;&nbsp;
-          </div>
-          <div class="page_box_img">
-            <img src="../../assets/images/arrow-right.svg" />
-          </div>
+          <div class="page_box_img" @click="prevPage()"><img src="../../assets/images/arrow-left.svg"></div>
+          <ul>
+            <li class="page_box_text li_inline" @click="changePage(page)" v-for="page in pageList" :key="page">{{ page }}</li>
+          </ul>
+          <div class="page_box_img" @click="nextPage()"><img src="../../assets/images/arrow-right.svg"></div>
         </div>
       </div>
     </div>

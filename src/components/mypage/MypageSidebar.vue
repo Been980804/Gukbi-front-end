@@ -1,24 +1,26 @@
 <template>
   <div id="sidebar">
     <div id="sidebar_title">마이 페이지</div>
-    <div v-for="(menu, index) in menus" :key="index" class="sidebar_menu">
-      <div class="sidebar_menu_box" :class="{ menu_selected : menu.open }" @click="showSubMenu(index)">
+    <div class="sidebar_menu" v-for="largeMenu in largeMenus" :key="largeMenu">
+      <div
+        class="sidebar_menu_box"
+        @click="goLargeMenu(largeMenu.menu_link, largeMenu.menbu_no)"
+        :class="{ menu_select: largeMenu.menu_link == currentPath }"
+      >
         <div class="sidebar_menu_img">
-          <img v-bind:src="menu.imgSrc" v-bind:alt="menu.alt" />
+          <img :src="require(`../../assets/images/${largeMenu.menu_icon}`)" />
         </div>
-        <div class="sidebar_menu_text">{{ menu.text }}</div>
+        <div class="sidebar_menu_text">{{ largeMenu.menu_name }}</div>
       </div>
-      <div v-if="menu.open" class="sidebar_menu_sub">
+      <div class="sidebar_menu_sub" v-show="largeMenu.menu_no == showSubMenu">
         <div
-          v-for="(subMenu, subIndex) in menu.subMenus"
-          :key="subIndex"
           class="sidebar_menu_box"
-          @click="clickSubMenu(menu,subMenu)"
+          v-for="smallMenu in filterSmallMenu(largeMenu.menu_no)"
+          :key="smallMenu"
+          @click="goSmallMenu(smallMenu.menu_link, smallMenu.menu_sub_no)"
+          :class="{ menu_select: smallMenu.menu_link == this.currentSubPath }"
         >
-          <div class="sidebar_menu_img">
-            <img v-bind:src="subMenu.imgSrc" v-bind:alt="subMenu.alt" />
-          </div>
-          <div class="sidebar_menu_text">{{ subMenu.text }}</div>
+          <div class="sidebar_menu_text">{{ smallMenu.menu_sub_name }}</div>
         </div>
       </div>
     </div>
@@ -27,99 +29,106 @@
 
 <script>
 import { useUserStore } from "@/stores/user.js";
+import api from "@/api/axios";
 
 export default {
   data() {
     return {
       user: useUserStore().getUser,
-      menus: [
-        {
-          text:"회원 정보",
-          imgSrc:require("../../assets/images/menu-user.svg"),
-          alt:"menu-user",
-          open: false,          
-          subMenus:[
-            { text: "회원정보 조회.수정", action:{type:"page",name:"UserInfo"}},
-            { text: "간편 로그인 연동", action:{type:"page", name:"SocialLogin"}},
-            { text: "로그아웃", action:{name:"logout"}}
-          ]
-        },
-        {
-          text:"대여 내역",
-          imgSrc:require("../../assets/images/menu-book-alt.svg"),
-          alt:"menu-book-alt",
-          open:false,          
-          subMenus:[
-            {text:"대여/예약 도서 조회", action:{type:"page",name:"RentReservation"}},
-            {text:"대여 내역 조회", action: {type: "page", name: "RentedList"}}
-          ]
-        },
-        {
-          text:"희망도서 신청",
-          imgSrc:require("../../assets/images/menu-book-alt.svg"),
-          alt:"menu-book-alt",
-          action:{type:"page", name:"HopeBook"},
-          open:false          
-        },
-        {
-          text:"북플리",
-          imgSrc:require("../../assets/images/menu-duplicate.svg"),
-          alt:"menu-duplicate",
-          open:false,         
-          subMenus:[
-            {text:"북플리 조회/수정", action:{type:"page", name:"MyBookPly"}}
-          ]
-        },
-        {
-          text: "개별 문의 내역",
-          imgSrc:require("../../assets/images/menu-duplicate.svg"),
-          alt:"menu-duplicate",
-          open:false,
-          action:{type:"page",name:"MyInquiry"}
-        },
-        {
-          text: "도서 거래",
-          imgSrc:require("../../assets/images/menu-duplicate.svg"),
-          alt:"menu-duplicate",
-          open:false,
-          action:{type:"page",name:"MyBookTrade"}          
-        }
-      ],
+      largeMenus: {},
+      smallMenus: {},
+      level: "8",
+
+      showSubMenu: null,
+      currentPath: null,
+      currentSubPath: null,
     };
   },
 
-  methods: {   
-    // 서브메뉴가 없으면 페이지 이동, 있으면 서브메뉴 열기
-    showSubMenu(index){
-      const menu =this.menus[index];
+  methods: {
+    async getLargeMenu(level) {
+      return api.get(`/myPageSidebar/largeMenu/${level}`);
+    },
 
-      this.menus.forEach((item,idx) => {
-        if( idx !== index){
-          item.open = false;
+    async getSmallMenu() {
+      return api.get(`/myPageSidebar/smallMenu`);
+    },
+
+    filterSmallMenu(menuNo) {
+      let result = {};
+      let count = 0;
+      Array.from(this.smallMenus).forEach((smallMenu) => {
+        // 대메뉴에 해당되는 소메뉴 result에 저장
+        if (smallMenu.menu_no == menuNo) {
+          result[count] = smallMenu;
+          count++;
         }
-      })
+      });
 
-      if(menu.subMenus && menu.subMenus.length >0){
-        menu.open = !menu.open;
+      return result;
+    },
+
+    async changeMenu(menuLink, menuNo) {
+      menuLink = menuLink.substr(1);
+      this.currentPath = menuLink;
+
+      let haveSub = false;
+      this.smallMenus.forEach((smallMenu) => {
+        if (menuLink == smallMenu.menu_link) {
+          haveSub = true;
+          return;
+        }
+      });
+
+      if(haveSub){
+        this.currentPath = null;
+        this.showSubMenu = menuNo;
+        this.currentSubPath = menuLink;
       }else{
-        this.$router.push({name:menu.action.name});
+        this.showSubMenu = null;
+        this.currentSubPath = null;
       }
     },
-    // 서브메뉴누르면 페이지 이동
-    clickSubMenu(menu, subMenu){
-      if(subMenu.action.type === "page"){
-        this.$router.push({name: subMenu.action.name});
-        menu.open = false;
-      } else if(subMenu.action.name === "logout"){
-        this.logout();
+
+    goLargeMenu(menuLink, menuNo){
+      this.$router.push({path: `${menuLink}`, query: {menuNo: `${menuNo}`}});
+    },
+
+    goSmallMenu(menuLink, menuNo){
+      if(menuNo.equals('logout')){
+        const userStore = useUserStore();
+        userStore.setUser({});
+        this.$router.push({ name: "Main" });
+      } else{     
+         this.$router.push({path: `${menuLink}`, query: {menuNo: `${menuNo}`}});
       }
+
     },
-    // 로그아웃
-    logout() {
-      const userStore = useUserStore();
-      userStore.setUser({});
-      this.$router.push({ name: "Main" });
-    },
+
+    async setCurrentMenu(level, menuLink, menuNo){
+      let largeResult = await this.getLargeMenu(level);
+      if(largeResult.common.res_code == 200){
+        this.largeMenus = largeResult.data.menuList;
+      }else{
+        alert('실패');
+      }
+
+      let smallResult = await this.getSmallMenu();
+      if(smallResult.common.res_code == 200){
+        this.smallMenus = smallResult.data.menuList;
+
+        this.smallMenus.push({
+          menu_sub_no : 'logout',
+          menu_no : 'menu000001',
+          menu_sub_name : '로그아웃',
+          menu_link : '',
+        });
+      }else{
+        alert('실패');
+      }
+
+      await this.changeMenu(menuLink, menuNo);
+    }
   },
 };
 </script>
