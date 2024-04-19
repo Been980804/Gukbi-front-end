@@ -17,6 +17,8 @@
 </template>
 <script>
 import api from "@/api/axios";
+
+import { useUserStore } from '@/stores/user';
 export default {
   data() {
     return {
@@ -75,7 +77,13 @@ export default {
     },
 
     goMenu(menuLink, menuNo) { // 선택한 메뉴 화면으로 이동
-      this.$router.push({path: `${menuLink}`, query: {menuNo: `${menuNo}`}});
+      if(menuLink != 'Logout'){
+        this.$router.push({path: `${menuLink}`, query: {menuNo: `${menuNo}`}});
+      } else{
+        const userStore = useUserStore();
+        userStore.setUser({});
+        this.$router.push({ name: "Main" });
+      }
     },
 
     // 다른 화면에서 호출용
