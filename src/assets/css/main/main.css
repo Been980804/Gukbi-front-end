@@ -1,0 +1,37 @@
+.m_content_box {
+  width: 100%;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.m_sug_box {
+  width: 70%;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.m_sug_box div:first-child {
+  width: 50%;
+  height: 200px;
+}
+
+.m_sug_img_box {
+  width: 150px;
+  height: 280px;
+}
+
+.m_content_title {
+  font-size: 20px;
+  font-weight: 500;
+  margin: 20px auto auto 20px;
+  position: relative;
+}
+
+.m_card_box {
+  width: 100%;
+  height: 100%;
+}

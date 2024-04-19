@@ -10,9 +10,6 @@ input {
 input:focus {
   outline: 1px solid gray;
 }
-a {
-  text-decoration: none;
-}
 .underline_a {
   text-decoration: underline; /* 밑줄 스타일 */
 }

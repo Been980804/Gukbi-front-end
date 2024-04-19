@@ -1,13 +1,13 @@
 <!-- 도서상세정보화면 -->
 <template>
   <div class="container">
-    <MgrSidebar ref="mgrSidebar"></MgrSidebar>
+    <Sidebar ref="Sidebar"></Sidebar>
 
     <div class="main_container">
       <div class="m_show_box">
         <div class="m_show_box_title">{{ bookInfo.book_title }}</div>
         <div class="m_title_line_box"></div>
-        <img class="m_img_book" :src="bookInfo.book_url" />
+        <img class="m_img_book" :src="replaceImg(bookInfo.book_url)"/>
 
         <div class="inline_blank24"></div>
 
@@ -71,10 +71,10 @@
 </template>
 <script>
 import api from "@/api/axios";
-import MgrSidebar from "../manage/MgrSidebar.vue";
+import Sidebar from "../../components/common/SidebarView.vue";
 export default {
   components: {
-    MgrSidebar
+    Sidebar
   },
 
   data() {
@@ -107,7 +107,7 @@ export default {
 
   // DOM이 만들어진 후 실행
   mounted() {
-    this.$refs.mgrSidebar.setCurrentMenu(9, this.$route.query.path, this.$route.query.menuNo);
+    this.$refs.Sidebar.setCurrentMenu(9, this.$route.query.path, this.$route.query.menuNo);
   },
 
   methods: {
@@ -146,6 +146,13 @@ export default {
 
     goPrevView() { // 뒤로 돌아가기
       this.$router.go(-1);
+    },
+
+    replaceImg(url) { // 이미지가 없을 경우 기본 이미지로 대체
+      if(url == undefined || url == '' || url == null) {
+        return require("@/assets/images/default-img.png");
+      }
+      return url;
     }
   }
 }

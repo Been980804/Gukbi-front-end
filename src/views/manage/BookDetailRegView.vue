@@ -1,7 +1,7 @@
 <!-- 도서상세정보등록화면 -->
 <template>
   <div class="container">
-    <MgrSidebar ref="mgrSidebar"></MgrSidebar>
+    <Sidebar ref="Sidebar"></Sidebar>
 
     <div class="main_container">
       <div class="m_show_box">
@@ -29,23 +29,27 @@
           </div>
           <div class="m_table_row">
             <div class="m_table_column">도서명</div>
-            <input type="text" class="m_table_column_result_insert" :value="bookInfo.book_title">
+            <div class="m_table_column_result" v-if="status == `등록`">{{ bookInfo.book_title }}</div>
+            <input type="text" class="m_table_column_result_insert" :value="bookInfo.book_title" ref="book_title" v-else>
           </div>
           <div class="m_table_row">
             <div class="m_table_column">저자</div>
-            <input type="text" class="m_table_column_result_insert" :value="bookInfo.book_author">
+            <div class="m_table_column_result" v-if="status == `등록`">{{ bookInfo.book_author }}</div>
+            <input type="text" class="m_table_column_result_insert" :value="bookInfo.book_author" ref="book_author" v-else>
           </div>
           <div class="m_table_row">
             <div class="m_table_column">출판사</div>
-            <input type="text" class="m_table_column_result_insert" :value="bookInfo.book_publisher">
+            <div class="m_table_column_result" v-if="status == `등록`">{{ bookInfo.book_publisher }}</div>
+            <input type="text" class="m_table_column_result_insert" :value="bookInfo.book_publisher" ref="book_publisher" v-else>
           </div>
           <div class="m_table_row">
             <div class="m_table_column">카테고리</div>
-            <div class="m_table_column_result">{{ sumCategory() }}</div>
+            <div class="m_table_column_result">{{ category }}</div>
           </div>
           <div class="m_table_row">
             <div class="m_table_column">출판년도</div>
-            <input type="text" class="m_table_column_result_insert" :value="bookInfo.book_pub_year">
+            <div class="m_table_column_result" v-if="status == `등록`">{{ bookInfo.book_pub_year }}</div>
+            <input type="text" class="m_table_column_result_insert" :value="bookInfo.book_pub_year" ref="book_pub_year" v-else>
           </div>
           <div class="m_table_row">
             <div class="m_table_column">ISBN</div>
@@ -64,9 +68,11 @@
         <div class="inline_blank24"></div>
 
         <div class="m_button_line_box">
-          <div class="button button_purple">
-            <div class="text_white" v-if="status == `등록`">등록</div>
-            <div class="text_white" v-else>수정</div>
+          <div class="button button_purple" v-show="status == `등록`" @click="regist()">
+            <div class="text_white">등록</div>
+          </div>
+          <div class="button button_purple" v-show="status != `등록`" @click="setBookInfo()">
+            <div class="text_white">수정</div>
           </div>
           <div class="margin_right10"></div>
           <div class="button" @click="goPrevView()">
@@ -80,17 +86,18 @@
 </template>
 <script>
 import api from "@/api/axios";
-import MgrSidebar from "../manage/MgrSidebar.vue"
+import Sidebar from "../../components/common/SidebarView.vue"
 export default {
   components: {
-    MgrSidebar
+    Sidebar
   },
 
   data() {
     return {
       status: "등록",
       bookInfo: [],
-      descript: null
+      descript: null,
+      category: null
     }
   },
 
@@ -101,46 +108,80 @@ export default {
       this.bookInfo = JSON.parse(this.$route.params.bookInfo);
       this.descript = this.$route.params.descript;
     }
+
+    this.sumCategory();
   },
 
   // DOM이 만들어진 후 실행
   mounted() {
-    this.$refs.mgrSidebar.setCurrentMenu(9, this.$route.query.path, this.$route.query.menuNo);
+    this.$refs.Sidebar.setCurrentMenu(9, this.$route.query.path, this.$route.query.menuNo);
   },
 
   methods: {
     sumCategory() { // 카테고리 번호, 이름 합치기
-      if(this.status == "등록") {
-        return "";
+      if(this.status == "등록" && this.bookInfo.book_no != null || "") {
+        this.category = `${this.bookInfo.book_category_no}. ${this.bookInfo.book_category_name}`;
+        return;  
       }
-      return `${this.bookInfo.book_category_no}. ${this.bookInfo.book_category_name}`;
+      if(this.status == "등록") {
+        this.category = "";
+        return;
+      }    
+      this.category = `${this.bookInfo.book_category_no}. ${this.bookInfo.book_category_name}`;
     },
 
-    getBookInfo(event) {
+    getBookInfo(event) { // 도서 정보 가져오기
       api.get(`/manage/book/bookInfo/${event.target.value}`)
-      .then(res => {
-        if(res.common.res_code == 200 && res.data.book_no != '') {
-          this.bookInfo = res.data.bookInfo;
-          this.getDescript();
-        } else {
-          console.log("BookDetailView book/bookInfo 응답실패");
-        }
-      })
+        .then(res => {
+          if(res.common.res_code == 200 && res.data.book_no != '') {
+            this.bookInfo = res.data.bookInfo;
+            this.sumCategory();
+          } else {
+            console.log("BookDetailView book/bookInfo 응답실패");
+          }
+        })
+      this.getDescript(event.target.value);
     },
 
-    getDescript() { // 도서정보마루 api 통신
-      api.get(`/manage/book/descript/${this.isbn}`)
+    setBookInfo() { // 도서 정보 수정하기
+      let sqlData = new Map();
+      sqlData.set("isbn", this.bookInfo.book_isbn);
+      sqlData.set("book_title", this.$refs.book_title.value);
+      sqlData.set("book_author", this.$refs.book_author.value);
+      sqlData.set("book_publisher", this.$refs.book_publisher.value);
+      sqlData.set("book_pub_year", this.$refs.book_pub_year.value);
+
+      api.put(`/manage/book/bookModify`, Object.fromEntries(sqlData))
         .then(res => {
-          if(res.common.res_code == 200) {
-            this.descript = res.data.descript;
+          if(res.common.res_code == 200 && res.data.book == 1) {
+            this.$router.go(-1);
           } else {
-            console.log("BookDetailView book/descript 응답실패")
+            console.log("BookDetailView book/bookModify 응답실패");
           }
         })
     },
 
-    modBook() { // 도서 정보 수정
-      api.put(``)
+    regist() { // 도서 정보 등록
+      api.post(`/manage/book/books`, this.bookInfo)
+        .then(res => {
+          if(res.common.res_code == 200 && res.data.book == 1) {
+            this.$router.push({ name: 'MgrBookList' })
+          } else {
+            console.log(res.common.res_msg);
+            console.log("BookDetailView book/books 응답실패");
+          }
+        })
+    },
+
+    getDescript(value) { // 도서정보마루 api 통신
+      api.get(`/manage/book/descript/${value}`)
+        .then(res => {
+          if(res.common.res_code == 200) {
+            this.descript = res.data.descript;
+          } else {
+            console.log("BookDetailView book/descript 응답실패");
+          }
+        })
     },
 
     goPrevView() {
@@ -151,6 +192,7 @@ export default {
       if(url == undefined || url == '' || url == null) {
         return require("@/assets/images/default-img.png");
       }
+      return url;
     }
   },
 }

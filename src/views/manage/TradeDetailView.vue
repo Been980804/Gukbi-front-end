@@ -1,7 +1,7 @@
 <!-- 도서거래상세화면 -->
 <template>
   <div class="container">
-    <MgrSidebar ref="mgrSidebar"></MgrSidebar>
+    <Sidebar ref="Sidebar"></Sidebar>
 
     <div class="main_container">
       <div class="m_show_box">
@@ -60,10 +60,10 @@
 </template>
 <script>
 import api from "@/api/axios";
-import MgrSidebar from "../manage/MgrSidebar.vue"
+import Sidebar from "../../components/common/SidebarView.vue"
 export default {
   components: {
-    MgrSidebar
+    Sidebar
   },
 
   data() {
@@ -87,7 +87,7 @@ export default {
 
   // DOM이 만들어진 후 실행
   mounted() {
-    this.$refs.mgrSidebar.setCurrentMenu(9, this.$route.query.path, this.$route.query.menuNo);
+    this.$refs.Sidebar.setCurrentMenu(9, this.$route.query.path, this.$route.query.menuNo);
   },
 
   methods: {

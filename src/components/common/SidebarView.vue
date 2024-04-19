@@ -1,15 +1,14 @@
-<!-- TODO 일단 이렇게 테스트하고 나중에 Component로 빼서 사용 -->
 <template>
   <div id="sidebar">
     <div id="sidebar_title">관리자 페이지</div>
     <div class="sidebar_menu" v-for="largeMenu in largeMenus" :key="largeMenu">
-      <div class="sidebar_menu_box" @click="goLargeMenu(largeMenu.menu_link, largeMenu.menu_no)" :class="{'menu_select': largeMenu.menu_link == currentPath}">
+      <div class="sidebar_menu_box" @click="goMenu(largeMenu.menu_link, largeMenu.menu_no)" :class="{'menu_select': largeMenu.menu_link == currentPath}">
         <div class="sidebar_menu_img"><img :src="require(`../../assets/images/${largeMenu.menu_icon}`)"></div>
         <div class="sidebar_menu_text">{{ largeMenu.menu_name }}</div>
       </div>
       <div class="sidebar_menu_sub" v-show="largeMenu.menu_no == showSubMenu">
         <div class="sidebar_menu_box" v-for="smallMenu in filterSmallMenu(largeMenu.menu_no)" :key="smallMenu"
-          @click="goSmallMenu(smallMenu.menu_link, smallMenu.menu_no)" :class="{'menu_select': smallMenu.menu_link == this.currentSubPath}">
+          @click="goMenu(smallMenu.menu_link, smallMenu.menu_no)" :class="{'menu_select': smallMenu.menu_link == this.currentSubPath}">
           <div class="sidebar_menu_text">{{ smallMenu.menu_sub_name }}</div>
         </div>
       </div>
@@ -75,13 +74,7 @@ export default {
       }
     },
 
-    goLargeMenu(menuLink, menuNo) { // 선택한 대메뉴 화면으로 이동
-      this.$router.push({path: `${menuLink}`, query: {menuNo: `${menuNo}`}});
-    },
-
-    goSmallMenu(menuLink, menuNo) { // 선택한 소메뉴로 이동
-      // this.currentSubPath = menuLink;
-      // console.log(this.currentSubPath);
+    goMenu(menuLink, menuNo) { // 선택한 메뉴 화면으로 이동
       this.$router.push({path: `${menuLink}`, query: {menuNo: `${menuNo}`}});
     },
 
@@ -91,14 +84,14 @@ export default {
       if (largeResult.common.res_code == 200) { // 응답성공
         this.largeMenus = largeResult.data.menuList;
       } else { // 응답실패
-        console.log("MgrSidebar sidebar/largeMenu 응답실패");
+        console.log("Sidebar sidebar/largeMenu 응답실패");
       }
 
       let smallResult = await this.getSmallMenu();
       if (smallResult.common.res_code == 200) { // 응답성공
         this.smallMenus = smallResult.data.menuList;
       } else { // 응답실패
-        console.log("MgrSidebar sidebar/smallMenu 응답실패");
+        console.log("Sidebar sidebar/smallMenu 응답실패");
       }
 
       await this.changeMenu(menuLink, menuNo);
@@ -108,5 +101,5 @@ export default {
 </script>
 <style>
   @import "../../assets/css/common/index.css";
-  @import "../../assets/css/manage/manage.css";
+  @import "../../assets/css/common/sidebar.css";
 </style>

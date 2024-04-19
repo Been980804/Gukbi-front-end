@@ -72,7 +72,14 @@
   font-weight: bold;
 }
 
-.m_td, .m_th {
+.m_td {
+  padding: 16px 8px;
+  vertical-align: top;
+  border-bottom: 1px solid rgba(0, 0, 0, .1);
+  cursor: pointer;
+}
+
+.m_th {
   padding: 16px 8px;
   vertical-align: top;
   border-bottom: 1px solid rgba(0, 0, 0, .1);

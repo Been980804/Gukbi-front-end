@@ -1,7 +1,7 @@
 <!-- 문의사항상세화면 -->
 <template>
   <div class="container">
-    <MgrSidebar ref="mgrSidebar"></MgrSidebar>
+    <Sidebar ref="Sidebar"></Sidebar>
 
     <div class="main_container">
       <div class="m_show_box">
@@ -46,7 +46,7 @@
           <div class="m_show_box_title">문의사항 답변</div>
 
           <div class="inline_blank24"></div>
-          <textarea class="answer_box" style="width: 100%;" rows="10"></textarea>
+          <textarea class="answer_box" style="width: 100%;" rows="10" ref="answer"></textarea>
 
           <div class="inline_blank24"></div>
 
@@ -70,10 +70,10 @@
 </template>
 <script>
 import api from "@/api/axios";
-import MgrSidebar from "../manage/MgrSidebar.vue"
+import Sidebar from "../../components/common/SidebarView.vue"
 export default {
   components: {
-    MgrSidebar
+    Sidebar
   },
 
   data() {
@@ -94,11 +94,10 @@ export default {
       this.inquiryNo = sessionStorage.getItem("inquiryNo");
     }
 
-    api.get(`/manage/board/inquiry/inquiryInfo/${this.inquiryNo}}`)
+    api.get(`/manage/board/inquiry/inquiryInfo/${this.inquiryNo}`)
       .then(res => {
         if(res.common.res_code == 200 && res.data.inquiryInfo != '') {
           this.inquiryInfo = res.data.inquiryInfo;
-          console.log(this.inquiryInfo)
         } else {
           console.log("BookDetailView book/inquiryInfo 응답실패");
         }
@@ -107,7 +106,7 @@ export default {
 
   // DOM이 만들어진 후 실행
   mounted() {
-    this.$refs.mgrSidebar.setCurrentMenu(9, this.$route.query.path, this.$route.query.menuNo);
+    this.$refs.Sidebar.setCurrentMenu(9, this.$route.query.path, this.$route.query.menuNo);
   },
 
   methods: {
@@ -120,17 +119,20 @@ export default {
     },
 
     regist() { // 답변등록
-      api.get(`/manage/board/inquiry/inquiryInfo/${this.inquiryNo}}`)
-      .then(res => {
-        if(res.common.res_code == 200 && res.data.inquiryInfo != '') {
-          this.inquiryInfo = res.data.inquiryInfo;
-          console.log(this.inquiryInfo)
-        } else {
-          console.log("BookDetailView book/inquiryInfo 응답실패");
-        }
-      })
+      let sqlData = new Map();
+      sqlData.set("answer", this.$refs.answer.value);
+      sqlData.set("inquiryNo", this.inquiryNo);
+
+      api.put(`/manage/board/inquiry/answer`, {params: Object.fromEntries(sqlData)})
+        .then(res => {
+          if(res.common.res_code == 200 && res.data.answer == 1) {
+            this.$router.push({path: 'MgrInquiryList'});
+          } else {
+            console.log("InquiryDetailView inquiry/answer 응답실패");
+          }
+        })
     }
-  },
+  }
 }
 </script>
 <style>
