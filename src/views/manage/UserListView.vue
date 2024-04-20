@@ -35,14 +35,14 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="user in userList" :key="user">
+              <tr v-for="(user, i) in userList" :key="user">
                 <td class="m_td">{{ user.mem_no }}</td>
                 <td class="m_td">{{ user.mem_name }}</td>
                 <td class="m_td">{{ user.mem_id }}</td>
                 <td class="m_td">{{ user.mem_phone }}</td>
                 <td class="m_td">{{ user.mem_birth }}</td>
                 <td class="m_td">{{ user.reg_date }}</td>
-                <td><input role="switch" type="checkbox" class="m_checkbox"/></td>
+                <td><input role="switch" type="checkbox" class="m_checkbox" :checked="user.mem_rent_yn" @change="setChecked(i)"/></td>
                 <td>
                   <div class="button button_blue button_width70 button_height26" @click="goDetailView(user)">
                     <div class="text_white">확인</div>
@@ -209,6 +209,10 @@ export default {
       this.$router.push({ name: 'MgrUserInfoView', params: { "memName": user.mem_name, "memNo": user.mem_no, "rentYN": user.mem_rent_yn },
         query: { path: `${this.$route.path}`, menuNo: `${this.$route.query.menuNo}` }});
     },
+
+    setChecked(index) { // 대여가능 여부 설정
+      this.userList[index].mem_rent_yn = !this.userList[index].mem_rent_yn;
+    }
   },
 
   computed: {
