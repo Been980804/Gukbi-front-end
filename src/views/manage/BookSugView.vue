@@ -74,7 +74,10 @@
                 <td class="m_td">{{ book.book_publisher }}</td>
                 <td class="m_td">{{ book.book_isbn }}</td>
                 <td class="m_td">{{ book.reg_date }}
-                  <div class="button button_red" style="margin-top: 180px;" @click="deleteSugBook(book.book_isbn)">
+                  <div class="button button_purple" style="margin-top: 130px;" @click="setSugBook(book.book_isbn)">
+                    <div class="text_white">등록</div>
+                  </div>
+                  <div class="button button_red" style="margin-top: 10px;" @click="deleteSugBook(book.book_isbn)">
                     <div class="text_white">삭제</div>
                   </div>
                 </td>
@@ -207,6 +210,20 @@ export default {
         .then(res => {
           if (res.common.res_code == 200) { // 응답성공
             this.sugBookInfo = res.data.sugBookInfo;
+          } else { // 응답실패
+            console.log("BookSugView book/sugBook 응답실패");
+          }
+        })
+    },
+
+    setSugBook(isbn) { // 추천도서 등록
+      api.put(`/manage/book/sugBook/${isbn}`)
+        .then(res => {
+          if (res.common.res_code == 200) { // 응답성공
+            // 현재 화면을 최신화
+            this.getSugCount();
+            this.getSugInfo(this.currentPage);
+            this.getSugBook();
           } else { // 응답실패
             console.log("BookSugView book/sugBook 응답실패");
           }
