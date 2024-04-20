@@ -169,6 +169,19 @@ export default {
         })
     },
 
+    setChecked(index) { // 대여가능 여부 설정
+      this.userList[index].mem_rent_yn = !this.userList[index].mem_rent_yn;
+
+      api.put(`/manage/user/userInfo/rent/${this.userList[index].mem_no}`, this.userList[index].mem_rent_yn)
+        .then(res => {
+          if(res.common.res_code == 200 && res.data.rent == 1) {
+            console.log(res.data.rent);
+          } else {
+            console.log("UserListView user/userInfo/rent 응답실패");
+          }
+        })
+    },
+
     getViewPage() { // 페이징 영역에 보일 페이지 번호 구하기
       let pages = [];
       let num = this.startPage;
@@ -208,10 +221,6 @@ export default {
       sessionStorage.setItem("currentPage", this.currentPage);
       this.$router.push({ name: 'MgrUserInfoView', params: { "memName": user.mem_name, "memNo": user.mem_no, "rentYN": user.mem_rent_yn },
         query: { path: `${this.$route.path}`, menuNo: `${this.$route.query.menuNo}` }});
-    },
-
-    setChecked(index) { // 대여가능 여부 설정
-      this.userList[index].mem_rent_yn = !this.userList[index].mem_rent_yn;
     }
   },
 
