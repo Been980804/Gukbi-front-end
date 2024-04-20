@@ -53,7 +53,7 @@
       <div class="inline_blank24"></div>
 
       <div class="m_show_box">
-        <div class="m_show_box_title">추천도서 전체 목록</div>
+        <div class="m_show_box_title">과거 추천도서 전체 목록</div>
         <div class="inline_blank12"></div>
         <div class="table_line_box">
           <table class="m_table">
@@ -74,7 +74,7 @@
                 <td class="m_td">{{ book.book_publisher }}</td>
                 <td class="m_td">{{ book.book_isbn }}</td>
                 <td class="m_td">{{ book.reg_date }}
-                  <div class="button button_red" style="margin-top: 180px;">
+                  <div class="button button_red" style="margin-top: 180px;" @click="deleteSugBook(book.book_isbn)">
                     <div class="text_white">삭제</div>
                   </div>
                 </td>
@@ -209,6 +209,19 @@ export default {
             this.sugBookInfo = res.data.sugBookInfo;
           } else { // 응답실패
             console.log("BookSugView book/sugBook 응답실패");
+          }
+        })
+    },
+
+    deleteSugBook(isbn) { // 추천도서 목록에서 도서 삭제
+      api.put(`/manage/book/sugDelete/${isbn}`)
+        .then(res => {
+          if(res.common.res_code == 200) {
+            // 현재 화면을 최신화
+            this.getSugCount();
+            this.getSugInfo(this.currentPage);
+          } else {
+            console.log("BookDetailView book/delete 응답실패")
           }
         })
     },
