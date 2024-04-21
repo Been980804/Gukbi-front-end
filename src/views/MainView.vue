@@ -54,7 +54,6 @@ export default {
         .then(res => {
           if (res.common.res_code == 200) { // 응답성공
             this.sugBookInfo = res.data.sugBookInfo;
-            console.log(res.data.sugBookInfo);
           } else { // 응답실패
             console.log("BookSugView book/sugBook 응답실패");
           }
