@@ -74,7 +74,7 @@ export default {
     hideSubMenu(num) { this.$refs[num][0].children[1].style.display = 'none'; },
 
     setSearchText(event) {
-      this.$router.push({ name: 'Search', params: { searchText: `${event.target.value}` }});
+      this.$router.push({ path: '/Search', query: { searchText: `${event.target.value}` }});      
     }
   }
 }
