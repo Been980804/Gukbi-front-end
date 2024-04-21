@@ -10,7 +10,7 @@
           <div class="margin_right20"></div>
 
           <div class="aa m_sug_img_box">
-
+            <img class="m_img_book" :src="replaceImg(sugBookInfo.book_url)"/>
           </div>
         </div>
       </div>
@@ -20,6 +20,7 @@
       <div class="aa m_content_box" style="flex-direction: column;">
         <div class="aa m_content_title">현재 급상승 중인 도서!</div>
         <div class="aa m_card_box">
+          
         </div>
       </div>
     </div>
@@ -27,6 +28,7 @@
 </template>
 
 <script>
+import api from "@/api/axios";
 import { useUserStore } from '@/stores/user.js';
 
 export default {
@@ -34,25 +36,36 @@ export default {
     return {
       user: useUserStore().getUser,
 
-      number: '1',
-      msg: 'hello',
+      sugBookInfo: {}
     }
   },
 
+  created() {
+    this.getSugBook();
+  },
+
   methods: {
-    goLogin() {
+    goLogin() { // 로그인 화면으로 이동
       this.$router.push({ name: 'Login' })
     },
 
-    dbTest() {
-      this.$api
-      .get(`/api/test/user/${this.number}`)
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => {
-        console.log(err);
-      })
+    getSugBook() { // 추천도서로 등록된 책 가져오기
+      api.get(`/main/sugBookInfo`)
+        .then(res => {
+          if (res.common.res_code == 200) { // 응답성공
+            this.sugBookInfo = res.data.sugBookInfo;
+            console.log(res.data.sugBookInfo);
+          } else { // 응답실패
+            console.log("BookSugView book/sugBook 응답실패");
+          }
+        })
+    },
+
+    replaceImg(url) { // 이미지가 없을 경우 기본 이미지로 대체
+      if(url == undefined || url == '' || url == null) {
+        return require("@/assets/images/default-img.png");
+      }
+      return url;
     },
 
     logout() {
