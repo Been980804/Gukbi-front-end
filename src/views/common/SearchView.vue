@@ -11,18 +11,20 @@
               <col v-for="range in columnRange" :key="range" :width="range">
             </colgroup>
             <thead class="m_thead">
-              <tr>
+              <!-- <tr>
                 <th v-for="column in tableColumn" :key="column" class="m_th">{{ column }}</th>
-              </tr>
+              </tr> -->
             </thead>
             <tbody>
               <tr v-for="book in bookList" :key="book" @click="goDetailView(book.book_isbn)">
-                <td class="m_td">{{ book.book_no }}</td>
-                <td class="m_td">{{ book.book_title }}</td>
-                <td class="m_td">{{ book.book_author }}</td>
-                <td class="m_td">{{ book.book_publisher }}</td>
-                <td class="m_td">{{ book.book_isbn }}</td>
-                <td class="m_td">{{ book.reg_date }}</td>
+                <td class="m_td"><img class="m_img_book" :src="replaceImg(book.book_url)"/></td>
+                <td class="m_td">
+                  {{ book.book_title }}<br>
+                  {{ book.book_author }}<br>
+                  {{ book.book_publisher }}<br>
+                  {{ book.book_isbn }}<br>
+                  {{ book.book_pub_year }}<br>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -145,6 +147,13 @@ export default {
       this.currentPage = page;
       this.getBookInfo();
     },
+
+    replaceImg(url) { // 이미지가 없을 경우 기본 이미지로 대체
+      if(url == undefined || url == '' || url == null) {
+        return require("@/assets/images/default-img.png");
+      }
+      return url;
+    }
   },
 
   computed: {
