@@ -56,6 +56,7 @@
 </template>
 
 <script>
+import api from "@/api/axios";
 import { useUserStore } from "@/stores/user.js";
 import Sidebar from "@/components/common/SidebarView.vue";
 import ReviewP from "@/components/mypage/popup/ReviewP.vue";
@@ -69,10 +70,20 @@ export default {
       options : { year: 'numeric', month: '2-digit', day: '2-digit' },
       reviewP : false,
       selectedBook : null,
+
+      // 페이징
+      nowPage : 1, // 현재 페이지
+      showCnt : 10, // 보여줄 개수
+      totalCnt : 0,
+      pagingCnt : 5,
     };
   },
   created(){
-    this.getRentedList();
+    if(sessionStorage.getItem("nowPage") != null || undefined){
+      this.nowPage = sessionStorage.getItem("nowPage");
+    }
+    
+    this.getRentedTotalCnt();
   },
 
   mounted() {
@@ -84,10 +95,28 @@ export default {
   },
 
   methods:{
+    getRentedTotalCnt(){
+      api.get(`/mypage/rent/rentedCnt/${this.user.mem_no}`)
+      .then(res => {
+        if(res.common.res_code == 200){
+          this.totalCnt = res.data.totalCnt;
+
+          if(this.totalCnt > 0){
+            this.getRentedList(this.nowPage);
+            // this.getViewPage();
+          }
+        }
+      })
+    },
+
     // 대여했던 도서목록 조회
-    getRentedList(){
+    getRentedList(nowPage){
+      let reqBody = {
+        mem_no : this.user.mem_no,
+        nowPage : nowPage
+      }
       this.$api
-      .get(`/mypage/rent/rentedList/${this.user.mem_no}`)
+      .get('/mypage/rent/rentedList',reqBody)
       .then(res => {
         const common = res.common;
         if(common.res_code == 200){
