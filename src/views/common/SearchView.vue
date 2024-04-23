@@ -153,6 +153,12 @@ export default {
         return require("@/assets/images/default-img.png");
       }
       return url;
+    },
+
+    goDetailView(isbn) {
+      // 이전 화면으로 돌아올 때 데이터를 sessionStorage에 저장
+      sessionStorage.setItem("currentPage", this.currentPage);
+      this.$router.push({ name: 'Detail', params: { isbn: `${isbn}` }});
     }
   },
 
