@@ -250,6 +250,21 @@ export default {
           });
       }
     },
+
+    updateRentState(rent_no){
+      this.$api.put(`mypage/rent/changeRentState/${rent_no}`)
+      .then(res => {
+        const common = res.common;
+        if(common.res_code == 200){
+          console.log('상태 변경');
+        }else{
+          console.log('상태 변경 실패');
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      })
+    }
   },
 
   computed: {
@@ -264,6 +279,10 @@ export default {
           0,
           (currentDate - return_date) / (1000 * 60 * 60 * 24)
         );
+
+        if(late_date > 0) {
+          this.updateRentState(rent.rent_no);
+        }
 
         return {
           ...rent,
