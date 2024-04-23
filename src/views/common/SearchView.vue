@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="main_container">
-      <div class="m_line_box">
+      <div class="m_line_box" v-show="searchText != ''">
         검색어: {{ searchText }}
       </div>
       <div class="m_show_box">
