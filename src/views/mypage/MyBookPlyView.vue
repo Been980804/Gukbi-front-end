@@ -110,13 +110,20 @@
           </div>
 
           <div class="page_line_box">
-            <div class="page_box_img">
+            <div class="page_box_img" @click="prevPage()">
               <img src="../../assets/images/arrow-left.svg" />
             </div>
-            <div class="page_box_text">
-              &nbsp;1&nbsp;&nbsp;2&nbsp;&nbsp;3&nbsp;&nbsp;4&nbsp;&nbsp;5&nbsp;&nbsp;
-            </div>
-            <div class="page_box_img">
+            <ul>
+              <li
+                class="page_box_text li_inline"
+                @click="changePage(page)"
+                v-for="page in pageList"
+                :key="page"
+              >
+                {{ page }}
+              </li>
+            </ul>
+            <div class="page_box_img" @click="nextPage()">
               <img src="../../assets/images/arrow-right.svg" />
             </div>
           </div>
@@ -132,6 +139,7 @@
 </template>
 
 <script>
+import api from "@/api/axios";
 import { useUserStore } from "@/stores/user.js";
 import Sidebar from "@/components/common/SidebarView.vue";
 import defaultImg from "@/assets/images/default-img.png";
@@ -148,10 +156,22 @@ export default {
       selectedBookPly: null,
       createBplP: false,
       checkedBpls: [],
+
+      // 페이징
+      nowPage: 1, // 현재 페이지
+      showCnt: 3, // 보여줄 개수
+      totalCnt: 0,
+      pagingCnt: 5,
+
+      pageList: [],
     };
   },
   created() {
-    this.getBookPlyList();
+    if (sessionStorage.getItem("nowPage") != null || undefined) {
+      this.nowPage = sessionStorage.getItem("nowPage");
+    }
+
+    this.getBookPlyCnt();
   },
   mounted() {
     this.$refs.Sidebar.setCurrentMenu(
@@ -161,10 +181,25 @@ export default {
     );
   },
   methods: {
+    // 북플리 개수 조회
+    getBookPlyCnt() {
+      api.get(`/mypage/bookPly/bookPlyCnt/${this.user.mem_no}`).then((res) => {
+        if (res.common.res_code == 200) {
+          this.totalCnt = res.data.totalCnt;
+
+          if (this.totalCnt > 0) {
+            this.getBookPlyList(this.nowPage);
+            this.getViewPage();
+          }
+        }
+      });
+    },
     // 북플리 목록 조회
     getBookPlyList() {
       this.$api
-        .get(`/mypage/bookPly/bookPlyList/${this.user.mem_no}`)
+        .get(`/mypage/bookPly/bookPlyList/${this.nowPage}`, {
+          params: { mem_no: this.user.mem_no },
+        })
         .then((res) => {
           const common = res.common;
           if (common.res_code == 200) {
@@ -177,6 +212,44 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+    },
+
+    getViewPage() {
+      let pages = [];
+      let num = this.startPage;
+      while (num <= this.endPage) {
+        pages.push(num++);
+      }
+      this.pageList = pages;
+    },
+
+    prevPage() {
+      if (this.endPage - this.pagingCnt <= 0) {
+        // 첫페이지일경우
+        console.log("첫페이지입니다.");
+        return;
+      }
+
+      this.nowPage = this.startPage - 1;
+      this.getBookPlyList();
+      this.getViewPage();
+    },
+
+    nextPage() {
+      if (this.startPage + this.pagingCnt > this.totalPage) {
+        // 마지막페이지일 경우
+        console.log("마지막페이지입니다.");
+        return;
+      }
+
+      this.nowPage = this.endPage + 1;
+      this.getBookPlyList();
+      this.getViewPage();
+    },
+
+    changePage(page) {
+      this.nowPage = page;
+      this.getBookPlyList();
     },
 
     // 공개여부 설정
@@ -262,6 +335,25 @@ export default {
             console.log(err);
           });
       }
+    },
+  },
+  computed: {
+    totalPage() {
+      if (this.totalCnt == 0) {
+        return 1;
+      }
+      return Math.ceil(this.totalCnt / this.showCnt);
+    },
+
+    startPage() {
+      return (
+        Math.trunc((this.nowPage - 1) / this.pagingCnt) * this.pagingCnt + 1
+      );
+    },
+
+    endPage() {
+      let result = this.startPage + this.pagingCnt - 1;
+      return result < this.totalPage ? result : this.totalPage;
     },
   },
 };
