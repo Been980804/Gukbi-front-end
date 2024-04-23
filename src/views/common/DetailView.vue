@@ -9,6 +9,7 @@ export default {
   data() {
     return {
       isbn: this.$route.params.isbn,
+      descript: null,
       bookInfo: {}
     }
   },
@@ -29,8 +30,20 @@ export default {
             console.log("DetailView main/bookInfo 응답실패");
           }
         })
-      // this.getDescript(event.target.value);
+      this.getDescript(this.isbn);
     },
+
+    getDescript(value) { // 도서정보마루 api 통신
+      api.get(`/main/descript/${value}`)
+        .then(res => {
+          if(res.common.res_code == 200) {
+            this.descript = res.data.descript;
+            console.log(this.descript);
+          } else {
+            console.log("DetailView main/descript 응답실패");
+          }
+        })
+    }
   }
 }
 </script>
