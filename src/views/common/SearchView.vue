@@ -91,14 +91,13 @@ export default {
           .then(res => {
             if (res.common.res_code == 200) { // 응답성공
               this.totalCount = res.data.bookCount;
-
               if (this.totalCount > 0) {
                 // 테이블 데이터가 있을 경우 조회
                 this.getBookInfo(this.currentPage);
                 this.getViewPage();
               }
             } else { // 응답실패
-              console.log("BookListView main/bookCount 응답실패");
+              console.log("SearchView main/bookCount 응답실패");
             }
           })
       } else {
@@ -109,21 +108,20 @@ export default {
           .then(res => {
             if (res.common.res_code == 200) { // 응답성공
               this.totalCount = res.data.bookCount;
-              console.log(this.totalCount);
-              // if (this.totalCount > 0) {
-              //   // 테이블 데이터가 있을 경우 조회
-              //   this.getBookInfo(this.currentPage);
-              //   this.getViewPage();
-              // }
+              if (this.totalCount > 0) {
+                // 테이블 데이터가 있을 경우 조회
+                this.getBookInfo(this.currentPage);
+                this.getViewPage();
+              }
             } else { // 응답실패
-              console.log("BookListView main/bookCount 응답실패");
+              console.log("SearchView main/bookCount 응답실패");
             }
           })
       }
     },
 
     getBookInfo() { // 현재 페이지의 책 리스트 정보 가져오기
-      if(this.searchText != '' || this.searchText != null) {
+      if(this.searchText != '' || null || undefined) {
         let sqlData = new Map();
         sqlData.set("search", this.searchText);
 
@@ -132,11 +130,21 @@ export default {
             if (res.common.res_code == 200) { // 응답성공
               this.bookList = res.data.bookList;
             } else { // 응답실패
-              console.log("BookListView book/bookList 응답실패");
+              console.log("SearchView main/bookList 응답실패");
             }
           })
       } else {
-        console.log("BookListView book/bookList 응답실패");
+        let sqlData = new Map();
+        sqlData.set("menuName", this.menuName);
+
+        api.get(`/main/catList/${this.currentPage}`, {params: Object.fromEntries(sqlData)})
+          .then(res => {
+            if (res.common.res_code == 200) { // 응답성공
+              this.bookList = res.data.bookList;
+            } else { // 응답실패
+              console.log("SearchView main/catList 응답실패");
+            }
+          })
       }
     },
 
