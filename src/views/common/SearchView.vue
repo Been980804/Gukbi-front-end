@@ -47,6 +47,7 @@ export default {
   data() {
     return {
       searchText: "", // 검색했을때 검색 내용 저장
+      menuName: "",
 
       columnRange: ["5%", "48%", "14%", "10%", "10%", "10%"],
       tableColumn: ["도서코드", "도서명", "저자", "출판사", "ISBN", "등록일시"],
@@ -62,6 +63,15 @@ export default {
   },
 
   created() {
+    if(sessionStorage.getItem("currentPage") != null || undefined) {
+      this.currentPage = sessionStorage.getItem("currentPage");
+    }
+
+    if(this.$route.query.searchText != null || undefined) {
+      this.searchText = this.$route.query.searchText;
+    } else {
+      this.menuName = this.$route.query.menuName;
+    }
     this.getBookCount();
   },
 
@@ -72,46 +82,62 @@ export default {
     },
     
     getBookCount() {
-      if(sessionStorage.getItem("currentPage") != null || undefined) {
-      this.currentPage = sessionStorage.getItem("currentPage");
-    }
+      if(this.searchText != '' || null || undefined) {
+        let sqlData = new Map();
+        sqlData.set("search", this.searchText);
 
-    if(this.$route.query.searchText != null || undefined) {
-      this.searchText = this.$route.query.searchText;
-    }
+        // api - main.js에서 사용하게 정의됨
+        api.get(`/main/bookCount`, {params: Object.fromEntries(sqlData)})
+          .then(res => {
+            if (res.common.res_code == 200) { // 응답성공
+              this.totalCount = res.data.bookCount;
 
-    let sqlData = new Map();
-    sqlData.set("search", this.searchText);
-
-    // api - main.js에서 사용하게 정의됨
-    api.get(`/main/bookCount`, {params: Object.fromEntries(sqlData)})
-      .then(res => {
-        if (res.common.res_code == 200) { // 응답성공
-          this.totalCount = res.data.bookCount;
-
-          if (this.totalCount > 0) {
-            // 테이블 데이터가 있을 경우 조회
-            this.getBookInfo(this.currentPage);
-            this.getViewPage();
-          }
-        } else { // 응답실패
-          console.log("BookListView main/bookCount 응답실패");
-        }
-      })
+              if (this.totalCount > 0) {
+                // 테이블 데이터가 있을 경우 조회
+                this.getBookInfo(this.currentPage);
+                this.getViewPage();
+              }
+            } else { // 응답실패
+              console.log("BookListView main/bookCount 응답실패");
+            }
+          })
+      } else {
+        let sqlData = new Map();
+        sqlData.set("menuName", this.menuName);
+        // api - main.js에서 사용하게 정의됨
+        api.get(`/main/catCount`, {params: Object.fromEntries(sqlData)})
+          .then(res => {
+            if (res.common.res_code == 200) { // 응답성공
+              this.totalCount = res.data.bookCount;
+              console.log(this.totalCount);
+              // if (this.totalCount > 0) {
+              //   // 테이블 데이터가 있을 경우 조회
+              //   this.getBookInfo(this.currentPage);
+              //   this.getViewPage();
+              // }
+            } else { // 응답실패
+              console.log("BookListView main/bookCount 응답실패");
+            }
+          })
+      }
     },
 
     getBookInfo() { // 현재 페이지의 책 리스트 정보 가져오기
-      let sqlData = new Map();
-      sqlData.set("search", this.searchText);
+      if(this.searchText != '' || this.searchText != null) {
+        let sqlData = new Map();
+        sqlData.set("search", this.searchText);
 
-      api.get(`/main/bookList/${this.currentPage}`, {params: Object.fromEntries(sqlData)})
-        .then(res => {
-          if (res.common.res_code == 200) { // 응답성공
-            this.bookList = res.data.bookList;
-          } else { // 응답실패
-            console.log("BookListView book/bookList 응답실패");
-          }
-        })
+        api.get(`/main/bookList/${this.currentPage}`, {params: Object.fromEntries(sqlData)})
+          .then(res => {
+            if (res.common.res_code == 200) { // 응답성공
+              this.bookList = res.data.bookList;
+            } else { // 응답실패
+              console.log("BookListView book/bookList 응답실패");
+            }
+          })
+      } else {
+        console.log("BookListView book/bookList 응답실패");
+      }
     },
 
     getViewPage() { // 페이징 영역에 보일 페이지 번호 구하기
