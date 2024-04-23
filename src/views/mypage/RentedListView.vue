@@ -27,28 +27,52 @@
               </th>
               <th class="rented_returnDate t_header">
                 <b>반납일</b>
-              </th>              
+              </th>
             </tr>
 
-            <tr class="list_row" v-for="(rented, index) in calcuateDates" :key="index">
+            <tr
+              class="list_row"
+              v-for="(rented, index) in calcuateDates"
+              :key="index"
+            >
               <td class="rented_bookCode t_list">{{ rented.book_no }}</td>
               <td class="rented_bookTitle t_list">{{ rented.book_title }}</td>
               <td class="rented_userName t_list">{{ rented.mem_name }}</td>
               <td class="rented_rentDate t_list">{{ rented.rent_date }}</td>
               <td class="rented_returnDate t_list">{{ rented.return_date }}</td>
               <td class="rented_reviewButton">
-                <button class="list_row_btn button_charcoal text_white button" @click="open_reviewP(rented)">
+                <button
+                  class="list_row_btn button_charcoal text_white button"
+                  @click="open_reviewP(rented)"
+                >
                   리뷰작성
                 </button>
-                <ReviewP v-if="reviewP" @close="close_reviewP" :reviewBook="selectedBook"/>
+                <ReviewP
+                  v-if="reviewP"
+                  @close="close_reviewP"
+                  :reviewBook="selectedBook"
+                />
               </td>
             </tr>
           </table>
         </div>
         <div class="page_line_box">
-          <div class="page_box_img"><img src="../../assets/images/arrow-left.svg"></div>
-          <div class="page_box_text">&nbsp;1&nbsp;&nbsp;2&nbsp;&nbsp;3&nbsp;&nbsp;4&nbsp;&nbsp;5&nbsp;&nbsp;</div>
-          <div class="page_box_img"><img src="../../assets/images/arrow-right.svg"></div>
+          <div class="page_box_img" @click="prevPage()">
+            <img src="../../assets/images/arrow-left.svg" />
+          </div>
+          <ul>
+            <li
+              class="page_box_text li_inline"
+              @click="changePage(page)"
+              v-for="page in pageList"
+              :key="page"
+            >
+              {{ page }}
+            </li>
+          </ul>
+          <div class="page_box_img" @click="nextPage()">
+            <img src="../../assets/images/arrow-right.svg" />
+          </div>
         </div>
       </div>
     </div>
@@ -62,27 +86,29 @@ import Sidebar from "@/components/common/SidebarView.vue";
 import ReviewP from "@/components/mypage/popup/ReviewP.vue";
 
 export default {
-  components: { Sidebar, ReviewP},
+  components: { Sidebar, ReviewP },
   data() {
     return {
       user: useUserStore().getUser,
-      rentedList:[],
-      options : { year: 'numeric', month: '2-digit', day: '2-digit' },
-      reviewP : false,
-      selectedBook : null,
+      rentedList: [],
+      options: { year: "numeric", month: "2-digit", day: "2-digit" },
+      reviewP: false,
+      selectedBook: null,
 
       // 페이징
-      nowPage : 1, // 현재 페이지
-      showCnt : 10, // 보여줄 개수
-      totalCnt : 0,
-      pagingCnt : 5,
+      nowPage: 1, // 현재 페이지
+      showCnt: 10, // 보여줄 개수
+      totalCnt: 0,
+      pagingCnt: 5,
+
+      pageList: [],
     };
   },
-  created(){
-    if(sessionStorage.getItem("nowPage") != null || undefined){
+  created() {
+    if (sessionStorage.getItem("nowPage") != null || undefined) {
       this.nowPage = sessionStorage.getItem("nowPage");
     }
-    
+
     this.getRentedTotalCnt();
   },
 
@@ -94,72 +120,125 @@ export default {
     );
   },
 
-  methods:{
-    getRentedTotalCnt(){
-      api.get(`/mypage/rent/rentedCnt/${this.user.mem_no}`)
-      .then(res => {
-        if(res.common.res_code == 200){
+  methods: {
+    getRentedTotalCnt() {
+      api.get(`/mypage/rent/rentedCnt/${this.user.mem_no}`).then((res) => {
+        if (res.common.res_code == 200) {
           this.totalCnt = res.data.totalCnt;
 
-          if(this.totalCnt > 0){
+          if (this.totalCnt > 0) {
             this.getRentedList(this.nowPage);
-            // this.getViewPage();
+            this.getViewPage();
           }
         }
-      })
+      });
     },
 
     // 대여했던 도서목록 조회
-    getRentedList(nowPage){
-      let reqBody = {
-        mem_no : this.user.mem_no,
-        nowPage : nowPage
-      }
+    getRentedList() {
       this.$api
-      .get('/mypage/rent/rentedList',reqBody)
-      .then(res => {
-        const common = res.common;
-        if(common.res_code == 200){
-          const data = res.data;
-          this.rentedList = data.rentedList;
-        }else{
-          alert('대여한 내역 없음');
-        }
-      })
-      .catch(err => {
-        console.log(err);
-      })
+        .get(`/mypage/rent/rentedList/${this.nowPage}`, {
+          params: { mem_no: this.user.mem_no },
+        })
+        .then((res) => {
+          const common = res.common;
+          if (common.res_code == 200) {
+            const data = res.data;
+            this.rentedList = data.rentedList;
+          } else {
+            alert("대여한 내역 없음");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+
+    getViewPage() {
+      let pages = [];
+      let num = this.startPage;
+      while (num <= this.endPage) {
+        pages.push(num++);
+      }
+      this.pageList = pages;
+    },
+
+    prevPage() {
+      if (this.endPage - this.pagingCnt <= 0) {
+        // 첫페이지일경우
+        console.log('첫페이지입니다.')
+        return;
+      }
+
+      this.nowPage = this.startPage - 1;
+      this.getRentedList();
+      this.getViewPage();
+    },
+
+    nextPage() {
+      if (this.startPage + this.pagingCnt > this.totalPage) {
+        // 마지막페이지일 경우
+        console.log('마지막페이지입니다.')
+        return;
+      }
+
+      this.nowPage = this.endPage + 1;
+      this.getRentedList();
+      this.getViewPage();
+    },
+
+    changePage(page){
+      this.nowPage = page;
+      this.getRentedList();
     },
 
     // 리뷰작성 팝업 열기
-    open_reviewP(rented){
+    open_reviewP(rented) {
       this.selectedBook = rented;
       this.reviewP = true;
     },
     // 리뷰작성 팝업 닫기
-    close_reviewP(){
+    close_reviewP() {
       this.reviewP = false;
     },
     // 선택된 책 정보 넘기기
-    selectedRentedBook(rented){
+    selectedRentedBook(rented) {
       this.selectedBook = rented;
-    }
+    },
   },
-  computed:{
+  computed: {
     // 날짜 형식 맞추기
-    calcuateDates(){
-      return this.rentedList.map(rented => {
+    calcuateDates() {
+      return this.rentedList.map((rented) => {
         const rent_date = new Date(rented.rent_date);
         const return_date = new Date(rented.return_date);
 
-        return{
+        return {
           ...rented,
-          rent_date : rent_date.toLocaleDateString('ko-KR', this.options),
-          return_date : return_date.toLocaleDateString('ko-KR', this.options),
-        }
-      })
+          rent_date: rent_date.toLocaleDateString("ko-KR", this.options),
+          return_date: return_date.toLocaleDateString("ko-KR", this.options),
+        };
+      });
     },
-  }
+
+    totalPage() {
+      if (this.totalCnt == 0) {
+        return 1;
+      }
+      return Math.ceil(this.totalCnt / this.showCnt);
+    },
+
+    startPage() {
+      return (
+        Math.trunc((this.nowPage - 1) / this.pagingCnt) * this.pagingCnt + 1
+      );
+    },
+
+    endPage() {
+      let result = this.startPage + this.pagingCnt - 1;
+      return result < this.totalPage ? result : this.totalPage;
+    },
+  },
 };
 </script>
 
