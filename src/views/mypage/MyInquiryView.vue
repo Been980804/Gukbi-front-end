@@ -9,6 +9,7 @@
               type="text"
               class="search_box_input"
               placeholder="검색어 입력"
+              @keyup.enter ="setSearchText($event)"
             />
             <img
               class="search_box_img"
@@ -63,9 +64,11 @@
           </tr>         
         </table>
         <div class="page_line_box">
-          <div class="page_box_img"><img src="../../assets/images/arrow-left.svg"></div>
-          <div class="page_box_text">&nbsp;1&nbsp;&nbsp;2&nbsp;&nbsp;3&nbsp;&nbsp;4&nbsp;&nbsp;5&nbsp;&nbsp;</div>
-          <div class="page_box_img"><img src="../../assets/images/arrow-right.svg"></div>
+          <div class="page_box_img" @click="prevPage()"><img src="../../assets/images/arrow-left.svg"></div>
+          <ul>
+            <li class="page_box_text li_inline" @click="changePage(page)" v-for="page in pageList" :key="page">{{ page }}</li>
+          </ul>
+          <div class="page_box_img" @click="nextPage()"><img src="../../assets/images/arrow-right.svg"></div>
         </div>
       </div>
     </div>
@@ -73,6 +76,7 @@
 </template>
 
 <script>
+import api from "@/api/axios";
 import { useUserStore } from "@/stores/user";
 import Sidebar from "@/components/common/SidebarView.vue";
 
@@ -82,10 +86,25 @@ export default {
     return {
       user: useUserStore().getUser,
       inquiryList : [],
+
+      // 페이징
+      nowPage: 1, // 현재 페이지
+      showCnt: 10, // 보여줄 개수
+      totalCnt: 0,
+      pagingCnt: 5,
+
+      pageList: [],
+
+      // 검색어
+      searchText : '',
     };
   },
   created(){
-    this.getMyInquiry();
+    if (sessionStorage.getItem("nowPage") != null || undefined) {
+      this.nowPage = sessionStorage.getItem("nowPage");
+    }
+
+    this.getMyInquiryCnt();
   },
   mounted() {
     this.$refs.Sidebar.setCurrentMenu(
@@ -95,6 +114,25 @@ export default {
     );
   },
   methods: {
+    // 검색한 내용 저장
+    setSearchText(event){
+      this.searchText = event.target.value;
+      this.getMyInquiry();
+    },
+
+     // 개별 문의 총 게시글 수
+    getMyInquiryCnt() {
+      api.get(`/mypage/inquiry/getMyInquiryCnt/${this.user.mem_no}`).then((res) => {
+        if (res.common.res_code == 200) {
+          this.totalCnt = res.data.totalCnt;
+
+          if (this.totalCnt > 0) {
+            this.getMyInquiry(this.nowPage);
+            this.getViewPage();
+          }
+        }
+      });
+    },
     // 어떤 게시물이 열려있는지 확인
     accordion(index) {
       this.inquiryList.forEach((inquiry, i) => {
@@ -107,8 +145,12 @@ export default {
     },
     // 개별문의내역 조회
     getMyInquiry(){
+      let reqBody = new Map();
+      reqBody.set("mem_no", this.user.mem_no);
+      reqBody.set("search", this.searchText);
+      
       this.$api
-      .get(`mypage/inquiry/getMyInquiry/${this.user.mem_no}`)
+      .get(`mypage/inquiry/getMyInquiry/${this.nowPage}`, {params : Object.fromEntries(reqBody)})
       .then(res => {
         const common = res.common;
         if(common.res_code == 200){
@@ -127,6 +169,45 @@ export default {
         console.log(err);
       })
     },
+
+     getViewPage() {
+      let pages = [];
+      let num = this.startPage;
+      while (num <= this.endPage) {
+        pages.push(num++);
+      }
+      this.pageList = pages;
+    },
+
+    prevPage() {
+      if (this.endPage - this.pagingCnt <= 0) {
+        // 첫페이지일경우
+        console.log("첫페이지입니다.");
+        return;
+      }
+
+      this.nowPage = this.startPage - 1;
+      this.getHopeBookList();
+      this.getViewPage();
+    },
+
+    nextPage() {
+      if (this.startPage + this.pagingCnt > this.totalPage) {
+        // 마지막페이지일 경우
+        console.log("마지막페이지입니다.");
+        return;
+      }
+
+      this.nowPage = this.endPage + 1;
+      this.getHopeBookList();
+      this.getViewPage();
+    },
+
+    changePage(page) {
+      this.nowPage = page;
+      this.getHopeBookList();
+    },
+
     // 개별문의내역 삭제
     deleteMyInquiry(qna_no){
       const reqBody = {
@@ -152,6 +233,25 @@ export default {
       
     },
   },
+  computed:{
+     totalPage() {
+      if (this.totalCnt == 0) {
+        return 1;
+      }
+      return Math.ceil(this.totalCnt / this.showCnt);
+    },
+
+    startPage() {
+      return (
+        Math.trunc((this.nowPage - 1) / this.pagingCnt) * this.pagingCnt + 1
+      );
+    },
+
+    endPage() {
+      let result = this.startPage + this.pagingCnt - 1;
+      return result < this.totalPage ? result : this.totalPage;
+    },
+  }
 };
 </script>
 
