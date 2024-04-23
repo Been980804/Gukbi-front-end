@@ -51,17 +51,31 @@
         </div>
 
         <div class="hopeBook_applyButton">
-          <button class="list_row_btn button_charcoal text_white button" @click="open_hopeApplP">
+          <button
+            class="list_row_btn button_charcoal text_white button"
+            @click="open_hopeApplP"
+          >
             신청하기
           </button>
         </div>
 
         <div class="page_line_box">
-          <div class="page_box_img" @click="prevPage()"><img src="../../assets/images/arrow-left.svg"></div>
+          <div class="page_box_img" @click="prevPage()">
+            <img src="../../assets/images/arrow-left.svg" />
+          </div>
           <ul>
-            <li class="page_box_text li_inline" @click="changePage(page)" v-for="page in pageList" :key="page">{{ page }}</li>
+            <li
+              class="page_box_text li_inline"
+              @click="changePage(page)"
+              v-for="page in pageList"
+              :key="page"
+            >
+              {{ page }}
+            </li>
           </ul>
-          <div class="page_box_img" @click="nextPage()"><img src="../../assets/images/arrow-right.svg"></div>
+          <div class="page_box_img" @click="nextPage()">
+            <img src="../../assets/images/arrow-right.svg" />
+          </div>
         </div>
       </div>
     </div>
@@ -69,22 +83,36 @@
 </template>
 
 <script>
+import api from "@/api/axios";
 import { useUserStore } from "@/stores/user.js";
 import Sidebar from "@/components/common/SidebarView.vue";
 
 export default {
-  components: { Sidebar,},
+  components: { Sidebar },
   data() {
     return {
       user: useUserStore().getUser,
       hopeBookList: [],
       options: { year: "numeric", month: "2-digit", day: "2-digit" },
-      hopeApplP : false,
+      hopeApplP: false,
+
+      // 페이징
+      nowPage: 1, // 현재 페이지
+      showCnt: 10, // 보여줄 개수
+      totalCnt: 0,
+      pagingCnt: 5,
+
+      pageList: [],
     };
   },
   created() {
-    this.getHopeBookList();
+    if (sessionStorage.getItem("nowPage") != null || undefined) {
+      this.nowPage = sessionStorage.getItem("nowPage");
+    }
+
+    this.getHopeBookTotalCnt();
   },
+
   mounted() {
     this.$refs.Sidebar.setCurrentMenu(
       8,
@@ -94,10 +122,25 @@ export default {
   },
 
   methods: {
+    // 희망도서 총 게시글 수
+    getHopeBookTotalCnt() {
+      api.get(`/mypage/bookAppl/hopeBookCnt/${this.user.mem_no}`).then((res) => {
+        if (res.common.res_code == 200) {
+          this.totalCnt = res.data.totalCnt;
+
+          if (this.totalCnt > 0) {
+            this.getHopeBookList(this.nowPage);
+            this.getViewPage();
+          }
+        }
+      });
+    },
     // 나의 희망도서 게시글 리스트 조회
     getHopeBookList() {
       this.$api
-        .get(`/mypage/bookAppl/hopeBookList/${this.user.mem_no}`)
+        .get(`/mypage/bookAppl/hopeBookList/${this.nowPage}`, {
+          params: { mem_no: this.user.mem_no },
+        })
         .then((res) => {
           const common = res.common;
           if (common.res_code == 200) {
@@ -110,6 +153,44 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+    },
+
+    getViewPage() {
+      let pages = [];
+      let num = this.startPage;
+      while (num <= this.endPage) {
+        pages.push(num++);
+      }
+      this.pageList = pages;
+    },
+
+    prevPage() {
+      if (this.endPage - this.pagingCnt <= 0) {
+        // 첫페이지일경우
+        console.log("첫페이지입니다.");
+        return;
+      }
+
+      this.nowPage = this.startPage - 1;
+      this.getHopeBookList();
+      this.getViewPage();
+    },
+
+    nextPage() {
+      if (this.startPage + this.pagingCnt > this.totalPage) {
+        // 마지막페이지일 경우
+        console.log("마지막페이지입니다.");
+        return;
+      }
+
+      this.nowPage = this.endPage + 1;
+      this.getHopeBookList();
+      this.getViewPage();
+    },
+
+    changePage(page) {
+      this.nowPage = page;
+      this.getHopeBookList();
     },
 
     // 상태에 따른 class 부여
@@ -131,24 +212,24 @@ export default {
           .post("/mypage/bookAppl/cancelHopeBook", reqBody)
           .then((res) => {
             const common = res.common;
-            if(common.res_code == 200){
-              alert('취소 되었습니다.');
-            window.location.reload(true);
-            } else{
-              alert('현재 입고중이거나 입고완료된 도서 입니다.');
+            if (common.res_code == 200) {
+              alert("취소 되었습니다.");
+              window.location.reload(true);
+            } else {
+              alert("현재 입고중이거나 입고완료된 도서 입니다.");
             }
           })
-          .catch(err => {
+          .catch((err) => {
             console.log(err);
-          })
+          });
       }
     },
     // 신청하기 팝업 열기
-    open_hopeApplP(){
+    open_hopeApplP() {
       this.hopeApplP = true;
     },
     //  신청하기 팝업 닫기
-    close_hopeApplP(){
+    close_hopeApplP() {
       this.hopeApplP = false;
     },
   },
@@ -163,6 +244,23 @@ export default {
           reg_date: reg_date.toLocaleDateString("ko-KR", this.options),
         };
       });
+    },
+    totalPage() {
+      if (this.totalCnt == 0) {
+        return 1;
+      }
+      return Math.ceil(this.totalCnt / this.showCnt);
+    },
+
+    startPage() {
+      return (
+        Math.trunc((this.nowPage - 1) / this.pagingCnt) * this.pagingCnt + 1
+      );
+    },
+
+    endPage() {
+      let result = this.startPage + this.pagingCnt - 1;
+      return result < this.totalPage ? result : this.totalPage;
     },
   },
 };
