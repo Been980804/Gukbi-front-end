@@ -10,7 +10,7 @@ import Detail from "../views/common/DetailView.vue"; // 메인 도서 상세
 import UserInfo from "../views/mypage/UserInfoView.vue";
 import RentReserve from "../views/mypage/RentReservationView.vue";
 import RentedList from "../views/mypage/RentedListView.vue";
-import HopeBook from "../views/mypage/HopeBookView.vue";
+import MyHopeBook from "../views/mypage/MyHopeBookView.vue";
 import MyBookPly from "../views/mypage/MyBookPlyView.vue";
 import MyInquiry from "../views/mypage/MyInquiryView.vue";
 import MyBookTrade from "../views/mypage/MyBookTradeView.vue";
@@ -35,7 +35,13 @@ import MgrTradeDetail from "../views/manage/TradeDetailView.vue"; // 게시판�
 import MgrApplList from "../views/manage/ApplListView.vue"; // 게시판관리-희망도서
 
 // 도서마당
-// import NotificationList from "../views/madang/NotificationListView.vue";	// 공지사항
+import BookPly from "../views/madang/BookPlyView.vue";
+import BookTradeDetail from "../views/madang/BookTradeDetailView.vue";
+import BookTradeList from "../views/madang/BookTradeListView.vue";
+import CreateBookTrade from "../views/madang/CreateBookTradeView.vue";
+import HopeBookList from "../views/madang/HopeBookListView.vue";
+import NotificationDetail from "../views/madang/NotificationDetailView.vue";
+import NotificationList from "../views/madang/NotificationListView.vue";
 
 const routes = [
 	{ path: "/", name: "Main", component: Main, },
@@ -48,7 +54,7 @@ const routes = [
 	{ path: "/UserInfo", name: "UserInfo", component: UserInfo,},
 	{ path: "/RentReserve", name: "RentReservation", component: RentReserve},
 	{ path: "/RentedList", name: "RentedList", component: RentedList},
-	{ path: "/HopeBook", name: "HopeBook", component: HopeBook},
+	{ path: "/MyHopeBook", name: "MyHopeBook", component: MyHopeBook},
 	{ path: "/MyBookPly", name: "MyBookPly", component: MyBookPly},
 	{ path: "/MyInquiry", name: "MyInquiry", component: MyInquiry},
 	{ path: "/MyBookTrade", name: "MyBookTrade", component: MyBookTrade},
@@ -73,7 +79,13 @@ const routes = [
 	{ path: "/MgrApplList", name: "MgrApplList", component: MgrApplList},
 
 	// 도서마당
-	// { path: "/NotificationList", name: "NotificationList", component: NotificationList},
+	{ path: "/BookPly", name:"BookPly", component: BookPly},
+	{ path: "/BookTradeDetail", name:"BookTradeDetail", component: BookTradeDetail},
+	{ path: "/BookTradeList", name:"BookTradeList", component: BookTradeList},
+	{ path: "/CreateBookTrade", name:"CreateBookTrade", component: CreateBookTrade},
+	{ path: "/HopeBookList", name:"HopeBookList", component: HopeBookList},
+	{ path: "/NotificationDetail", name:"NotificationDetail", component: NotificationDetail},
+	{ path: "/NotificationList", name:"NotificationList", component: NotificationList},
 ];
 
 const router = createRouter({

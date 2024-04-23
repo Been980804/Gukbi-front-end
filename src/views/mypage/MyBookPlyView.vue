@@ -275,9 +275,9 @@ export default {
     // 북플리 상세보기에 정보 넘김
     showBookPlyDetail(bookPly) {
       this.selectedBookPly = bookPly;
-      // 북플리 상세보기 요소의 DOM 객체를 찾습니다.
+      // 북플리 상세보기 요소의 DOM 객체를 찾음
       const detailElement = document.querySelector(".bookPly_detail");
-      // 북플리 상세보기 요소가 존재하면 스크롤합니다.
+      // 북플리 상세보기 요소가 존재하면 스크롤
       if (detailElement) {
         detailElement.scrollIntoView({ behavior: "smooth", block: "start" });
       }

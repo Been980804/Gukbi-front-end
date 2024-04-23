@@ -286,17 +286,6 @@ export default {
           }
         });
       }
-      if (confirm("정말 삭제하시겠습니까?")) {
-        this.$api.post("/mypage/bookPly/deleteBook", reqBody).then((res) => {
-          const common = res.common;
-          if (common.res_code == 200) {
-            alert("삭제 성공");
-            window.location.reload(true);
-          } else {
-            alert("삭제 실패");
-          }
-        });
-      }
     },
 
     open_updateBplP() {
