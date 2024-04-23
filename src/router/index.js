@@ -3,6 +3,8 @@ import { createWebHistory, createRouter } from "vue-router";
 import Main from "../views/MainView.vue";
 import Login from "../views/user/LoginView.vue";
 import Join from "../views/user/JoinView.vue";
+import Search from "../views/common/SearchView.vue"; // 메인 도서검색
+import Detail from "../views/common/DetailView.vue"; // 메인 도서 상세
 
 // 마이페이지 import
 import UserInfo from "../views/mypage/UserInfoView.vue";
@@ -39,6 +41,8 @@ const routes = [
 	{ path: "/", name: "Main", component: Main, },
 	{ path: "/Login", name: "Login", component: Login, },
 	{ path: "/Join", name: "Join", component: Join, },
+	{ path: "/Search", name: "Search", component: Search, },
+	{ path: "/Detail", name: "Detail", component: Detail, },
 
 	// 마이페이지
 	{ path: "/UserInfo", name: "UserInfo", component: UserInfo,},

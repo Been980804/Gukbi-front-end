@@ -46,7 +46,7 @@
           </div>
           <div class="m_table_row">
             <div class="m_table_column">등록일자</div>
-            <div class="m_table_column_result">{{ setDateFormat() }}</div>
+            <div class="m_table_column_result">{{ regDate }}</div>
           </div>
         </div>
 
@@ -75,7 +75,8 @@ export default {
 
   data() {
     return {
-      bookInfo: {}
+      bookInfo: {},
+      regDate: null
     }
   },
 
@@ -91,6 +92,7 @@ export default {
       .then(res => {
         if(res.common.res_code == 200 && res.data.book_no != '') {
           this.bookInfo = res.data.bookInfo;
+          this.setDateFormat();
         } else {
           console.log("BookDetailView book/bookInfo 응답실패");
         }
@@ -108,7 +110,7 @@ export default {
       var minutes = ('0' + now.getMinutes()).slice(-2);
       var seconds = ('0' + now.getSeconds()).slice(-2); 
 
-      return `${year}.${month}.${day} ${hours}:${minutes}:${seconds}`;
+      this.regDate = `${year}.${month}.${day} ${hours}:${minutes}:${seconds}`;
     },
 
     regist() { // 추천도서 정보 등록

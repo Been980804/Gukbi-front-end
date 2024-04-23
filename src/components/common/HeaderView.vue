@@ -30,7 +30,7 @@
     <hr>
 
     <div class=search>
-      <input class="search_input" type="text" placeholder="검색어를 입력하여 도서를 찾아보세요."/>
+      <input class="search_input" type="text" placeholder="검색어를 입력하여 도서를 찾아보세요." @keyup.enter="setSearchText($event)"/>
       <button class="imgbtn btn_search" type="submit">
         <img src="@/assets/images/search_btn_icon.svg" alt="search_btn_icon">
       </button>
@@ -71,7 +71,11 @@ export default {
     goMain() { this.$router.push({ name: 'Main' }) }, // 메인으로
     goMenu(menuLink, menuNo) { this.$router.push({path: `${menuLink}`, query: {menuNo: `${menuNo}`}}); }, // 선택한 메뉴 화면으로 이동
     showSubMenu(num) { this.$refs[num][0].children[1].style.display = 'block'; },
-    hideSubMenu(num) { this.$refs[num][0].children[1].style.display = 'none'; }
+    hideSubMenu(num) { this.$refs[num][0].children[1].style.display = 'none'; },
+
+    setSearchText(event) {
+      this.$router.push({ path: '/Search', query: { searchText: `${event.target.value}` }});      
+    }
   }
 }
 </script>
