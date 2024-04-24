@@ -18,12 +18,17 @@
           </li>
         </ul>
       </div>
-      <div class=navbar_icons>
+      <div class="navbar_icons">
         <button class="imgbtn">
           <img src="@/assets/images/cart_icon.svg" alt="cart_icon">
         </button>
         <button class="imgbtn">
           <img src="@/assets/images/user_icon.svg" alt="user_icon" @click="showMyMenu()">
+          <ul ref="userIcon">
+            <template v-for="menu in userMenus" :key="menu">
+              <li><a href="#">{{ menu }}</a></li>
+            </template>
+          </ul>
         </button>
       </div>
     </div>
@@ -51,6 +56,7 @@ export default {
       menuLevels: [1, 2, 3, 4, 8, 9],
 
       largeMenus: {},
+      userMenus: ["내 정보", "로그아웃"]
     }
   },
 
@@ -78,8 +84,12 @@ export default {
         this.$router.push({ path: '/Login' });      
       } else {
         // 서브메뉴 보이기
-        console.log(this.user.mem_id);
-        this.logout();
+        // this.logout();
+        if(this.$refs.userIcon.style.display == 'block') {
+          this.$refs.userIcon.style.display = 'none';
+        } else {
+          this.$refs.userIcon.style.display = 'block';
+        } 
       }
     },
 
