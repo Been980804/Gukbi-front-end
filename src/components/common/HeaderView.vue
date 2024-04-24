@@ -23,7 +23,7 @@
           <img src="@/assets/images/cart_icon.svg" alt="cart_icon">
         </button>
         <button class="imgbtn">
-          <img src="@/assets/images/user_icon.svg" alt="user_icon" >
+          <img src="@/assets/images/user_icon.svg" alt="user_icon" @click="showMyMenu()">
         </button>
       </div>
     </div>
@@ -72,9 +72,26 @@ export default {
     goMenu(menuLink, menuNo, menuName) { this.$router.push({path: `${menuLink}`, query: {menuNo: `${menuNo}`, menuName: `${menuName}`}}); }, // 선택한 메뉴 화면으로 이동
     showSubMenu(num) { this.$refs[num][0].children[1].style.display = 'block'; },
     hideSubMenu(num) { this.$refs[num][0].children[1].style.display = 'none'; },
+    showMyMenu() { // 사용자 아이콘 클릭 이벤트
+      if(this.user.mem_id == null || undefined || '') {
+        // 로그인 정보가 없을 경우
+        this.$router.push({ path: '/Login' });      
+      } else {
+        // 서브메뉴 보이기
+        console.log(this.user.mem_id);
+        this.logout();
+      }
+    },
 
     setSearchText(event) {
       this.$router.push({ path: '/Search', query: { searchText: `${event.target.value}` }});      
+    },
+
+    logout() {
+      const userStore = useUserStore();
+			userStore.setUser({});
+      this.$router.push({ name: 'Main' })
+      window.location.reload(true);
     }
   }
 }

@@ -1,14 +1,14 @@
 <template>
   <div class="login">
-    <button class="imgbtn logo_h" @click="goMain">
+    <button class="imgbtn logo_h" @click="goMain()">
       <img src="../../assets/images/logo_h.png" alt="LOGO">
     </button>
     <div class="input_form w20rem h9-5rem">
       <div class="con">
-        <input type="text" v-model="loginData.id" maxlength="16" placeholder="아이디를 입력하세요." @keyup.enter="login"> 
+        <input type="text" v-model="loginData.id" maxlength="16" placeholder="아이디를 입력하세요." @keyup.enter="login()"> 
       </div>
       <div class="con">
-        <input type="password" v-model="loginData.pwd" maxlength="18" placeholder="비밀번호를 입력하세요." @keyup.enter="login">
+        <input type="password" v-model="loginData.pwd" maxlength="18" placeholder="비밀번호를 입력하세요." @keyup.enter="login()">
       </div>
       <button class="btn_charcoal rad20 mt1rem" @click="login"><span>로그인</span></button>
     </div>
@@ -49,15 +49,10 @@ export default {
   },
 
   methods: {
-
     // 메인으로
-    goMain() {
-      this.$router.push({ name: 'Main' })
-    },
+    goMain() { this.$router.push({ name: 'Main' }) },
     
-    /**
-     * 로그인
-     */
+    // 로그인
     login() {
       if((this.loginData.id.trim().length == 0) || (this.loginData.pwd.trim().length == 0)) {
         alert('아이디 또는 비밀번호를 입력하세요.');

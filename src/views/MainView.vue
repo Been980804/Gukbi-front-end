@@ -66,13 +66,6 @@ export default {
       }
       return url;
     },
-
-    logout() {
-      const userStore = useUserStore();
-			userStore.setUser({});
-      this.$router.push({ name: 'Main' })
-      window.location.reload(true);
-    },
   }
 }
 </script>
