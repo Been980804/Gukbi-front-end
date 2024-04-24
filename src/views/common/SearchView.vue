@@ -8,18 +8,26 @@
         <div class="table_line_box">
           <table class="m_table">
             <tbody>
-              <tr v-for="book in bookList" :key="book" @click="goDetailView(book.book_isbn)">
-                <td style="text-align: center;" class="m_td"><img class="m_img_book" :src="replaceImg(book.book_url)"/></td>
-                <td style="text-align: left;" class="m_td">
-                  <span style="font-size: 24px; font-weight: bold;">{{ book.book_title }}<br></span>
-                  <div>
-                    <span style="font-size: 24px; font-weight: 500;">저자: {{ book.book_author }}<br></span>
-                    <span style="font-size: 24px; font-weight: 500;">출펀사: {{ book.book_publisher }}<br></span>
-                    <span style="font-size: 24px; font-weight: 500;">ISBN: {{ book.book_isbn }}<br></span>
-                    <span style="font-size: 24px; font-weight: 500;">출판년도: {{ book.book_pub_year }}년도<br></span>
-                    <span style="font-size: 24px; font-weight: 500;">카테고리: {{ book.book_category_no }}. {{ book.book_category_name }}</span>
-                  </div>
-                </td>
+              <tr v-for="book in bookList" :key="book" @click="goDetailView(book.book_isbn)" style="display: flex; justify-content: center;">
+                <div>
+                  <td style="text-align: left;" class="m_td"><img class="m_img_book" :src="replaceImg(book.book_url)"/></td>
+                  <td style="text-align: left; padding: 20px;" class="m_td">
+                    <div style="font-size: 24px; font-weight: bold;">{{ book.book_title }}</div>
+                    <div class="inline_blank24"></div>
+                    <div style="display: flex;">
+                      <div style="width: 500px;">
+                        <div class="m_search_text">저자: {{ book.book_author }}</div>
+                        <div class="m_search_text">출판사: {{ book.book_publisher }}</div>
+                        <div class="m_search_text">출판년도: {{ book.book_pub_year }}년도</div>
+                      </div>
+                      <div class="margin_right20"></div>
+                      <div>
+                        <div class="m_search_text">카테고리: {{ book.book_category_no }}. {{ book.book_category_name }}</div>
+                        <div class="m_search_text">ISBN: {{ book.book_isbn }}</div>
+                      </div>
+                    </div>
+                  </td>
+                </div>
               </tr>
             </tbody>
           </table>
