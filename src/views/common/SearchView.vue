@@ -7,23 +7,18 @@
       <div class="m_show_box">
         <div class="table_line_box">
           <table class="m_table">
-            <colgroup>
-              <col v-for="range in columnRange" :key="range" :width="range">
-            </colgroup>
-            <thead class="m_thead">
-              <!-- <tr>
-                <th v-for="column in tableColumn" :key="column" class="m_th">{{ column }}</th>
-              </tr> -->
-            </thead>
             <tbody>
               <tr v-for="book in bookList" :key="book" @click="goDetailView(book.book_isbn)">
-                <td class="m_td"><img class="m_img_book" :src="replaceImg(book.book_url)"/></td>
-                <td class="m_td">
-                  {{ book.book_title }}<br>
-                  {{ book.book_author }}<br>
-                  {{ book.book_publisher }}<br>
-                  {{ book.book_isbn }}<br>
-                  {{ book.book_pub_year }}<br>
+                <td style="text-align: center;" class="m_td"><img class="m_img_book" :src="replaceImg(book.book_url)"/></td>
+                <td style="text-align: left;" class="m_td">
+                  <span style="font-size: 24px; font-weight: bold;">{{ book.book_title }}<br></span>
+                  <div>
+                    <span style="font-size: 24px; font-weight: 500;">저자: {{ book.book_author }}<br></span>
+                    <span style="font-size: 24px; font-weight: 500;">출펀사: {{ book.book_publisher }}<br></span>
+                    <span style="font-size: 24px; font-weight: 500;">ISBN: {{ book.book_isbn }}<br></span>
+                    <span style="font-size: 24px; font-weight: 500;">출판년도: {{ book.book_pub_year }}년도<br></span>
+                    <span style="font-size: 24px; font-weight: 500;">카테고리: {{ book.book_category_no }}. {{ book.book_category_name }}</span>
+                  </div>
                 </td>
               </tr>
             </tbody>
@@ -48,9 +43,6 @@ export default {
     return {
       searchText: "", // 검색했을때 검색 내용 저장
       menuName: "",
-
-      columnRange: ["5%", "48%", "14%", "10%", "10%", "10%"],
-      tableColumn: ["도서코드", "도서명", "저자", "출판사", "ISBN", "등록일시"],
 
       currentPage: 1, // 현재 페이지 번호
       recordPage: 10, // 한 페이지에 보여줄 row 개수
