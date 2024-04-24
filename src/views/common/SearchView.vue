@@ -1,30 +1,33 @@
 <template>
   <div class="container">
     <div class="main_container">
-      <div class="m_line_box">
+      <div class="m_line_box" v-show="searchText != ''">
         검색어: {{ searchText }}
       </div>
       <div class="m_show_box">
         <div class="table_line_box">
           <table class="m_table">
-            <colgroup>
-              <col v-for="range in columnRange" :key="range" :width="range">
-            </colgroup>
-            <thead class="m_thead">
-              <!-- <tr>
-                <th v-for="column in tableColumn" :key="column" class="m_th">{{ column }}</th>
-              </tr> -->
-            </thead>
             <tbody>
-              <tr v-for="book in bookList" :key="book" @click="goDetailView(book.book_isbn)">
-                <td class="m_td"><img class="m_img_book" :src="replaceImg(book.book_url)"/></td>
-                <td class="m_td">
-                  {{ book.book_title }}<br>
-                  {{ book.book_author }}<br>
-                  {{ book.book_publisher }}<br>
-                  {{ book.book_isbn }}<br>
-                  {{ book.book_pub_year }}<br>
-                </td>
+              <tr v-for="book in bookList" :key="book" @click="goDetailView(book.book_isbn)" style="display: flex; justify-content: center;">
+                <div>
+                  <td style="text-align: left;" class="m_td"><img class="m_img_book" :src="replaceImg(book.book_url)"/></td>
+                  <td style="text-align: left; padding: 20px;" class="m_td">
+                    <div style="font-size: 24px; font-weight: bold;">{{ book.book_title }}</div>
+                    <div class="inline_blank24"></div>
+                    <div style="display: flex;">
+                      <div style="width: 500px;">
+                        <div class="m_search_text">저자: {{ book.book_author }}</div>
+                        <div class="m_search_text">출판사: {{ book.book_publisher }}</div>
+                        <div class="m_search_text">출판년도: {{ book.book_pub_year }}년도</div>
+                      </div>
+                      <div class="margin_right20"></div>
+                      <div>
+                        <div class="m_search_text">카테고리: {{ book.book_category_no }}. {{ book.book_category_name }}</div>
+                        <div class="m_search_text">ISBN: {{ book.book_isbn }}</div>
+                      </div>
+                    </div>
+                  </td>
+                </div>
               </tr>
             </tbody>
           </table>
@@ -47,9 +50,7 @@ export default {
   data() {
     return {
       searchText: "", // 검색했을때 검색 내용 저장
-
-      columnRange: ["5%", "48%", "14%", "10%", "10%", "10%"],
-      tableColumn: ["도서코드", "도서명", "저자", "출판사", "ISBN", "등록일시"],
+      menuName: "",
 
       currentPage: 1, // 현재 페이지 번호
       recordPage: 10, // 한 페이지에 보여줄 row 개수
@@ -62,6 +63,15 @@ export default {
   },
 
   created() {
+    if(sessionStorage.getItem("currentPage") != null || undefined) {
+      this.currentPage = sessionStorage.getItem("currentPage");
+    }
+
+    if(this.$route.query.searchText != null || undefined) {
+      this.searchText = this.$route.query.searchText;
+    } else {
+      this.menuName = this.$route.query.menuName;
+    }
     this.getBookCount();
   },
 
@@ -72,46 +82,70 @@ export default {
     },
     
     getBookCount() {
-      if(sessionStorage.getItem("currentPage") != null || undefined) {
-      this.currentPage = sessionStorage.getItem("currentPage");
-    }
+      if(this.searchText != '' || null || undefined) {
+        let sqlData = new Map();
+        sqlData.set("search", this.searchText);
 
-    if(this.$route.query.searchText != null || undefined) {
-      this.searchText = this.$route.query.searchText;
-    }
-
-    let sqlData = new Map();
-    sqlData.set("search", this.searchText);
-
-    // api - main.js에서 사용하게 정의됨
-    api.get(`/main/bookCount`, {params: Object.fromEntries(sqlData)})
-      .then(res => {
-        if (res.common.res_code == 200) { // 응답성공
-          this.totalCount = res.data.bookCount;
-
-          if (this.totalCount > 0) {
-            // 테이블 데이터가 있을 경우 조회
-            this.getBookInfo(this.currentPage);
-            this.getViewPage();
-          }
-        } else { // 응답실패
-          console.log("BookListView main/bookCount 응답실패");
-        }
-      })
+        // api - main.js에서 사용하게 정의됨
+        api.get(`/main/bookCount`, {params: Object.fromEntries(sqlData)})
+          .then(res => {
+            if (res.common.res_code == 200) { // 응답성공
+              this.totalCount = res.data.bookCount;
+              if (this.totalCount > 0) {
+                // 테이블 데이터가 있을 경우 조회
+                this.getBookInfo(this.currentPage);
+                this.getViewPage();
+              }
+            } else { // 응답실패
+              console.log("SearchView main/bookCount 응답실패");
+            }
+          })
+      } else {
+        let sqlData = new Map();
+        sqlData.set("menuName", this.menuName);
+        // api - main.js에서 사용하게 정의됨
+        api.get(`/main/catCount`, {params: Object.fromEntries(sqlData)})
+          .then(res => {
+            if (res.common.res_code == 200) { // 응답성공
+              this.totalCount = res.data.bookCount;
+              if (this.totalCount > 0) {
+                // 테이블 데이터가 있을 경우 조회
+                this.getBookInfo(this.currentPage);
+                this.getViewPage();
+              }
+            } else { // 응답실패
+              console.log("SearchView main/bookCount 응답실패");
+            }
+          })
+      }
     },
 
     getBookInfo() { // 현재 페이지의 책 리스트 정보 가져오기
-      let sqlData = new Map();
-      sqlData.set("search", this.searchText);
+      if(this.searchText != '' || null || undefined) {
+        let sqlData = new Map();
+        sqlData.set("search", this.searchText);
 
-      api.get(`/main/bookList/${this.currentPage}`, {params: Object.fromEntries(sqlData)})
-        .then(res => {
-          if (res.common.res_code == 200) { // 응답성공
-            this.bookList = res.data.bookList;
-          } else { // 응답실패
-            console.log("BookListView book/bookList 응답실패");
-          }
-        })
+        api.get(`/main/bookList/${this.currentPage}`, {params: Object.fromEntries(sqlData)})
+          .then(res => {
+            if (res.common.res_code == 200) { // 응답성공
+              this.bookList = res.data.bookList;
+            } else { // 응답실패
+              console.log("SearchView main/bookList 응답실패");
+            }
+          })
+      } else {
+        let sqlData = new Map();
+        sqlData.set("menuName", this.menuName);
+
+        api.get(`/main/catList/${this.currentPage}`, {params: Object.fromEntries(sqlData)})
+          .then(res => {
+            if (res.common.res_code == 200) { // 응답성공
+              this.bookList = res.data.bookList;
+            } else { // 응답실패
+              console.log("SearchView main/catList 응답실패");
+            }
+          })
+      }
     },
 
     getViewPage() { // 페이징 영역에 보일 페이지 번호 구하기
@@ -153,6 +187,12 @@ export default {
         return require("@/assets/images/default-img.png");
       }
       return url;
+    },
+
+    goDetailView(isbn) {
+      // 이전 화면으로 돌아올 때 데이터를 sessionStorage에 저장
+      sessionStorage.setItem("currentPage", this.currentPage);
+      this.$router.push({ name: 'Detail', params: { isbn: `${isbn}` }});
     }
   },
 

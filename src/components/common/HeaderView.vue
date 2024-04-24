@@ -12,7 +12,7 @@
             <a href="#">{{ navMenu }}</a>
             <ul>
               <template v-for="menu in largeMenus" :key="menu">
-                <li v-if="menu.menu_level == menuLevels[i]" @click="goMenu(menu.menu_link, menu.menu_no)"><a href="#">{{ menu.menu_name }}</a></li>
+                <li v-if="menu.menu_level == menuLevels[i]" @click="goMenu(menu.menu_link, menu.menu_no, menu.menu_name)"><a href="#">{{ menu.menu_name }}</a></li>
               </template>
             </ul>
           </li>
@@ -69,7 +69,7 @@ export default {
   
   methods:{
     goMain() { this.$router.push({ name: 'Main' }) }, // 메인으로
-    goMenu(menuLink, menuNo) { this.$router.push({path: `${menuLink}`, query: {menuNo: `${menuNo}`}}); }, // 선택한 메뉴 화면으로 이동
+    goMenu(menuLink, menuNo, menuName) { this.$router.push({path: `${menuLink}`, query: {menuNo: `${menuNo}`, menuName: `${menuName}`}}); }, // 선택한 메뉴 화면으로 이동
     showSubMenu(num) { this.$refs[num][0].children[1].style.display = 'block'; },
     hideSubMenu(num) { this.$refs[num][0].children[1].style.display = 'none'; },
 
