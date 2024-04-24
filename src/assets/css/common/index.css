@@ -105,7 +105,10 @@ html, body {height: 100%;}
 .search_box_short {
   width: 15%;
 }
-
+.search_box_long {
+  width: 50%;
+  position: relative;
+}
 .search_box_input {
   width: 100%;
   border: 1px solid #bbb;
