@@ -61,12 +61,12 @@
             <button class="button button_charcoal text_white">등록</button>
           </div>
           <div class="page_line_box">
-          <div class="page_box_img" @click="prevPage()"><img src="../../assets/images/arrow-left.svg"></div>
-          <ul>
-            <li class="page_box_text li_inline" @click="changePage(page)" v-for="page in pageList" :key="page">{{ page }}</li>
-          </ul>
-          <div class="page_box_img" @click="nextPage()"><img src="../../assets/images/arrow-right.svg"></div>
-        </div>
+            <div class="page_box_img" @click="prevPage()"><img src="../../assets/images/arrow-left.svg"></div>
+              <ul>
+                <li class="page_box_text li_inline" @click="changePage(page)" v-for="page in pageList" :key="page">{{ page }}</li>
+              </ul>
+            <div class="page_box_img" @click="nextPage()"><img src="../../assets/images/arrow-right.svg"></div>
+          </div>
         </div>
       </div>
     </div>
