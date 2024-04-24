@@ -153,7 +153,6 @@ export default {
           if (common.res_code == 200) {
             const data = res.data;
             this.rentList = data.rentList;
-            // this.checkLateDateandChangeState();
           } else {
             alert("대여내역 없음");
           }
@@ -201,31 +200,7 @@ export default {
           console.log(err);
         });
     },
-    // 대여 상태변경을 위한 연체일 유무 체크
-    // checkLateDateandChangeState(){
-    //   for(const rent of this.lateDate){
-    //     if(rent.late_date != null){
-    //       console.log(rent.late_date);
-    //     }
-    //   }
-    // },
-    // 대여 상태변경
-    // updateRentState(rent_no){
-    //   const reqBody = {rent_no : rent_no}
-    //   this.$api
-    //   .put('mypage/rent/changeState',reqBody)
-    //   .then(res => {
-    //     const common = res.common;
-    //     if(common.res_code == 200){
-    //       alert('성공');
-    //     }else{
-    //       alert('실패');
-    //     }
-    //   })
-    //   .catch(err =>{
-    //     console.log(err);
-    //   })
-    // }
+    
 
     cancelReserveBook(reserv_no) {
       const reqBody = {

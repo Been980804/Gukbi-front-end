@@ -22,7 +22,8 @@
             >
               <td class="addBookPly_num t_list"  @click="addBplP_submit(bookPly)">{{ index + 1 }}</td>
               <td class="addBookPly_img"  @click="addBplP_submit(bookPly)">
-                <img :src="bookPly.book_url" />
+                <img v-if="bookPly.book_url" :src="bookPly.book_url" />
+                <img v-else :src="defaultImg" />
               </td>
               <td class="addBookPly_bplName t_list"  @click="addBplP_submit(bookPly)">{{ bookPly.bpl_name }}</td>
               <td class="addBookPly_userName t_list"  @click="addBplP_submit(bookPly)">{{ bookPly.mem_name }}</td>
@@ -39,6 +40,7 @@
 
 <script>
 import { useUserStore } from "@/stores/user";
+import defaultImg from "@/assets/images/default-img.png";
 
 export default {
   props: {
@@ -48,6 +50,7 @@ export default {
     return {
       user: useUserStore().getUser,
       bookPlyList: [],
+      defaultImg: defaultImg,
     };
   },
   created() {
@@ -57,7 +60,7 @@ export default {
   methods: {
     getBookPlyList() {
       this.$api
-        .get(`/mypage/bookPly/bookPlyList/${this.user.mem_no}`)
+        .get(`/mypage/bookPly/MyBookPlyList/${this.user.mem_no}`)
         .then((res) => {
           const common = res.common;
           if (common.res_code == 200) {

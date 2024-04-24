@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import api from "@/api/axios";
+// import api from "@/api/axios";
 import Sidebar from "../../components/common/SidebarView.vue";
 
 export default {
