@@ -51,7 +51,7 @@
             <tr
               class="list_row"
               v-for="(trade, index) in tradeList"
-              :key="index"
+              :key="index" @click="goDetailView(trade)"
             >
               <td class="trade_num t_list">{{ index + 1 }}</td>
               <td class="trade_userNmae t_list">{{ trade.mem_name }}</td>
@@ -257,6 +257,12 @@ export default {
       this.nowPage = page;
       this.getBookTrade();
     },
+
+    goDetailView(trade){
+      sessionStorage.setItem("nowPage", this.nowPage);
+      this.$router.push({ name: 'BookTradeDetail', params: { "tradeNo": trade.trade_no, "nowPage": this.nowPage},
+      query: { path: `${this.$route.path}`, menuNo: `${this.$route.query.menuNo}` }});
+    }
   },
   computed:{
     totalPage() {

@@ -6,7 +6,8 @@
   }
   
   .rentedList_page_title {
-    margin-left: 20px;
+  color: black;
+  margin-left: 20px;
   }
   
   .rentedList {
@@ -21,7 +22,8 @@
   }
   
   .rentedList_title {
-    margin-top: 20px;
+  color: black;
+  margin-top: 20px;
   }
   
   .rented_bookCode,

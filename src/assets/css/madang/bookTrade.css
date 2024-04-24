@@ -1,53 +1,54 @@
 .bookTrade_page {
-    padding: 20px;
-    background-color: white;
-    border-radius: 10px;
-  }
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+}
 
-  .bookTrade_page_title {
-    margin-left: 20px;
-  }
+.bookTrade_page_title {
+  margin-left: 20px;
+  color: black;
+}
 
-  .fix_left{
-    justify-content: left;
-  }
+.fix_left {
+  justify-content: left;
+}
 
-  .bookTradeList {
-    margin-top: 20px;
-  }
-  
-  .trade_table {
-    width: 100%;
-    margin-top: 20px;
-  }
-  
-  .trade_table_header {
-    border-bottom: 2px solid #e6edff;
-    margin-bottom: 10px;
-    height: 2rem;
-  }
-  
-  .trade_num,
-  .trade_state {
-    width: 5%;
-  }
-  
-  .trade_userName,
-  .trade_publisher,
-  .trade_price {
-    width: 10%;
-  }
-  
-  .trade_title,
-  .trade_bookTitle {
-    width: 15%;
-  }
+.bookTradeList {
+  margin-top: 20px;
+}
 
-  .trade_create {
-    margin: 20px;
-    float: right;
-    button {
-      width: 5rem !important;
-      height: 2rem !important;
-    }
+.trade_table {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.trade_table_header {
+  border-bottom: 2px solid #e6edff;
+  margin-bottom: 10px;
+  height: 2rem;
+}
+
+.trade_num,
+.trade_state {
+  width: 5%;
+}
+
+.trade_userName,
+.trade_publisher,
+.trade_price {
+  width: 10%;
+}
+
+.trade_title,
+.trade_bookTitle {
+  width: 15%;
+}
+
+.trade_create {
+  margin: 20px;
+  float: right;
+  button {
+    width: 5rem !important;
+    height: 2rem !important;
   }
+}

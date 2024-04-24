@@ -1,0 +1,52 @@
+.bookTradeDetail_page {
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+}
+
+.bookTradeDetail_page_title {
+  margin-left: 20px;
+  color: black;
+}
+
+.tradeInfo {
+  margin-top: 20px;
+  border-top: 2px solid black;
+}
+
+.info_table {
+  width: 100%;
+  margin-top: 20px;
+  text-align: left;
+}
+.info_tr {
+  font-size: 17px;
+  color: black;
+  height: 3rem;
+  border-bottom: 1px solid rgb(219, 221, 227);
+}
+.info_tr_content {
+  font-size: 17px;
+  color: black;
+  height: 8rem;
+  border-bottom: 1px solid rgb(219, 221, 227);
+  top: 0;
+  margin-top: 10px;
+}
+.info_th {
+  width: 20%;
+}
+.info_td {
+  width: 80%;
+}
+
+.bookTradeDetail_btnBox {
+  justify-content: right;
+  display: flex;
+  margin: 20px 20px 0 0;
+  button {
+    width: 5rem !important;
+    height: 2rem !important;
+    margin-right: 10px;
+  }
+}

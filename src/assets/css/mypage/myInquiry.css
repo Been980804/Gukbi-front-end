@@ -19,6 +19,7 @@
 .myInquiry_header_title {
   margin-top: 20px;
   padding: 10px;
+  color: black;
   border-bottom: 2px solid black;
 }
 
@@ -29,6 +30,7 @@
 
 .myInquiry_table_header {
   border-bottom: 2px solid #e6edff;
+  height: 3rem;
 }
 
 .myInquiry_num {
@@ -40,6 +42,7 @@
   padding-top: 35px;
 }
 .myInquiry_title {
+  color: black;
   width: 70%;
 }
 

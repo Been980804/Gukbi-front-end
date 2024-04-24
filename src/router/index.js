@@ -38,6 +38,7 @@ import MgrApplList from "../views/manage/ApplListView.vue"; // 게시판관리-�
 import BookPly from "../views/madang/BookPlyView.vue";
 import BookTradeDetail from "../views/madang/BookTradeDetailView.vue";
 import BookTradeList from "../views/madang/BookTradeListView.vue";
+import BookTradeModi from "../views/madang/BookTradeModiView.vue";
 import CreateBookTrade from "../views/madang/CreateBookTradeView.vue";
 import HopeBookList from "../views/madang/HopeBookListView.vue";
 import NotificationDetail from "../views/madang/NotificationDetailView.vue";
@@ -82,6 +83,7 @@ const routes = [
 	{ path: "/BookPly", name:"BookPly", component: BookPly},
 	{ path: "/BookTradeDetail", name:"BookTradeDetail", component: BookTradeDetail},
 	{ path: "/BookTradeList", name:"BookTradeList", component: BookTradeList},
+	{ path: "/BookTradeModi", name: "BookTradeModi", component: BookTradeModi},
 	{ path: "/CreateBookTrade", name:"CreateBookTrade", component: CreateBookTrade},
 	{ path: "/HopeBookList", name:"HopeBookList", component: HopeBookList},
 	{ path: "/NotificationDetail", name:"NotificationDetail", component: NotificationDetail},

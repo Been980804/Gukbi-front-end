@@ -5,6 +5,7 @@
 }
 
 .bookPly_page_title {
+  color: black;
   text-align: center;
 }
 
@@ -20,6 +21,7 @@
 
 .bookPly_page_subTitle {
   margin: 20px 0 20px 0;
+  color: black;
   text-align: center;
 }
 

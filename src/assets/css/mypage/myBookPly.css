@@ -6,7 +6,8 @@
   }
   
   .myBookPly_page_title {
-    margin-left: 20px;
+  color: black;
+  margin-left: 20px;
   }
   
   .myBookPlyList {
@@ -15,7 +16,8 @@
   }
   
   .myBookPlyList_title, .myBpl_detail_title {
-    margin-top: 20px;
+  color: black;
+  margin-top: 20px;
   }
   
   .myBookPlyList_table {
