@@ -68,6 +68,7 @@
           />
           <button
             class="button button_width70 button_height26 button_charcoal text_white"
+            v-if="isCurrentUser(bookPlyDetail.mem_no)"
             @click="deleteSelectedBook"
           >
             - 삭제
@@ -75,6 +76,7 @@
         </div>
         <button
           class="button button_width70 button_height26 margin-right button_charcoal text_white"
+          v-if="isCurrentUser(bookPlyDetail.mem_no)"
           @click="open_updateBplP"
         >
           수정하기
@@ -314,6 +316,10 @@ export default {
     close_addBplP2() {
       this.addBplP2 = false;
     },
+
+    isCurrentUser(mem_no){
+      return mem_no == this.user.mem_no;
+    }
   },
 };
 </script>

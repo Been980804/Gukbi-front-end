@@ -51,7 +51,8 @@
             <tr
               class="list_row"
               v-for="(trade, index) in tradeList"
-              :key="index" @click="goDetailView(trade)"
+              :key="index"
+              @click="goDetailView(trade)"
             >
               <td class="trade_num t_list">{{ index + 1 }}</td>
               <td class="trade_userNmae t_list">{{ trade.mem_name }}</td>
@@ -75,67 +76,70 @@
           </table>
 
           <div class="trade_create">
-            <button class="button button_charcoal text_white">등록</button>
+            <button
+              class="button button_charcoal text_white"
+              @click="goRegView()"
+            >
+              등록
+            </button>
           </div>
-
-          
         </div>
 
         <div class="page_line_box">
-            <div class="page_box_img" @click="prevPage()">
-              <img src="../../assets/images/arrow-left.svg" />
-            </div>
-            <ul>
-              <li
-                class="page_box_text li_inline"
-                @click="changePage(page)"
-                v-for="page in pageList"
-                :key="page"
-              >
-                {{ page }}
-              </li>
-            </ul>
-            <div class="page_box_img" @click="nextPage()">
-              <img src="../../assets/images/arrow-right.svg" />
-            </div>
+          <div class="page_box_img" @click="prevPage()">
+            <img src="../../assets/images/arrow-left.svg" />
           </div>
+          <ul>
+            <li
+              class="page_box_text li_inline"
+              @click="changePage(page)"
+              v-for="page in pageList"
+              :key="page"
+            >
+              {{ page }}
+            </li>
+          </ul>
+          <div class="page_box_img" @click="nextPage()">
+            <img src="../../assets/images/arrow-right.svg" />
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { useUserStore } from '@/stores/user';
+import { useUserStore } from "@/stores/user";
 import api from "@/api/axios";
 import Sidebar from "../../components/common/SidebarView.vue";
 
 export default {
   components: { Sidebar },
-  data(){
-    return{
-      user : useUserStore().getUser,
+  data() {
+    return {
+      user: useUserStore().getUser,
 
       // 검색
-      selectOptions : ["도서명", "출판사"],
-      selectOptionsColumn : ["trade_book_title", "trade_publisher"],
-      selectedOption : "도서명",
-      isOpen : false,
-      searchText : "",
-      searchOption : "",
+      selectOptions: ["도서명", "출판사"],
+      selectOptionsColumn: ["trade_book_title", "trade_publisher"],
+      selectedOption: "도서명",
+      isOpen: false,
+      searchText: "",
+      searchOption: "",
 
       // 페이징
-      nowPage : 1,
-      showCnt : 10,
-      totalCnt : 0,
-      pagingCnt : 5,
+      nowPage: 1,
+      showCnt: 10,
+      totalCnt: 0,
+      pagingCnt: 5,
 
-      tradeList : [],
-      pageList : [],
-    }
+      tradeList: [],
+      pageList: [],
+    };
   },
-  created(){
-     if (sessionStorage.getItem("nowPage") != null || undefined) {
-      this.currentPage = sessionStorage.getItem("nowPage");
+  created() {
+    if (sessionStorage.getItem("nowPage") != null || undefined) {
+      this.nowPage = sessionStorage.getItem("nowPage");
     }
 
     this.getBookTradeCnt();
@@ -147,7 +151,7 @@ export default {
       this.$route.query.menuNo
     );
   },
-  methods:{
+  methods: {
     selectClick() {
       this.isOpen = !this.isOpen;
     },
@@ -160,10 +164,10 @@ export default {
       this.getBookTradeCnt();
     },
 
-    getBookTradeCnt(){
+    getBookTradeCnt() {
       let cnt = 0;
-      for(const column of this.selectOptions){
-        if(column == this.selectedOption){
+      for (const column of this.selectOptions) {
+        if (column == this.selectedOption) {
           break;
         }
         cnt++;
@@ -175,32 +179,38 @@ export default {
       reqBody.set("column", column);
       reqBody.set("search", this.searchText);
 
-      api.get('/madang/bookTrade/bookTradeCnt', {params : Object.fromEntries(reqBody)})
-      .then(res => {
-        if(res.common.res_code == 200){
-          this.totalCnt = res.data.totalCnt;
-        
-          if(this.totalCnt > 0){
-            this.getBookTrade(this.nowPage);
-            this.getViewPage();
+      api
+        .get("/madang/bookTrade/bookTradeCnt", {
+          params: Object.fromEntries(reqBody),
+        })
+        .then((res) => {
+          if (res.common.res_code == 200) {
+            this.totalCnt = res.data.totalCnt;
+
+            if (this.totalCnt > 0) {
+              this.getBookTrade(this.nowPage);
+              this.getViewPage();
+            }
           }
-        }
-      })
+        });
     },
 
-    getBookTrade(){
+    getBookTrade() {
       let reqBody = new Map();
       reqBody.set("column", this.searchOption);
       reqBody.set("search", this.searchText);
 
-      api.get(`/madang/bookTrade/bookTradeList/${this.nowPage}`, {params: Object.fromEntries(reqBody)})
-      .then(res => {
-        if(res.common.res_code == 200){
-          this.tradeList = res.data.tradeList;
-        }else{
-          console.log("거래도서 게시글 가져오지 못함")
-        }
-      })
+      api
+        .get(`/madang/bookTrade/bookTradeList/${this.nowPage}`, {
+          params: Object.fromEntries(reqBody),
+        })
+        .then((res) => {
+          if (res.common.res_code == 200) {
+            this.tradeList = res.data.tradeList;
+          } else {
+            console.log("거래도서 게시글 가져오지 못함");
+          }
+        });
     },
 
     // 가격 18000 -> 18,000 으로 변경
@@ -212,7 +222,7 @@ export default {
         return changePrice;
       }
     },
-     // 판매 상태에 따른 색 변경
+    // 판매 상태에 따른 색 변경
     getStateClass(state) {
       return {
         text_blue: state === "판매중",
@@ -220,7 +230,7 @@ export default {
       };
     },
 
-     getViewPage() {
+    getViewPage() {
       let pages = [];
       let num = this.startPage;
       while (num <= this.endPage) {
@@ -258,13 +268,30 @@ export default {
       this.getBookTrade();
     },
 
-    goDetailView(trade){
+    goDetailView(trade) {
       sessionStorage.setItem("nowPage", this.nowPage);
-      this.$router.push({ name: 'BookTradeDetail', params: { "tradeNo": trade.trade_no, "nowPage": this.nowPage},
-      query: { path: `${this.$route.path}`, menuNo: `${this.$route.query.menuNo}` }});
-    }
+      this.$router.push({
+        name: "BookTradeDetail",
+        params: { tradeNo: trade.trade_no , SidebarNo : '3'},
+        query: {
+          path: `${this.$route.path}`,
+          menuNo: `${this.$route.query.menuNo}`,
+        },
+      });
+    },
+    goRegView() {
+      sessionStorage.setItem("nowPage", this.nowPage);
+      this.$router.push({
+        name: "BookTradeReg",
+        params:{SidebarNo: '3'},
+        query: {
+          path: `${this.$route.path}`,
+          menuNo: `${this.$route.query.menuNo}`,
+        },
+      });
+    },
   },
-  computed:{
+  computed: {
     totalPage() {
       if (this.totalCnt == 0) {
         return 1;
@@ -282,7 +309,7 @@ export default {
       let result = this.startPage + this.pagingCnt - 1;
       return result < this.totalPage ? result : this.totalPage;
     },
-  }
+  },
 };
 </script>
 

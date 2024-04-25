@@ -23,7 +23,8 @@
             <tr
               class="list_row"
               v-for="(trade, index) in tradeList"
-              :key="index" @click="goDetailView(trade)"
+              :key="index"
+              @click="goDetailView(trade)"
             >
               <td class="myTrade_num t_list">{{ index + 1 }}</td>
               <td class="myTrade_userName t_list">{{ trade.mem_name }}</td>
@@ -54,14 +55,30 @@
             </tr>
           </table>
           <div class="myTrade_create">
-            <button class="button button_charcoal text_white">등록</button>
+            <button
+              class="button button_charcoal text_white"
+              @click="goRegView()"
+            >
+              등록
+            </button>
           </div>
           <div class="page_line_box">
-            <div class="page_box_img" @click="prevPage()"><img src="../../assets/images/arrow-left.svg"></div>
-              <ul>
-                <li class="page_box_text li_inline" @click="changePage(page)" v-for="page in pageList" :key="page">{{ page }}</li>
-              </ul>
-            <div class="page_box_img" @click="nextPage()"><img src="../../assets/images/arrow-right.svg"></div>
+            <div class="page_box_img" @click="prevPage()">
+              <img src="../../assets/images/arrow-left.svg" />
+            </div>
+            <ul>
+              <li
+                class="page_box_text li_inline"
+                @click="changePage(page)"
+                v-for="page in pageList"
+                :key="page"
+              >
+                {{ page }}
+              </li>
+            </ul>
+            <div class="page_box_img" @click="nextPage()">
+              <img src="../../assets/images/arrow-right.svg" />
+            </div>
           </div>
         </div>
       </div>
@@ -91,7 +108,7 @@ export default {
     };
   },
   created() {
-     if (sessionStorage.getItem("nowPage") != null || undefined) {
+    if (sessionStorage.getItem("nowPage") != null || undefined) {
       this.nowPage = sessionStorage.getItem("nowPage");
     }
 
@@ -105,7 +122,7 @@ export default {
     );
   },
   methods: {
-     // 도서거래 총 게시글 수
+    // 도서거래 총 게시글 수
     getBookTradeCnt() {
       api.get(`/mypage/trade/bookTradeCnt/${this.user.mem_no}`).then((res) => {
         if (res.common.res_code == 200) {
@@ -121,7 +138,9 @@ export default {
     // 도서거래 리스트 조회
     getMyTradeList() {
       this.$api
-        .get(`/mypage/trade/getTradeList/${this.nowPage}`, {params : {mem_no : this.user.mem_no}})
+        .get(`/mypage/trade/getTradeList/${this.nowPage}`, {
+          params: { mem_no: this.user.mem_no },
+        })
         .then((res) => {
           const common = res.common;
           if (common.res_code == 200) {
@@ -136,7 +155,7 @@ export default {
         });
     },
 
-     getViewPage() {
+    getViewPage() {
       let pages = [];
       let num = this.startPage;
       while (num <= this.endPage) {
@@ -214,15 +233,32 @@ export default {
       };
     },
 
-    goDetailView(trade){
+    goDetailView(trade) {
       sessionStorage.setItem("nowPage", this.nowPage);
-      this.$router.push({ name: 'BookTradeDetail', params: { "tradeNo": trade.trade_no, "nowPage": this.nowPage},
-      query: { path: `${this.$route.path}`, menuNo: `${this.$route.query.menuNo}` }});
+      this.$router.push({
+        name: "BookTradeDetail",
+        params: { tradeNo: trade.trade_no, SidebarNo : 8},
+        query: {
+          path: `${this.$route.path}`,
+          menuNo: `${this.$route.query.menuNo}`,
+        },
+      });
     },
 
+    goRegView() {
+      sessionStorage.setItem("nowPage", this.nowPage);
+      this.$router.push({
+        name: "BookTradeReg",
+        params:{ SidebarNo : '8'},
+        query: {
+          path: `${this.$route.path}`,
+          menuNo: `${this.$route.query.menuNo}`,
+        },
+      });
+    },
   },
-  computed:{
-     totalPage() {
+  computed: {
+    totalPage() {
       if (this.totalCnt == 0) {
         return 1;
       }
@@ -239,7 +275,7 @@ export default {
       let result = this.startPage + this.pagingCnt - 1;
       return result < this.totalPage ? result : this.totalPage;
     },
-  }
+  },
 };
 </script>
 
