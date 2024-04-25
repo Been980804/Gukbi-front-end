@@ -70,6 +70,18 @@
   resize: none;
 }
 
+.modify_select{
+  width: 20%;
+  background-color: #f7f8fa;
+  border: 1px solid #d6dce1;
+  border-radius: 5px;
+  height: 2rem;
+  
+  option{
+    height: 1.5rem;
+  }
+}
+
 .tradeModi_btnBox{
   justify-content: right;
   display: flex;

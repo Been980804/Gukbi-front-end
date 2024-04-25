@@ -129,11 +129,13 @@ export default {
     },
 
     goPrevView() {
-      this.$router.push({
-        name: "BookTradeList",
-        params: { nowPage: this.nowPage },
-        query: { path: `${this.$route.query.path}`, menuNo: `${this.$route.query.menuNo}` }
-      });
+      // this.$router.push({
+      //   name: "BookTradeList",
+      //   params: { nowPage: this.nowPage },
+      //   query: { path: `${this.$route.query.path}`, menuNo: `${this.$route.query.menuNo}` }
+      // });
+
+      this.$router.go(-1);
     },
     goModiView() {
       this.$router.push({

@@ -40,9 +40,9 @@ import BookTradeDetail from "../views/madang/BookTradeDetailView.vue";
 import BookTradeList from "../views/madang/BookTradeListView.vue";
 import BookTradeModi from "../views/madang/BookTradeModiView.vue";
 import CreateBookTrade from "../views/madang/CreateBookTradeView.vue";
-import HopeBookList from "../views/madang/HopeBookListView.vue";
 import NotificationDetail from "../views/madang/NotificationDetailView.vue";
 import NotificationList from "../views/madang/NotificationListView.vue";
+import InquiryList from "../views/madang/InquiryListView.vue";
 
 const routes = [
 	{ path: "/", name: "Main", component: Main, },
@@ -85,9 +85,9 @@ const routes = [
 	{ path: "/BookTradeList", name:"BookTradeList", component: BookTradeList},
 	{ path: "/BookTradeModi", name: "BookTradeModi", component: BookTradeModi},
 	{ path: "/CreateBookTrade", name:"CreateBookTrade", component: CreateBookTrade},
-	{ path: "/HopeBookList", name:"HopeBookList", component: HopeBookList},
 	{ path: "/NotificationDetail", name:"NotificationDetail", component: NotificationDetail},
 	{ path: "/NotificationList", name:"NotificationList", component: NotificationList},
+	{ path: "/InquiryList", name: "InquiryList", component: InquiryList},
 ];
 
 const router = createRouter({

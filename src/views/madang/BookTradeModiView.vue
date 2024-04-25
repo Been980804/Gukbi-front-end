@@ -84,6 +84,16 @@
               </td>
             </tr>
             <tr class="modify_tr">
+              <th class="modify_th">판매상태</th>
+              <td class="modify_td">
+                <select v-model="selectedState" class="modify_select">
+                  <option value="판매중">판매중</option>
+                  <option value="판매완료">판매완료</option>
+                </select>
+              </td>
+            </tr>
+
+            <tr class="modify_tr">
               <th class="modify_th">전화번호</th>
               <td class="modify_td">{{ tradeInfo.mem_phone }}</td>
             </tr>
@@ -99,7 +109,12 @@
         </div>
 
         <div class="tradeModi_btnBox">
-          <button class="button button_charcoal text_white">확인</button>
+          <button
+            class="button button_charcoal text_white"
+            @click="submit_tradeModi"
+          >
+            확인
+          </button>
           <button
             class="button button_charcoal text_white"
             @click="cancel_tradeModi"
@@ -125,7 +140,8 @@ export default {
       tradeNo: this.$route.params.trade_no,
       tradeInfo: [],
       selectedValue: null,
-      conditionText: '',
+      conditionText: "",
+      selectedState: "",
     };
   },
   created() {
@@ -133,6 +149,7 @@ export default {
       if (res.common.res_code == 200) {
         this.tradeInfo = res.data.tradeInfo;
         this.conditionText = this.tradeInfo.trade_condition;
+        this.selectedState = this.tradeInfo.trade_state;
 
         this.selectedValue = this.mapConditionToValue(
           this.tradeInfo.trade_condition
@@ -180,6 +197,38 @@ export default {
       } else if (value == 5) {
         this.conditionText = "매우좋음";
       }
+    },
+
+    submit_tradeModi() {
+      const reqBody = {
+        trade_no: this.tradeInfo.trade_no,
+        trade_title: this.tradeInfo.trade_title,
+        trade_book_title: this.tradeInfo.trade_book_title,
+        trade_publisher: this.tradeInfo.trade_publisher,
+        trade_price: this.tradeInfo.trade_price,
+        trade_condition: this.conditionText,
+        trade_content: this.tradeInfo.trade_content,
+        trade_state: this.selectedState,
+      };
+
+      api.put("/madang/bookTrade/tradeModi", reqBody).then((res) => {
+        if (res.common.res_code == 200) {
+          alert("수정되었습니다.");
+          this.$router.push({
+            name: "BookTradeDetail",
+            params: { tradeNo: this.tradeNo },
+            query: {
+              path: `${this.$route.query.path}`,
+              menuNo: `${this.$route.query.menuNo}`,
+            },
+          });
+        } else {
+          console.log("수정 실패");
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      })
     },
 
     cancel_tradeModi() {

@@ -17,14 +17,13 @@
               <th class="myTrade_publisher t_header">출판사</th>
               <th class="myTrade_price t_header">가격</th>
               <th class="myTrade_state t_header">판매상태</th>
-              <th class="myTrade_update t_header">수정</th>
               <th class="myTrade_delete t_header">삭제</th>
             </tr>
 
             <tr
               class="list_row"
               v-for="(trade, index) in tradeList"
-              :key="index"
+              :key="index" @click="goDetailView(trade)"
             >
               <td class="myTrade_num t_list">{{ index + 1 }}</td>
               <td class="myTrade_userName t_list">{{ trade.mem_name }}</td>
@@ -43,9 +42,6 @@
                 :class="getStateClass(trade.trade_state)"
               >
                 {{ trade.trade_state }}
-              </td>
-              <td class="myTrade_update">
-                <button class="button button_charcoal text_white">수정</button>
               </td>
               <td class="myTrade_delete">
                 <button
@@ -217,6 +213,13 @@ export default {
         text_green: state === "판매완료",
       };
     },
+
+    goDetailView(trade){
+      sessionStorage.setItem("nowPage", this.nowPage);
+      this.$router.push({ name: 'BookTradeDetail', params: { "tradeNo": trade.trade_no, "nowPage": this.nowPage},
+      query: { path: `${this.$route.path}`, menuNo: `${this.$route.query.menuNo}` }});
+    },
+
   },
   computed:{
      totalPage() {
