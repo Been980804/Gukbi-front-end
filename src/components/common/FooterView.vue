@@ -62,8 +62,31 @@
 </template>
 
 <script>
+import api from "@/api/axios";
 export default {
+	data() {
+		return {
+			notiList: {}
+		}
+	},
 
+	created() {
+		this.getNotiInfo();
+	},
+
+	methods: {
+		getNotiInfo() { // 최신 5개의 공지사항 가져오기
+			api.get(`/main/notiList`)
+        .then(res => {
+          if (res.common.res_code == 200) { // 응답성공
+            this.notiList = res.data.notiList;
+						console.log(this.notiList);
+          } else { // 응답실패
+            console.log("BookListView book/bookList 응답실패");
+          }
+        })
+		}
+	}
 }
 </script>
 
