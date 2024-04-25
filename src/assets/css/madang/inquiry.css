@@ -1,44 +1,53 @@
-.inquiry_page{
-    padding: 20px;
-    background-color: white;
-    border-radius: 10px;
+.inquiry_page {
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
 }
 
-.inquiry_page_title{
-    margin-left: 20px;
-    color: black;
+.inquiry_header {
+  display: flex;
 }
 
-.faqList, .qnaList {
-    margin-top: 20px;
+.inquiry_page_title {
+  margin-left: 20px;
+  color: black;
 }
 
-.faqList_title, .qnaList_title {
-    margin-left: 20px;
-    color: black;
+.faqList,
+.qnaList {
+  margin-top: 20px;
 }
 
-.faq_table, .qna_table{
-    border-top: 1px solid black;
-    margin-top: 20px;
-    width: 100%;
+.faqList_title,
+.qnaList_title {
+  margin-left: 20px;
+  color: black;
 }
-.faq_table_header, .qna_table_header{
-    height: 3rem;
-    border-bottom: 1px solid black;
+
+.faq_table,
+.qna_table {
+  border-top: 1px solid black;
+  margin-top: 20px;
+  width: 100%;
 }
-.faq_num, .qna_num{
-    width: 10%;
+.faq_table_header,
+.qna_table_header {
+  height: 3rem;
+  border-bottom: 1px solid black;
+}
+.faq_num,
+.qna_num {
+  width: 10%;
 }
 
 .faq_title {
-    width: 90%;
+  width: 90%;
 }
 
 .qna_userName {
-    width: 15%;
+  width: 15%;
 }
 
-.qna_title{
-    width: 75%;
+.qna_title {
+  width: 75%;
 }

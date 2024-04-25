@@ -7,7 +7,7 @@
           <b>문의사항</b>
         </div>
 
-        <div class="bookPly_search fix_left">
+        <div class="inquiry_header">
           <div class="search_box">
             <input
               type="text"
@@ -33,6 +33,12 @@
                 {{ option }}
               </div>
             </div>
+          </div>
+
+          <div class="create_inquiry">
+            <button class="button button_charcoal text_white inquiryCreate_btn" style="margin-left:680px">
+              문의하기
+            </button>
           </div>
         </div>
 
