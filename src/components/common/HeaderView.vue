@@ -22,7 +22,7 @@
         <button class="imgbtn">
           <img src="@/assets/images/cart_icon.svg" alt="cart_icon">
         </button>
-        <button class="imgbtn">
+        <button class="imgbtn" @mouseleave="hideMyMenu()">
           <img src="@/assets/images/user_icon.svg" alt="user_icon" @click="showMyMenu()">
           <ul ref="userIcon">
             <template v-for="menu in userMenus" :key="menu">
@@ -103,6 +103,11 @@ export default {
           this.userMenus.push("로그아웃");
         }
       }
+    },
+
+    hideMyMenu() {
+      this.$refs.userIcon.style.display = 'none';
+      this.userMenus = this.userMenus.filter(item => item != "로그아웃");
     },
 
     goMyMenu(menuName) {
