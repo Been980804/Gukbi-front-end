@@ -112,6 +112,7 @@ hr {
     padding: 0px 10px;
     width: 130px;
     line-height: 30px;
+    font-size: medium;
 }
 .navbar_menu_item li ul li a:hover {
     background-color: #CEC6EA;
