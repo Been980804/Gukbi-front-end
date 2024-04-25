@@ -34,12 +34,6 @@
               </div>
             </div>
           </div>
-
-          <div class="create_inquiry">
-            <button class="button button_charcoal text_white inquiryCreate_btn" style="margin-left:680px">
-              문의하기
-            </button>
-          </div>
         </div>
 
         <div class="faqList">
@@ -118,6 +112,12 @@
               </td>
             </tr>
           </table>
+        </div>
+
+        <div class="create_inquiry">
+          <button class="button button_charcoal text_white inquiryCreate_btn" style="margin-left:auto">
+            문의하기
+          </button>
         </div>
 
         <div class="page_line_box">
@@ -202,7 +202,7 @@ export default {
         }
       });
     },
-     // 어떤 게시물이 열려있는지 확인(qna)
+    // 어떤 게시물이 열려있는지 확인(qna)
     accordion_qna(index) {
       this.qnaList.forEach((qna, i) => {
         if (i === index) {
@@ -224,15 +224,14 @@ export default {
       this.getQnaCnt();
     },
 
-    getFaq(){
-      api.get('/madang/inquiry/getFaq')
-      .then(res => {
-        if(res.common.res_code == 200){
+    getFaq() {
+      api.get("/madang/inquiry/getFaq").then((res) => {
+        if (res.common.res_code == 200) {
           this.faqList = res.data.faqList;
-        }else{
-          console.log('자주하는 질문 불러오기 실패');
+        } else {
+          console.log("자주하는 질문 불러오기 실패");
         }
-      })
+      });
     },
     getQnaCnt() {
       let cnt = 0;
@@ -266,14 +265,17 @@ export default {
       reqBody.set("column", this.searchOption);
       reqBody.set("search", this.searchText);
 
-      api.get(`/madang/inquiry/getQna/${this.nowPage}`, {params : Object.fromEntries(reqBody)})
-      .then(res => {
-        if(res.common.res_code == 200){
-          this.qnaList = res.data.qnaList;
-        }else{
-          console.log("문의내역 불러오기 실패");
-        }
-      })
+      api
+        .get(`/madang/inquiry/getQna/${this.nowPage}`, {
+          params: Object.fromEntries(reqBody),
+        })
+        .then((res) => {
+          if (res.common.res_code == 200) {
+            this.qnaList = res.data.qnaList;
+          } else {
+            console.log("문의내역 불러오기 실패");
+          }
+        });
     },
     getViewPage() {
       let pages = [];

@@ -138,10 +138,13 @@ export default {
     return {
       user: useUserStore().getUser,
       tradeNo: this.$route.params.trade_no,
+      SidebarNo : this.$route.params.SidebarNo,
+
       tradeInfo: [],
       selectedValue: null,
       conditionText: "",
       selectedState: "",
+
     };
   },
   created() {
@@ -161,7 +164,7 @@ export default {
   },
   mounted() {
     this.$refs.Sidebar.setCurrentMenu(
-      3,
+      this.SidebarNo,
       this.$route.path,
       this.$route.query.menuNo
     );
@@ -200,14 +203,38 @@ export default {
     },
 
     submit_tradeModi() {
+       const reg = /^[0-9]+$/;
+      let title = this.tradeInfo.trade_title;
+      let book_title = this.tradeInfo.trade_book_title;
+      let publisher = this.tradeInfo.trade_publisher;
+      let price = this.tradeInfo.trade_price;
+      let content = this.tradeInfo.trade_content;
+
+      if (!title) {
+        alert("제목을 입력하세요.");
+        return;
+      } else if (!book_title) {
+        alert("도서명을 입력하세요.");
+        return;
+      } else if (!publisher) {
+        alert("출판사를 입력하세요.");
+        return;
+      } else if (!price) {
+        alert("가격을 입력하세요.");
+        return;
+      } else if (!reg.test(price)) {
+        alert("가격은 숫자만 입력해 주세요.");
+        return;
+      }
+
       const reqBody = {
         trade_no: this.tradeInfo.trade_no,
-        trade_title: this.tradeInfo.trade_title,
-        trade_book_title: this.tradeInfo.trade_book_title,
-        trade_publisher: this.tradeInfo.trade_publisher,
-        trade_price: this.tradeInfo.trade_price,
+        trade_title: title,
+        trade_book_title: book_title,
+        trade_publisher: publisher,
+        trade_price: price,
         trade_condition: this.conditionText,
-        trade_content: this.tradeInfo.trade_content,
+        trade_content: content,
         trade_state: this.selectedState,
       };
 
@@ -232,14 +259,7 @@ export default {
     },
 
     cancel_tradeModi() {
-      this.$router.push({
-        name: "BookTradeDetail",
-        params: { tradeNo: this.tradeNo },
-        query: {
-          path: `${this.$route.query.path}`,
-          menuNo: `${this.$route.query.menuNo}`,
-        },
-      });
+     this.$router.go(-1);
     },
   },
 };

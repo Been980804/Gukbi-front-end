@@ -1,31 +1,30 @@
-.tradeModify_page {
+.tradeReg_page {
   padding: 20px;
   background-color: white;
   border-radius: 10px;
 }
 
-.tradeModify_page_title {
+.tradeReg_page_title {
   margin-left: 20px;
   color: black;
 }
 
-.tradeModify {
+.tradeReg {
   margin-top: 20px;
   border-top: 2px solid black;
 }
-
-.modify_table {
+.tradeReg_table {
   width: 100%;
   margin-top: 20px;
   text-align: left;
 }
-.modify_tr {
+.tradeReg_tr {
   font-size: 17px;
   color: black;
   height: 4rem;
   border-bottom: 1px solid rgb(219, 221, 227);
 }
-.modify_tr_content {
+.tradeReg_tr_content {
   font-size: 17px;
   color: black;
   height: 10rem;
@@ -33,16 +32,15 @@
   top: 0;
   margin-top: 10px;
 }
-.modify_th {
+.tradeReg_th {
   width: 10%;
   text-align: center;
 }
-.modify_td {
+.tradeReg_td {
   padding-left: 50px;
   width: 90%;
 }
-
-.modify_text_input {
+.tradeReg_text_input {
   border: 1px solid #d7dde1;
   background: #f7f8fa;
   border-radius: 5px;
@@ -50,35 +48,27 @@
   height: 2.5rem;
 }
 
-.modify_range_input {
+.tradeReg_range_input {
   width: 65%;
   outline: none;
 }
-
-.bookState {
-  margin-left: 5px;
-  font-size: 15px;
-}
-
-.modify_content_input {
+.tradeReg_content_input {
   width: 65%;
-  height: 8.5rem;  
+  height: 8.5rem;
   background-color: #f7f8fa;
   border: 1px solid #d6dce1;
   border-radius: 5px;
   outline: none;
   resize: none;
 }
-
-.modify_select{
-  width: 20%;
-  background-color: #f7f8fa;
-  border: 1px solid #d6dce1;
-  border-radius: 5px;
-  height: 2rem;
+.tradeReg_select{
+    width: 20%;
+    background-color: #f7f8fa;
+    border: 1px solid #d6dce1;
+    border-radius: 5px;
+    height: 2rem;
 }
-
-.tradeModi_btnBox{
+.tradeReg_btnBox {
   justify-content: right;
   display: flex;
   margin: 20px 20px 0 0;

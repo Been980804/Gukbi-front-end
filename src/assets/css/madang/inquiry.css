@@ -6,6 +6,7 @@
 
 .inquiry_header {
   display: flex;
+  margin-top: 10px;
 }
 
 .inquiry_page_title {
@@ -26,14 +27,14 @@
 
 .faq_table,
 .qna_table {
-  border-top: 1px solid black;
+  border-bottom: 2px solid #e6edff;
   margin-top: 20px;
   width: 100%;
 }
 .faq_table_header,
 .qna_table_header {
   height: 3rem;
-  border-bottom: 1px solid black;
+  border-bottom: 2px solid #e6edff;
 }
 .faq_num,
 .qna_num {
@@ -50,4 +51,16 @@
 
 .qna_title {
   width: 75%;
+}
+
+.create_inquiry{
+  margin-top: 10px;
+  display: flex;
+}
+
+.inquiryCreate_btn{
+  width: 5rem !important;
+  height: 2rem !important;
+  margin-left: auto;
+  margin-right: 32px;
 }

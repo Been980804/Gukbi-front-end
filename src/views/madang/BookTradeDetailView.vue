@@ -85,12 +85,30 @@ export default {
   data() {
     return {
       user: useUserStore().getUser,
+      SidebarNo : this.$route.params.SidebarNo,
+
       tradeNo: this.$route.params.tradeNo,
       tradeInfo: {},
-      nowPage : this.$route.params.nowPage, // 목록으로 돌아갈때를 위한 페이지 저장
+      nowPage: this.$route.params.nowPage, // 목록으로 돌아갈때를 위한 페이지 저장
     };
   },
   created() {
+    if (sessionStorage.getItem("tradeNo") != null || undefined) {
+      this.tradeNo = sessionStorage.getItem("tradeNo");
+    }
+
+    if (this.$route.params.tradeNo != null || undefined) {
+      this.tradeNo = this.$route.params.tradeNo;
+    }
+
+   if (sessionStorage.getItem("SidebarNo") != null || undefined) {
+      this.SidebarNo = sessionStorage.getItem("SidebarNo");
+    }
+
+    if (this.$route.params.SidebarNo != null || undefined) {
+      this.SidebarNo = this.$route.params.SidebarNo;
+    }
+
     api.get(`/madang/bookTrade/tradeDetail/${this.tradeNo}`).then((res) => {
       if (res.common.res_code == 200) {
         this.tradeInfo = res.data.tradeInfo;
@@ -101,7 +119,7 @@ export default {
   },
   mounted() {
     this.$refs.Sidebar.setCurrentMenu(
-      3,
+      this.SidebarNo,
       this.$route.path,
       this.$route.query.menuNo
     );
@@ -129,19 +147,19 @@ export default {
     },
 
     goPrevView() {
-      // this.$router.push({
-      //   name: "BookTradeList",
-      //   params: { nowPage: this.nowPage },
-      //   query: { path: `${this.$route.query.path}`, menuNo: `${this.$route.query.menuNo}` }
-      // });
-
       this.$router.go(-1);
     },
+    
     goModiView() {
+      sessionStorage.setItem("tradeNo", this.tradeNo);
+      sessionStorage.setItem("SidebarNo", this.SidebarNo);
       this.$router.push({
         name: "BookTradeModi",
-        params: { trade_no: this.tradeNo },
-        query: { path: `${this.$route.query.path}`, menuNo: `${this.$route.query.menuNo}` }
+        params: { trade_no: this.tradeNo, SidebarNo : this.SidebarNo},
+        query: {
+          path: `${this.$route.query.path}`,
+          menuNo: `${this.$route.query.menuNo}`,
+        },
       });
     },
 

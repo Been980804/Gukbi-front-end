@@ -39,6 +39,7 @@ import BookPly from "../views/madang/BookPlyView.vue";
 import BookTradeDetail from "../views/madang/BookTradeDetailView.vue";
 import BookTradeList from "../views/madang/BookTradeListView.vue";
 import BookTradeModi from "../views/madang/BookTradeModiView.vue";
+import BookTradeReg from "../views/madang/BookTradeRegView.vue";
 import CreateBookTrade from "../views/madang/CreateBookTradeView.vue";
 import NotificationDetail from "../views/madang/NotificationDetailView.vue";
 import NotificationList from "../views/madang/NotificationListView.vue";
@@ -84,6 +85,7 @@ const routes = [
 	{ path: "/BookTradeDetail", name:"BookTradeDetail", component: BookTradeDetail},
 	{ path: "/BookTradeList", name:"BookTradeList", component: BookTradeList},
 	{ path: "/BookTradeModi", name: "BookTradeModi", component: BookTradeModi},
+	{ path: "/BookTradeReg", name: "BookTradeReg", component: BookTradeReg},
 	{ path: "/CreateBookTrade", name:"CreateBookTrade", component: CreateBookTrade},
 	{ path: "/NotificationDetail", name:"NotificationDetail", component: NotificationDetail},
 	{ path: "/NotificationList", name:"NotificationList", component: NotificationList},
