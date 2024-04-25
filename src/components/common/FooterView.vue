@@ -9,13 +9,13 @@
 					<div class="title_text"><p>공지사항</p></div>
 					<div class="title_plus_icon">
 						<button class="imgbtn" type="button">
-							<img src="../../assets/images/plus.svg" alt="">
+							<img src="../../assets/images/plus.svg">
 						</button>
 					</div>
 				</div>
 				<div class="notice_contents">
 					<ul>
-						<li v-for="noti in notiList" :key="noti">
+						<li v-for="noti in notiList" :key="noti" @click="goNoti(noti.noti_no)">
 							<a href="#">
 								<div class="noti">{{ noti.noti_title }}</div>
 								<div class="date">{{ noti.mod_date }}</div>
@@ -59,6 +59,10 @@ export default {
             console.log("BookListView book/bookList 응답실패");
           }
         })
+		},
+
+		goNoti(notiNo) { // 공지사항 상세 화면으로 이동
+			this.$router.push({ name: 'NotificationList', params: { "notiNo": notiNo}} );
 		}
 	}
 }
