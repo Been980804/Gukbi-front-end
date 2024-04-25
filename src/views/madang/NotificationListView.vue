@@ -15,7 +15,7 @@ export default {
   components: { Sidebar },
   mounted() {
     this.$refs.Sidebar.setCurrentMenu(
-      3,
+      4,
       this.$route.path,
       this.$route.query.menuNo
     );

@@ -75,6 +75,7 @@
   max-height: 0px;
   overflow: hidden;
   transition: max-height 0.3s linear;
+  margin: 10px 0 10px 0;
 }
 
 .que.opened {

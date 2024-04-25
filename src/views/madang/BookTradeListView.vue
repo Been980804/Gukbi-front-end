@@ -135,7 +135,7 @@ export default {
   },
   created(){
      if (sessionStorage.getItem("nowPage") != null || undefined) {
-      this.currentPage = sessionStorage.getItem("nowPage");
+      this.nowPage = sessionStorage.getItem("nowPage");
     }
 
     this.getBookTradeCnt();
