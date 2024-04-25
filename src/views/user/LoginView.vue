@@ -69,10 +69,8 @@ export default {
       .then(res => {
         const common = res.common; //common : 응답코드, 응답메시지
         if(common.res_code == 200) {
-          const data = res.data; //data : 응답데이터
-          const userStore = useUserStore();
-          userStore.setUser(data.userInfo);
-          this.$router.push({ name: 'Main' })
+          useUserStore().setUser(res.data.userInfo);
+          this.$router.push({ name: 'Main' });
         } else {
           this.loginData.id = '';
           this.loginData.pwd = '';

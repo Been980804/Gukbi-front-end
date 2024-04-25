@@ -26,7 +26,7 @@
           <img src="@/assets/images/user_icon.svg" alt="user_icon" @click="showMyMenu()">
           <ul ref="userIcon">
             <template v-for="menu in userMenus" :key="menu">
-              <li><a href="#">{{ menu }}</a></li>
+              <li @click="goMyMenu(menu)"><a href="#">{{ menu }}</a></li>
             </template>
           </ul>
         </button>
@@ -52,11 +52,11 @@ export default {
     return{
       user: useUserStore().getUser,
 
-      navMenus: ["도서대여/예약", "도서신청", "도서마당", "고객센터", "마이페이지", "사서페이지"],
-      menuLevels: [1, 2, 3, 4, 8, 9],
+      navMenus: ["도서대여/예약", "도서신청", "도서마당", "고객센터", "사서페이지"],
+      menuLevels: [1, 2, 3, 4, 9],
 
       largeMenus: {},
-      userMenus: ["내 정보", "로그아웃"]
+      userMenus: []
     }
   },
 
@@ -67,6 +67,16 @@ export default {
       .then(res => {
         if (res.common.res_code == 200) { // 응답성공
           this.largeMenus = res.data.menuList;
+          console.log(this.largeMenus);
+          for(const myMenu of this.largeMenus) {
+            if(myMenu.menu_level == 8) {
+              this.userMenus.push(myMenu.menu_name);
+            }
+          }
+          // 로그인 상태인지 확인해서 분류
+          if(this.user.mem_id != null || undefined || '') {
+            this.userMenus.push("로그아웃");
+          }
         } else {
           console.log("HeaderView sidebar/largeMenu 응답실패");
         }
@@ -79,17 +89,31 @@ export default {
     showSubMenu(num) { this.$refs[num][0].children[1].style.display = 'block'; },
     hideSubMenu(num) { this.$refs[num][0].children[1].style.display = 'none'; },
     showMyMenu() { // 사용자 아이콘 클릭 이벤트
+      this.user = useUserStore().getUser;
       if(this.user.mem_id == null || undefined || '') {
         // 로그인 정보가 없을 경우
         this.$router.push({ path: '/Login' });      
       } else {
         // 서브메뉴 보이기
-        // this.logout();
         if(this.$refs.userIcon.style.display == 'block') {
           this.$refs.userIcon.style.display = 'none';
+          this.userMenus = this.userMenus.filter(item => item != "로그아웃");
         } else {
           this.$refs.userIcon.style.display = 'block';
-        } 
+          this.userMenus.push("로그아웃");
+        }
+      }
+    },
+
+    goMyMenu(menuName) {
+      if(menuName == "로그아웃") {
+        this.logout();
+      } else {
+        for(const menu of this.largeMenus) {
+          if(menuName == menu.menu_name) {
+            this.$router.push({path: `${menu.menu_link}`, query: {menuNo: `${menu.menu_no}`, menuName: `${menu.menu_mame}`}});
+          }
+        }
       }
     },
 
