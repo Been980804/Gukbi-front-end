@@ -9,6 +9,7 @@
 }
 .noti_search {
   display: flex;
+  margin-top: 20px;
 }
 .notiList {
   margin-top: 20px;
