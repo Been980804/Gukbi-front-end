@@ -1,24 +1,21 @@
 <template>
   <div class="container">
     <div class="main_container">
-      <div class="aa m_content_box">
-        <div class="aa m_sug_box">
-          <div class="aa">
-
+      <div class="m_content_box">
+        <div class="m_sug_box">
+          <div>
+            <span style="font-size: 72px; font-weight: bold;">이 책 어때요?</span><br><br>
+            <span style="font-size: 20px;">이번 주간에 가장 인기가 많았던 책이에요.</span><br>
+            <span style="font-size: 20px;">도서 대여를 놓치지 마세요!</span>
           </div>
-
-          <div class="margin_right20"></div>
-
-          <div class="aa m_sug_img_box">
-            <img class="m_img_book" :src="replaceImg(sugBookInfo.book_url)"/>
-          </div>
+          <img class="m_sug_img_box" :src="replaceImg(sugBookInfo.book_url)"/>
         </div>
       </div>
 
       <div class="inline_blank24"></div>
 
-      <div class="aa m_content_box" style="flex-direction: column;">
-        <div class="aa m_content_title">현재 급상승 중인 도서!</div>
+      <div class="aa m_content_box" style="flex-direction: column; background-color: white;">
+        <div class="m_content_title" style="font-size: 24px; font-weight: bold;">현재 급상승 중인 도서!</div>
         <div class="aa m_card_box">
           
         </div>
