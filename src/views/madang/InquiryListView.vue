@@ -115,7 +115,8 @@
         </div>
 
         <div class="create_inquiry">
-          <button class="button button_charcoal text_white inquiryCreate_btn" style="margin-left:auto">
+          <button class="button button_charcoal text_white inquiryCreate_btn" style="margin-left:auto"
+          @click="goRegView()">
             문의하기
           </button>
         </div>
@@ -309,6 +310,18 @@ export default {
       this.nowPage = page;
       this.getQna();
     },
+
+    goRegView(){
+      sessionStorage.setItem("nowPage", this.nowPage);
+      this.$router.push({
+        name: "InquiryReg",
+        params:{SidebarNo: 4},
+        query: {
+          path: `${this.$route.path}`,
+          menuNo: `${this.$route.query.menuNo}`,
+        },
+      });
+    }
   },
   computed: {
     totalPage() {

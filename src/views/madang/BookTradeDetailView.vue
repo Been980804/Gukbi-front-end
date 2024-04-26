@@ -85,7 +85,7 @@ export default {
   data() {
     return {
       user: useUserStore().getUser,
-      SidebarNo : this.$route.params.SidebarNo,
+      SidebarNo: this.$route.params.SidebarNo,
 
       tradeNo: this.$route.params.tradeNo,
       tradeInfo: {},
@@ -101,7 +101,7 @@ export default {
       this.tradeNo = this.$route.params.tradeNo;
     }
 
-   if (sessionStorage.getItem("SidebarNo") != null || undefined) {
+    if (sessionStorage.getItem("SidebarNo") != null || undefined) {
       this.SidebarNo = sessionStorage.getItem("SidebarNo");
     }
 
@@ -149,13 +149,13 @@ export default {
     goPrevView() {
       this.$router.go(-1);
     },
-    
+
     goModiView() {
       sessionStorage.setItem("tradeNo", this.tradeNo);
       sessionStorage.setItem("SidebarNo", this.SidebarNo);
       this.$router.push({
         name: "BookTradeModi",
-        params: { trade_no: this.tradeNo, SidebarNo : this.SidebarNo},
+        params: { trade_no: this.tradeNo, SidebarNo: this.SidebarNo },
         query: {
           path: `${this.$route.query.path}`,
           menuNo: `${this.$route.query.menuNo}`,

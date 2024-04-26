@@ -21,6 +21,7 @@
                   type="text"
                   maxlength="50"
                   id="tradeReg_title"
+                  autocomplete="off"
                 />
               </td>
             </tr>
@@ -32,6 +33,7 @@
                   type="text"
                   maxlength="50"
                   id="tradeReg_book_title"
+                  autocomplete="off"
                 />
               </td>
             </tr>
@@ -43,6 +45,7 @@
                   type="text"
                   maxlength="15"
                   id="tradeReg_publisher"
+                  autocomplete="off"
                 />
               </td>
             </tr>
@@ -54,6 +57,7 @@
                   type="text"
                   maxlength="5"
                   id="tradeReg_price"
+                  autocomplete="off"
                 />
               </td>
             </tr>
@@ -80,6 +84,7 @@
                   cols="30"
                   rows="10"
                   id="tradeReg_content"
+                  autocomplete="off"
                 />
               </td>
             </tr>
@@ -140,7 +145,6 @@ export default {
     };
   },
   mounted() {
-    console.log(this.sidebarNo);
     this.$refs.Sidebar.setCurrentMenu(
       this.SidebarNo,
       this.$route.path,

@@ -249,7 +249,7 @@ export default {
       sessionStorage.setItem("nowPage", this.nowPage);
       this.$router.push({
         name: "BookTradeReg",
-        params:{ SidebarNo : '8'},
+        params:{ SidebarNo : 8},
         query: {
           path: `${this.$route.path}`,
           menuNo: `${this.$route.query.menuNo}`,

@@ -272,7 +272,7 @@ export default {
       sessionStorage.setItem("nowPage", this.nowPage);
       this.$router.push({
         name: "BookTradeDetail",
-        params: { tradeNo: trade.trade_no , SidebarNo : '3'},
+        params: { tradeNo: trade.trade_no , SidebarNo : 3},
         query: {
           path: `${this.$route.path}`,
           menuNo: `${this.$route.query.menuNo}`,
@@ -283,7 +283,7 @@ export default {
       sessionStorage.setItem("nowPage", this.nowPage);
       this.$router.push({
         name: "BookTradeReg",
-        params:{SidebarNo: '3'},
+        params:{SidebarNo: 3},
         query: {
           path: `${this.$route.path}`,
           menuNo: `${this.$route.query.menuNo}`,

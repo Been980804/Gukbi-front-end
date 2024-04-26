@@ -21,6 +21,7 @@
                   type="text"
                   maxlength="50"
                   v-model="tradeInfo.trade_title"
+                  autocomplete="off"
                 />
               </td>
             </tr>
@@ -32,6 +33,7 @@
                   type="text"
                   maxlength="50"
                   v-model="tradeInfo.trade_book_title"
+                  autocomplete="off"
                 />
               </td>
             </tr>
@@ -43,6 +45,7 @@
                   type="text"
                   maxlength="15"
                   v-model="tradeInfo.trade_publisher"
+                  autocomplete="off"
                 />
               </td>
             </tr>
@@ -54,6 +57,7 @@
                   type="text"
                   maxlength="5"
                   v-model="tradeInfo.trade_price"
+                  autocomplete="off"
                 />
               </td>
             </tr>
@@ -80,6 +84,7 @@
                   cols="30"
                   rows="10"
                   v-model="tradeInfo.trade_content"
+                  autocomplete="off"
                 />
               </td>
             </tr>

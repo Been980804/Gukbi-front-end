@@ -29,7 +29,7 @@ export default {
       currentPath: null, // 현재 보여지고 있는 대메뉴 링크
       currentSubPath: null, // 현재 보여지고 있는 소메뉴 링크
       
-      levelList: [{"3":"도서마당 페이지"}, {"9":"관리자 페이지"}, {"8":"마이 페이지"}],
+      levelList: [{"3":"도서마당 페이지"}, {"4":"고객센터 페이지"}, {"9":"관리자 페이지"}, {"8":"마이 페이지"}],
       pageName: null
     }
   },
