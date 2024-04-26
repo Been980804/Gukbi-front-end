@@ -8,22 +8,22 @@
         </div>
 
         <div class="tradeInfo">
-          <table class="info_table">
-            <tr class="info_tr">
-              <th class="info_th">판매자</th>
-              <td class="info_td">{{ tradeInfo.mem_name }}</td>
+          <table class="tradeInfo_table">
+            <tr class="tradeInfo_tr">
+              <th class="tradeInfo_th">판매자</th>
+              <td class="tradeInfo_td">{{ tradeInfo.mem_name }}</td>
             </tr>
-            <tr class="info_tr">
-              <th class="info_th">도서명</th>
-              <td class="info_td">{{ tradeInfo.trade_book_title }}</td>
+            <tr class="tradeInfo_tr">
+              <th class="tradeInfo_th">도서명</th>
+              <td class="tradeInfo_td">{{ tradeInfo.trade_book_title }}</td>
             </tr>
-            <tr class="info_tr">
-              <th class="info_th">출판사</th>
-              <td class="info_td">{{ tradeInfo.trade_publisher }}</td>
+            <tr class="tradeInfo_tr">
+              <th class="tradeInfo_th">출판사</th>
+              <td class="tradeInfo_td">{{ tradeInfo.trade_publisher }}</td>
             </tr>
-            <tr class="info_tr">
-              <th class="info_th">가격</th>
-              <td class="info_td">
+            <tr class="tradeInfo_tr">
+              <th class="tradeInfo_th">가격</th>
+              <td class="tradeInfo_td">
                 {{
                   formatPrice(
                     tradeInfo.trade_price != null ? tradeInfo.trade_price : null
@@ -31,29 +31,29 @@
                 }}
               </td>
             </tr>
-            <tr class="info_tr">
-              <th class="info_th">도서 상태</th>
-              <td class="info_td">{{ tradeInfo.trade_condition }}</td>
+            <tr class="tradeInfo_tr">
+              <th class="tradeInfo_th">도서 상태</th>
+              <td class="tradeInfo_td">{{ tradeInfo.trade_condition }}</td>
             </tr>
-            <tr class="info_tr_content">
-              <th class="info_th">도서 설명</th>
-              <td class="info_td">{{ tradeInfo.trade_content }}</td>
+            <tr class="tradeInfo_tr_content">
+              <th class="tradeInfo_th">도서 설명</th>
+              <td class="tradeInfo_td">{{ tradeInfo.trade_content }}</td>
             </tr>
-            <tr class="info_tr">
-              <th class="info_th">판매 상태</th>
-              <td class="info_td">{{ tradeInfo.trade_state }}</td>
+            <tr class="tradeInfo_tr">
+              <th class="tradeInfo_th">판매 상태</th>
+              <td class="tradeInfo_td">{{ tradeInfo.trade_state }}</td>
             </tr>
-            <tr class="info_tr">
-              <th class="info_th">전화번호</th>
-              <td class="info_td">{{ tradeInfo.mem_phone }}</td>
+            <tr class="tradeInfo_tr">
+              <th class="tradeInfo_th">전화번호</th>
+              <td class="tradeInfo_td">{{ tradeInfo.mem_phone }}</td>
             </tr>
-            <tr class="info_tr">
-              <th class="info_th">이메일</th>
-              <td class="info_td">{{ tradeInfo.mem_email }}</td>
+            <tr class="tradeInfo_tr">
+              <th class="tradeInfo_th">이메일</th>
+              <td class="tradeInfo_td">{{ tradeInfo.mem_email }}</td>
             </tr>
-            <tr class="info_tr">
-              <th class="info_th">등록일</th>
-              <td class="info_td">{{ tradeInfo.reg_date }}</td>
+            <tr class="tradeInfo_tr">
+              <th class="tradeInfo_th">등록일</th>
+              <td class="tradeInfo_td">{{ tradeInfo.reg_date }}</td>
             </tr>
           </table>
         </div>

@@ -1,49 +1,44 @@
-.bookTradeDetail_page {
+.notiDetail_page {
   padding: 20px;
   background-color: white;
   border-radius: 10px;
 }
-
-.bookTradeDetail_page_title {
+.notiDetail_page_title {
   margin-left: 20px;
   color: black;
 }
-
-.tradeInfo {
+.notiInfo {
   margin-top: 20px;
   border-top: 2px solid black;
 }
-
-.tradeInfo_table {
+.notiInfo_table {
   width: 100%;
   margin-top: 20px;
   text-align: left;
 }
-.tradeInfo_tr {
+.notiInfo_tr {
   font-size: 17px;
   color: black;
   height: 3rem;
   border-bottom: 1px solid rgb(219, 221, 227);
 }
-.tradeInfo_tr_content {
-  font-size: 17px;
-  color: black;
-  height: 8rem;
-  border-bottom: 1px solid rgb(219, 221, 227);
-  top: 0;
-  margin-top: 10px;
-}
-.tradeInfo_th {
+.notiInfo_th {
   width: 20%;
 }
-.tradeInfo_td {
+.notiInfo_td {
   width: 80%;
 }
-
-.bookTradeDetail_btnBox {
+.notiInfo_subTitle{
+    margin: 10px 0 10px 0;
+    font-size: 20px;
+}
+.notiInfo_content{
+    margin-bottom: 10px;
+}
+.notiDetail_btnBox {
+  margin: 20px 20px 0 0;
   justify-content: right;
   display: flex;
-  margin: 20px 20px 0 0;
   button {
     width: 5rem !important;
     height: 2rem !important;

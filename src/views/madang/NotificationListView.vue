@@ -46,12 +46,17 @@
               <th class="noti_regDate t_header">등록일</th>
             </tr>
 
-            <tr class="list_row" v-for="(noti, index) in notiList" :key="index">
-              <td class="noti_num t_list">{{index + 1}}</td>
-              <td class="noti_userName t_list">{{noti.mem_name}}</td>
-              <td class="noti_title t_list">{{noti.noti_title}}</td>
-              <td class="noti_views t_list">{{noti.noti_cnt}}</td>
-              <td class="noti_regDate t_list">{{noti.reg_date}}</td>
+            <tr
+              class="list_row"
+              v-for="(noti, index) in notiList"
+              :key="index"
+              @click="goDetailView(noti)"
+            >
+              <td class="noti_num t_list">{{ index + 1 }}</td>
+              <td class="noti_userName t_list">{{ noti.mem_name }}</td>
+              <td class="noti_title t_list">{{ noti.noti_title }}</td>
+              <td class="noti_views t_list">{{ noti.noti_cnt }}</td>
+              <td class="noti_regDate t_list">{{ noti.reg_date }}</td>
             </tr>
           </table>
         </div>
@@ -105,7 +110,7 @@ export default {
       pagingCnt: 5,
 
       pageList: [],
-      notiList:[],
+      notiList: [],
     };
   },
   created() {
@@ -151,7 +156,7 @@ export default {
       reqBody.set("search", this.searchText);
 
       api
-        .get("/madang/notiList/notiListCnt", {
+        .get("/madang/noti/notiListCnt", {
           params: Object.fromEntries(reqBody),
         })
         .then((res) => {
@@ -171,14 +176,17 @@ export default {
       reqBody.set("column", this.searchOption);
       reqBody.set("search", this.searchText);
 
-      api.get(`/madang/notiList/notiList/${this.nowPage}`, {params : Object.fromEntries(reqBody)})
-      .then(res => {
-        if(res.common.res_code == 200){
-          this.notiList = res.data.notiList;
-        } else{
-          console.log('공지사항 가져오지 못함');
-        }
-      })
+      api
+        .get(`/madang/noti/notiList/${this.nowPage}`, {
+          params: Object.fromEntries(reqBody),
+        })
+        .then((res) => {
+          if (res.common.res_code == 200) {
+            this.notiList = res.data.notiList;
+          } else {
+            console.log("공지사항 가져오지 못함");
+          }
+        });
     },
 
     getViewPage() {
@@ -217,6 +225,27 @@ export default {
     changePage(page) {
       this.nowPage = page;
       this.getNotiList();
+    },
+
+    goDetailView(noti) {
+      api.put(`/madang/noti/updateNotiViews/${noti.noti_no}`)
+      .then(res => {
+        if(res.common.res_code == 200){
+          console.log('조회수 증가 성공');
+        } else{
+          console.log('조회수 증가 실패');
+        }
+      });
+
+      sessionStorage.setItem("nowPage", this.nowPage);
+      this.$router.push({
+        name: "NotificationDetail",
+        params: { notiNo: noti.noti_no, SidebarNo: 4 },
+        query: {
+          path: `${this.$route.path}`,
+          menuNo: `${this.$route.query.menuNo}`,
+        },
+      });
     },
   },
   computed: {
