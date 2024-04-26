@@ -51,7 +51,58 @@
 .myInquiry_delete {
   width: 10%;
 }
+.myInquiry_disclosure {
+  width: 10%;
+  .switch {
+    display: inline-block;
+    position: relative;
+    width: 30px;
+    height: 20px;
+    vertical-align: middle;
 
+    input[type="checkbox"] {
+      overflow: hidden;
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      font-size: initial;
+      clip: rect(0 0 0 0);
+    }
+
+    input[type="checkbox"]:checked + .slider {
+      background-color: #007bff;
+    }
+
+    input[type="checkbox"]:checked + .slider::before {
+      transform: translateX(10px);
+    }
+
+    .slider {
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      bottom: 2px;
+      left: 2px;
+      background-color: #ccc;
+      border-radius: 34px;
+      cursor: pointer;
+      transition: 0.4s;
+    }
+
+    .slider::before {
+      content: "";
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 10px;
+      height: 10px;
+      background-color: #fff;
+      border-radius: 50%;
+      transition: 0.4s;
+    }
+  }
+}
 .list_fixed {
   vertical-align: top;
   padding-top: 30px;
@@ -137,10 +188,10 @@
 }
 
 .myInquiry_btn {
-  margin-left:40px;
+  margin-left: 30px;
   width: 5rem !important;
   height: 2rem !important;
 }
-.create_myInquiry{
+.create_myInquiry {
   display: flex;
 }

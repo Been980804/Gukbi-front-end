@@ -26,6 +26,7 @@
           <tr class="myInquiry_table_header">
             <th class="myInquiry_num t_header"><b>번호</b></th>
             <th class="myInquiry_title pd_left"><b>제목</b></th>
+            <th class="myInquiry_sidclosure t_header"><b>공개여부</b></th>
             <th class="myInquiry_delete t_header"><b>삭제</b></th>
           </tr>
           <!-- 아코디언 -->
@@ -62,6 +63,14 @@
                   </div>
                 </div>
               </div>
+            </td>
+            <td class="myInquiry_disclosure">
+              <label class="switch">
+                <input type="checkbox" 
+                :checked="inquiry.qna_yn == 'Y'"
+                @change="updateVisibility(inquiry)"/>
+                <span class="slider"></span>
+              </label>
             </td>
             <td class="myInquiry_delete">
               <button
@@ -263,6 +272,19 @@ export default {
           });
       }
     },
+    updateVisibility(inquiry){
+      const newStatus = inquiry.qna_yn == 'Y' ? '비공개' : '공개';
+      
+      api.put("/mypage/inquiry/updateVisibility", {qna_no : inquiry.qna_no})
+      .then(res => {
+        if(res.common.res_code == 200){
+          alert(`현 문의를 ${newStatus}합니다.`);
+          inquiry.qna_yn = inquiry.qna_yn == 'Y' ? 'N' : 'Y';
+        } else{
+          console.log('공개여부 수정 실패');
+        }
+      })
+    }
   },
   computed: {
     totalPage() {
