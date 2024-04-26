@@ -1,0 +1,34 @@
+.noti_page {
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+}
+.noti_page_title {
+  margin-left: 20px;
+  color: black;
+}
+.noti_search {
+  display: flex;
+}
+.notiList {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.noti_table {
+  width: 100%;
+  margin-top: 20px;
+}
+.noti_table_header {
+  border-bottom: 2px solid #e6edff;
+  margin-bottom: 10px;
+  height: 2rem;
+}
+.noti_num {
+  width: 5%;
+}
+.noti_userName, .noti_views, .noti_regDate{
+    width: 15%;
+}
+.noti_title {
+    width: 25%;
+}
