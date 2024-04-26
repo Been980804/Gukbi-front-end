@@ -67,7 +67,6 @@ export default {
       .then(res => {
         if (res.common.res_code == 200) { // 응답성공
           this.largeMenus = res.data.menuList;
-          console.log(this.largeMenus);
           for(const myMenu of this.largeMenus) {
             if(myMenu.menu_level == 8) {
               this.userMenus.push(myMenu.menu_name);

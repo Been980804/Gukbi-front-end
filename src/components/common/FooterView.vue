@@ -23,8 +23,14 @@
 						</li>
 					</ul>
 				</div>
+			</div>
+			<div class="recent">
+				<div class="notice_title">
+					<div class="title_text"><p>추천 북플리</p></div>
 				</div>
-				<div class="recent">
+				<div style="width: 150px; border: 1px solid black; height: 80%;">
+
+				</div>
 			</div>
 		</div>
 		
@@ -47,6 +53,7 @@ export default {
 
 	created() {
 		this.getNotiInfo();
+		this.getBookPly();
 	},
 
 	methods: {
@@ -63,6 +70,18 @@ export default {
 
 		goNoti(notiNo) { // 공지사항 상세 화면으로 이동
 			this.$router.push({ name: 'NotificationList', params: { "notiNo": notiNo}} );
+		},
+
+		getBookPly() { // 북플리 추천 목록 가져오기
+      api.get(`/main/bookPly`)
+        .then(res => {
+          if (res.common.res_code == 200) { // 응답성공
+						console.log(res.data.bookPlyList);
+            
+          } else { // 응답실패
+            console.log("BookListView book/bookCount 응답실패");
+          }
+        })
 		}
 	}
 }
