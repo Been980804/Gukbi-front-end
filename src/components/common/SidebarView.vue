@@ -1,6 +1,6 @@
 <template>
   <div id="sidebar">
-    <div id="sidebar_title">관리자 페이지</div>
+    <div id="sidebar_title">{{ pageName }}</div>
     <div class="sidebar_menu" v-for="largeMenu in largeMenus" :key="largeMenu">
       <div class="sidebar_menu_box" @click="goMenu(largeMenu.menu_link, largeMenu.menu_no)" :class="{'menu_select': largeMenu.menu_link == currentPath}">
         <div class="sidebar_menu_img"><img :src="require(`../../assets/images/${largeMenu.menu_icon}`)"></div>
@@ -28,6 +28,9 @@ export default {
       showSubMenu: null, // 선택된 대메뉴 중 서브메뉴가 있는 경우
       currentPath: null, // 현재 보여지고 있는 대메뉴 링크
       currentSubPath: null, // 현재 보여지고 있는 소메뉴 링크
+      
+      levelList: [{"3":"도서마당 페이지"}, {"9":"관리자 페이지"}, {"8":"마이 페이지"}],
+      pageName: null
     }
   },
 
@@ -54,9 +57,15 @@ export default {
     },
 
     // 선택한 메뉴로 바꾸기
-    async changeMenu(menuLink, menuNo) {
+    async changeMenu(menuLink, menuNo, level) {
       menuLink = menuLink.substr(1);
       this.currentPath = menuLink;
+
+      for(const page of this.levelList) {
+        if(page[level] != null || undefined) {
+          this.pageName = page[level];
+        }
+      }
 
       let haveSub = false;
       this.smallMenus.forEach(smallMenu => {
@@ -102,7 +111,7 @@ export default {
         console.log("Sidebar sidebar/smallMenu 응답실패");
       }
 
-      await this.changeMenu(menuLink, menuNo);
+      await this.changeMenu(menuLink, menuNo, level);
     }
   }
 }
