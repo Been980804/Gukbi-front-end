@@ -28,8 +28,10 @@
 				<div class="notice_title">
 					<div class="title_text"><p>추천 북플리</p></div>
 				</div>
-				<div style="width: 150px; border: 1px solid black; height: 80%;">
-
+				<div style="width: 100%; height: 80%; display: flex;">
+					<div v-for="bookPly of bookPlyList" :key="bookPly" style="width: 150px; border: 1px solid black; height: 80%;">
+						<img :src="replaceImg(bookPly.book_url)"/>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -47,7 +49,8 @@ import api from "@/api/axios";
 export default {
 	data() {
 		return {
-			notiList: {}
+			notiList: {},
+			bookPlyList: {}
 		}
 	},
 
@@ -76,13 +79,19 @@ export default {
       api.get(`/main/bookPly`)
         .then(res => {
           if (res.common.res_code == 200) { // 응답성공
-						console.log(res.data.bookPlyList);
-            
+						this.bookPlyList = res.data.bookPlyList;
           } else { // 응답실패
             console.log("BookListView book/bookCount 응답실패");
           }
         })
-		}
+		},
+
+		replaceImg(url) { // 이미지가 없을 경우 기본 이미지로 대체
+      if(url == undefined || url == '' || url == null) {
+        return require("@/assets/images/default-img.png");
+      }
+      return url;
+    }
 	}
 }
 </script>
