@@ -122,7 +122,13 @@ export default {
     },
 
     goBasket() {
-      this.$router.push({path: `Basket`});
+      this.user = useUserStore().getUser;
+      if(this.user.mem_id == null || undefined || '') {
+        // 로그인 정보가 없을 경우
+        this.$router.push({ path: '/Login' });      
+      } else {
+        this.$router.push({path: `Basket`});
+      }
     },
 
     setSearchText(event) {
