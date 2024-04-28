@@ -163,6 +163,10 @@ export default {
 			userStore.setUser({});
       this.$router.push({ name: 'Main' })
       window.location.reload(true);
+    },
+
+    setUser() {
+      this.user = useUserStore().getUser;
     }
   }
 }
