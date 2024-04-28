@@ -21,7 +21,7 @@
             <a href="#">사서페이지</a>
             <ul>
               <template v-for="menu in largeMenus" :key="menu">
-                <li v-if="menu.menu_level == menuLevels[menuLevels.length -1]"><a href="#">{{ menu.menu_name }}</a></li>
+                <li v-if="menu.menu_level == menuLevels[menuLevels.length -1]" @click="goMenu(menu.menu_link, menu.menu_no, menu.menu_name)"><a href="#">{{ menu.menu_name }}</a></li>
               </template>
             </ul>
           </li>
