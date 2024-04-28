@@ -17,7 +17,7 @@
             </ul>
           </li>
 
-          <li :ref="`${menuLevels.length -1}`" @mouseover="showSubMenu(menuLevels.length -1)" @mouseleave="hideSubMenu(menuLevels.length -1)">
+          <li v-if="user.mem_id != null" :ref="`${menuLevels.length -1}`" @mouseover="showSubMenu(menuLevels.length -1)" @mouseleave="hideSubMenu(menuLevels.length -1)">
             <a href="#">사서페이지</a>
             <ul>
               <template v-for="menu in largeMenus" :key="menu">
@@ -109,7 +109,7 @@ export default {
         this.$refs[num][0].children[1].style.display = 'none';
       }
     },
-    
+
     showMyMenu() { // 사용자 아이콘 클릭 이벤트
       this.user = useUserStore().getUser;
       if(this.user.mem_id == null || undefined || '') {
