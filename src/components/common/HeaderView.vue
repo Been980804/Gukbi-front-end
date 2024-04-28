@@ -20,7 +20,7 @@
       </div>
       <div class="navbar_icons">
         <button class="imgbtn">
-          <img src="@/assets/images/cart_icon.svg" alt="cart_icon">
+          <img src="@/assets/images/cart_icon.svg" alt="cart_icon" @click="goBasket()">
         </button>
         <button class="imgbtn" @mouseleave="hideMyMenu()">
           <img src="@/assets/images/user_icon.svg" alt="user_icon" @click="showMyMenu()">
@@ -119,6 +119,10 @@ export default {
           }
         }
       }
+    },
+
+    goBasket() {
+      this.$router.push({path: `Basket`});
     },
 
     setSearchText(event) {
