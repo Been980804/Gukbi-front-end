@@ -25,13 +25,29 @@ export default {
   },
 
   methods: {
-    getBasket() {
+    getBasket() { // 책바구니 목록 가져오기
       api.get(`/main/bookInfo/basketList/${this.user.mem_no}`)
         .then(res => {
           if (res.common.res_code == 200) { // 응답성공
             this.basketList = res.data.basketList;
           } else { // 응답실패
             console.log("BookListView book/bookCount 응답실패");
+          }
+        })
+    },
+
+    basketDelete(bookNo) { // 책바구니 목록에서 빼기
+      this.user = useUserStore().getUser;
+      let sqlData = new Map();
+      sqlData.set("memNo", this.user.mem_no);
+      sqlData.set("bookNo", bookNo);
+
+      api.put(`/main/bookInfo/basketDelete`, Object.fromEntries(sqlData))
+        .then(res => {
+          if (res.common.res_code == 200) { // 응답성공
+            console.log(res.data.basket);
+          } else { // 응답실패
+            console.log("BasketView main/bookInfo/basketDelete 응답실패");
           }
         })
     }
