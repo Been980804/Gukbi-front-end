@@ -12,8 +12,8 @@
       </div>
       <div class="con">
         <div class="flex-sb">
-          <input class="wCalc-20" type="text" placeholder="아이디를 입력하세요.">
-          <button class="btn_charcoal rad10 wCalc-80 h1rem f0-8rem">중복확인</button>
+          <input class="wCalc-20" type="text" placeholder="아이디를 입력하세요." v-model="id">
+          <button class="btn_charcoal rad10 wCalc-80 h1rem f0-8rem" @click="checkDuplicate()">중복확인</button>
         </div>
         <div class="input-err" :style="{ display: isShowIdErrMsg ? 'block' : 'none'}">
           아이디를 확인하세요.
@@ -44,20 +44,30 @@
   </div>
 </template>
 <script>
+import api from "@/api/axios";
 export default {
   data() {
     return {
-      
+      id: ''
     }
   },
 
   methods: {
-
-    // 메인으로
-    goMain() {
+    goMain() { // 메인으로
       this.$router.push({ name: 'Main' })
     },
 
+    checkDuplicate() { // 중복체크
+      console.log(this.id);
+      api.get(`/user/duplicate/${this.id}`)
+        .then(res => {
+          if (res.common.res_code == 200) { // 응답성공
+            console.log(res.data.userInfo);
+          } else { // 응답실패
+            console.log("BookListView book/bookCount 응답실패");
+          }
+        })
+    }
   }
   
 }
