@@ -28,7 +28,7 @@
         </div>
 
         <div class="m_button_line_box">
-          <div class="button button_purple">
+          <div class="button button_purple" @click="setBasket()">
             <div class="text_white">책바구니</div>
           </div>
           <div class="margin_right10"></div>
@@ -64,9 +64,12 @@
 </template>
 <script>
 import api from "@/api/axios";
+import { useUserStore } from '@/stores/user.js';
 export default {
   data() {
     return {
+      user: useUserStore().getUser,
+
       isbn: this.$route.params.isbn,
       descript: null,
       bookInfo: {}
@@ -100,6 +103,27 @@ export default {
             console.log(this.descript);
           } else {
             console.log("DetailView main/descript 응답실패");
+          }
+        })
+    },
+
+    setBasket() {
+      this.user = useUserStore().getUser;
+      if(this.user.mem_id == null || undefined || '') {
+        // 로그인 정보가 없을 경우
+        this.$router.push({ path: '/Login' });      
+      }
+
+      let sqlData = new Map();
+      sqlData.set("memNo", this.user.mem_no);
+      sqlData.set("bookNo", this.bookInfo.book_no);
+
+      api.post(`/main/bookInfo/basket`, Object.fromEntries(sqlData))
+        .then(res => {
+          if(res.common.res_code == 200) {
+            console.log(res.data.basket);
+          } else {
+            console.log("DetailView main/bookInfo/basket 응답실패");
           }
         })
     },
