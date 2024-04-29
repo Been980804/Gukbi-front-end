@@ -7,7 +7,7 @@
 			<div class="notice">
 				<div class="notice_title">
 					<div class="title_text"><p>공지사항</p></div>
-					<div class="title_plus_icon">
+					<div class="title_plus_icon" @click="goNotiReg()">
 						<button class="imgbtn" type="button">
 							<img src="../../assets/images/plus.svg">
 						</button>
@@ -46,9 +46,12 @@
 
 <script>
 import api from "@/api/axios";
+import { useUserStore } from '@/stores/user.js';
 export default {
 	data() {
 		return {
+			user: useUserStore().getUser,
+
 			notiList: {},
 			bookPlyList: {}
 		}
@@ -73,6 +76,16 @@ export default {
 
 		goNoti(notiNo) { // 공지사항 상세 화면으로 이동
 			this.$router.push({ name: 'NotificationList', params: { "notiNo": notiNo}} );
+		},
+
+		goNotiReg() { // 공지사항 등록 화면으로 이동
+			this.user = useUserStore().getUser;
+			if(this.user.mem_id == null || undefined || '') {
+				return;
+			}
+
+			this.$router.push({ name: 'MgrNotiDetailReg', params: { notiInfo: "" },
+				query: { path: `MgrNotiDetailReg`}, menuNo: `menu000005`} );
 		},
 
 		getBookPly() { // 북플리 추천 목록 가져오기
