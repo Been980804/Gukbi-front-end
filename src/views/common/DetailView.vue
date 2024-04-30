@@ -77,7 +77,12 @@ export default {
   },
 
   created() {
+    if((sessionStorage.getItem("isbn") != null || undefined) && this.$route.params.isbn == null || undefined) {
+      this.isbn = sessionStorage.getItem("isbn");
+    }
+
     this.getBookInfo();
+    sessionStorage.setItem("isbn", this.isbn);
   },
 
   methods: {
