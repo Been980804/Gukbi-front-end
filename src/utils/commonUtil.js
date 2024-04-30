@@ -42,8 +42,11 @@ const cUtil = {
   },
 
   checkBirth(value) {
-    var reg_birth = /^(19[0-9][0-9]|20\d{2})-(0[0-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/;
-    return reg_birth.test(value) ? true : false;
+    // 생년월일이 공백인 경우
+    if(value == '') { return true; }
+
+    var reg_birth = /^(19[0-9][0-9]|20\d{2})(0[0-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])$/;
+    return reg_birth.test(value) ? false : true;
   },
 
   checkOnlyNumber(value) {

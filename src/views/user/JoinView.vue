@@ -26,7 +26,7 @@
         </div>
       </div>
       <div class="con">
-        <input type="text" placeholder="생년월일 8자리를 입력하세요.">
+        <input type="text" placeholder="생년월일 8자리를 입력하세요." v-model="birth">
         <div class="input-err" :style="{ display: isShowBirthErrMsg ? 'block' : 'none'}">
           생년월일을 확인하세요.
         </div>
@@ -61,6 +61,7 @@ export default {
       id: '',
       name: '',
       password: '',
+      birth: '',
 
       isShowNameErrMsg: false,
       isShowIdErrMsg: false,
@@ -95,6 +96,7 @@ export default {
       this.isShowNameErrMsg = cUtil.checkName(this.name);
       this.isShowIdErrMsg = cUtil.checkId(this.id);
       this.isShowPasswordErrMsg = cUtil.checkPassword(this.password);
+      this.isShowBirthErrMsg = cUtil.checkBirth(this.birth);
     }
   }
 }
