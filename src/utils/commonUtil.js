@@ -49,14 +49,17 @@ const cUtil = {
     return reg_birth.test(value) ? false : true;
   },
 
-  checkOnlyNumber(value) {
-    return value.replace(/[^0-9]/gi, '');
-  },
-
   checkEmail(value) {
-    // eslint-disable-next-line
-    var reg_email = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
-    return reg_email.test(value) ? true : false;
+    // 이메일이 공백인 경우
+    if(value == '') { return true; }
+    
+    var reg_email = /^([0-9a-zA-Z_.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
+    if(!reg_email.test(value)) { return true; }
+
+    // 이메일 길이 제한 확인
+    if(value.length > 30) { return true; }
+
+    return false;
   },
 
 }
