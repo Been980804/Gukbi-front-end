@@ -38,7 +38,7 @@
         </div>
       </div>
       <div class="con">
-        <input type="text" placeholder="휴대폰 번호를 입력하세요.">
+        <input type="text" placeholder="휴대폰 번호를 입력하세요." v-model="phone">
         <div class="input-err" :style="{ display: isShowPhoneErrMsg ? 'block' : 'none'}">
           휴대폰 번호를 확인하세요.
         </div>
@@ -63,13 +63,14 @@ export default {
       password: '',
       birth: '',
       email: '',
+      phone: '',
 
       isShowNameErrMsg: false,
       isShowIdErrMsg: false,
+      isShowPasswordErrMsg: false,
       isShowBirthErrMsg: false,
       isShowEmailErrMsg: false,
-      isShowPhoneErrMsg: false,
-      isShowPasswordErrMsg: false
+      isShowPhoneErrMsg: false
     }
   },
 
@@ -99,6 +100,7 @@ export default {
       this.isShowPasswordErrMsg = cUtil.checkPassword(this.password);
       this.isShowBirthErrMsg = cUtil.checkBirth(this.birth);
       this.isShowEmailErrMsg = cUtil.checkEmail(this.email);
+      this.isShowPhoneErrMsg = cUtil.checkPhone(this.phone);
     }
   }
 }

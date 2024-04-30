@@ -62,6 +62,13 @@ const cUtil = {
     return false;
   },
 
+  checkPhone(value) {
+    // 전화번호가 공백인 경우
+    if(value == '') { return true; }
+
+    var reg_phone = /^010([0-9]{4})?([0-9]{4})$/;
+    return reg_phone.test(value) ? false : true;
+  }
 }
 
 export default cUtil;
