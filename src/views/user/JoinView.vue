@@ -5,7 +5,7 @@
     </button>
     <div class="input_form w20rem">
       <div class="con">
-        <input type="text" placeholder="이름을 입력하세요.">
+        <input type="text" placeholder="이름을 입력하세요." v-model="name">
         <div class="input-err" :style="{ display: isShowNameErrMsg ? 'block' : 'none'}">
           이름을 확인하세요.
         </div>
@@ -43,7 +43,7 @@
           휴대폰 번호를 확인하세요.
         </div>
       </div>
-      <button class="btn_charcoal rad20 mt1rem">회원가입</button>
+      <button class="btn_charcoal rad20 mt1rem" @click="joinCheck()">회원가입</button>
     </div>
     <div class="flex-sb mt1rem w13-5rem f0-8rem">
       <img src="../../assets/images/user_icon2.svg" alt="user_icon2">
@@ -54,10 +54,12 @@
 </template>
 <script>
 import api from "@/api/axios";
+import cUtil from "@/utils/commonUtil";
 export default {
   data() {
     return {
       id: '',
+      name: '',
 
       isShowNameErrMsg: false,
       isShowIdErrMsg: false,
@@ -86,9 +88,12 @@ export default {
             console.log("BookListView book/bookCount 응답실패");
           }
         })
+    },
+
+    joinCheck() { // 회원가입 유효성 체크
+      this.isShowNameErrMsg = cUtil.checkName(this.name);
     }
   }
-  
 }
 </script>
 <style>

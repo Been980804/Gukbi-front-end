@@ -1,5 +1,17 @@
 const cUtil = {
 
+  checkName(value) {
+    // 이름이 공백인 경우
+    if(value == '') { return true; }
+
+    // 이름 길이 제한 확인
+    if(value.length < 2 || value.length > 10) { return true; }
+
+    // 한글, 영어만 입력 제한
+    var reg_name = /^[가-힣a-zA-Z]+$/;
+    return reg_name.test(value) ? false : true;
+  },
+
   checkBirth(value) {
     var reg_birth = /^(19[0-9][0-9]|20\d{2})-(0[0-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/;
     return reg_birth.test(value) ? true : false;
