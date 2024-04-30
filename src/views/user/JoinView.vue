@@ -20,7 +20,7 @@
         </div>
       </div>
       <div class="con">
-        <input type="password" placeholder="비밀번호를 입력하세요.">
+        <input type="password" placeholder="비밀번호를 입력하세요." v-model="password">
         <div class="input-err" :style="{ display: isShowPasswordErrMsg ? 'block' : 'none'}">
           비밀번호를 확인하세요.
         </div>
@@ -60,6 +60,7 @@ export default {
     return {
       id: '',
       name: '',
+      password: '',
 
       isShowNameErrMsg: false,
       isShowIdErrMsg: false,
@@ -93,6 +94,7 @@ export default {
     joinCheck() { // 회원가입 유효성 체크
       this.isShowNameErrMsg = cUtil.checkName(this.name);
       this.isShowIdErrMsg = cUtil.checkId(this.id);
+      this.isShowPasswordErrMsg = cUtil.checkPassword(this.password);
     }
   }
 }

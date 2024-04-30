@@ -28,6 +28,19 @@ const cUtil = {
     return false;
   },
 
+  checkPassword(value) {
+    // 비밀번호가 공백인 경우
+    if(value == '') { return true; }
+
+    var reg_password = /^[a-zA-Z0-9!@#$%^&*()_+{}[\]:;'"<>,.?/\\|-]{1,18}$/;
+    if(!reg_password.test(value)) { return true; }
+
+    // 아이디 길이 제한 확인
+    if(value.length < 8 || value.length > 18) { return true; }
+
+    return false;
+  },
+
   checkBirth(value) {
     var reg_birth = /^(19[0-9][0-9]|20\d{2})-(0[0-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/;
     return reg_birth.test(value) ? true : false;
