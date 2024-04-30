@@ -21,6 +21,9 @@
       </div>
       <div class="con">
         <input type="password" placeholder="비밀번호를 입력하세요.">
+        <div class="input-err" :style="{ display: isShowPasswordErrMsg ? 'block' : 'none'}">
+          비밀번호를 확인하세요.
+        </div>
       </div>
       <div class="con">
         <input type="text" placeholder="생년월일 8자리를 입력하세요.">
@@ -30,9 +33,15 @@
       </div>
       <div class="con">
         <input type="email" placeholder="이메일주소를 입력하세요.">
+        <div class="input-err" :style="{ display: isShowEmailErrMsg ? 'block' : 'none'}">
+          이메일 주소를 확인하세요.
+        </div>
       </div>
       <div class="con">
         <input type="text" placeholder="휴대폰 번호를 입력하세요.">
+        <div class="input-err" :style="{ display: isShowPhoneErrMsg ? 'block' : 'none'}">
+          휴대폰 번호를 확인하세요.
+        </div>
       </div>
       <button class="btn_charcoal rad20 mt1rem">회원가입</button>
     </div>
@@ -48,7 +57,14 @@ import api from "@/api/axios";
 export default {
   data() {
     return {
-      id: ''
+      id: '',
+
+      isShowNameErrMsg: false,
+      isShowIdErrMsg: false,
+      isShowBirthErrMsg: false,
+      isShowEmailErrMsg: false,
+      isShowPhoneErrMsg: false,
+      isShowPasswordErrMsg: false
     }
   },
 
@@ -61,7 +77,7 @@ export default {
       if(this.id == '') {
         return;
       }
-      
+
       api.get(`/user/duplicate/${this.id}`)
         .then(res => {
           if (res.common.res_code == 200) { // 응답성공
