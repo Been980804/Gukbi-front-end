@@ -58,7 +58,10 @@ export default {
     },
 
     checkDuplicate() { // 중복체크
-      console.log(this.id);
+      if(this.id == '') {
+        return;
+      }
+      
       api.get(`/user/duplicate/${this.id}`)
         .then(res => {
           if (res.common.res_code == 200) { // 응답성공
