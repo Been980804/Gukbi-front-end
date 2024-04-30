@@ -92,6 +92,7 @@ export default {
 
     joinCheck() { // 회원가입 유효성 체크
       this.isShowNameErrMsg = cUtil.checkName(this.name);
+      this.isShowIdErrMsg = cUtil.checkId(this.id);
     }
   }
 }

@@ -4,12 +4,28 @@ const cUtil = {
     // 이름이 공백인 경우
     if(value == '') { return true; }
 
+    // 한글, 영어만 입력 제한
+    var reg_name = /^[가-힣a-zA-Z]+$/;
+    if(!reg_name.test(value)) { return true; }
+
     // 이름 길이 제한 확인
     if(value.length < 2 || value.length > 10) { return true; }
 
-    // 한글, 영어만 입력 제한
-    var reg_name = /^[가-힣a-zA-Z]+$/;
-    return reg_name.test(value) ? false : true;
+    return false;
+  },
+
+  checkId(value) {
+    // 아이디가 공백인 경우
+    if(value == '') { return true; }
+
+    // 영어, 숫자만 입력 제한
+    var reg_id = /^[a-zA-Z0-9]+$/;
+    if(!reg_id.test(value)) { return true; }
+
+    // 아이디 길이 제한 확인
+    if(value.length < 2 || value.length > 16) { return true; }
+
+    return false;
   },
 
   checkBirth(value) {
