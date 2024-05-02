@@ -35,7 +35,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="appl in applList" :key="appl" @click="goDetailView()">
+              <tr v-for="appl in applList" :key="appl">
                 <td class="m_td">{{ appl.mem_name }}</td>
                 <td class="m_td">{{ appl.appl_title }}</td>
                 <td class="m_td">{{ appl.appl_author }}</td>
