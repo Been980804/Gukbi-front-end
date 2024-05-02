@@ -8,7 +8,7 @@
       </div>
       <div class="navbar_menu">
         <ul class="navbar_menu_item">
-          <li v-for="(navMenu, i) in navMenus" :key="i" :ref="`${i}`" @mouseover="showSubMenu(i)" @mouseleave="hideSubMenu(i)">
+          <li v-for="(navMenu, i) in navMenus.slice(0, navMenus.length -1)" :key="i" :ref="`${i}`" @mouseover="showSubMenu(i)" @mouseleave="hideSubMenu(i)">
             <a href="#">{{ navMenu }}</a>
             <ul>
               <template v-for="menu in largeMenus" :key="menu">
@@ -16,11 +16,20 @@
               </template>
             </ul>
           </li>
+
+          <li v-if="user.mem_id != null" :ref="`${menuLevels.length -1}`" @mouseover="showSubMenu(menuLevels.length -1)" @mouseleave="hideSubMenu(menuLevels.length -1)">
+            <a href="#">사서페이지</a>
+            <ul>
+              <template v-for="menu in largeMenus" :key="menu">
+                <li v-if="menu.menu_level == menuLevels[menuLevels.length -1]" @click="goMenu(menu.menu_link, menu.menu_no, menu.menu_name)"><a href="#">{{ menu.menu_name }}</a></li>
+              </template>
+            </ul>
+          </li>
         </ul>
       </div>
       <div class="navbar_icons">
         <button class="imgbtn">
-          <img src="@/assets/images/cart_icon.svg" alt="cart_icon">
+          <img src="@/assets/images/cart_icon.svg" alt="cart_icon" @click="goBasket()">
         </button>
         <button class="imgbtn" @mouseleave="hideMyMenu()">
           <img src="@/assets/images/user_icon.svg" alt="user_icon" @click="showMyMenu()">
@@ -85,8 +94,22 @@ export default {
   methods:{
     goMain() { this.$router.push({ name: 'Main' }) }, // 메인으로
     goMenu(menuLink, menuNo, menuName) { this.$router.push({path: `${menuLink}`, query: {menuNo: `${menuNo}`, menuName: `${menuName}`}}); }, // 선택한 메뉴 화면으로 이동
-    showSubMenu(num) { this.$refs[num][0].children[1].style.display = 'block'; },
-    hideSubMenu(num) { this.$refs[num][0].children[1].style.display = 'none'; },
+    showSubMenu(num) {
+      if(num == this.menuLevels.length -1) {
+        this.$refs[num].children[1].style.display = 'block';
+      } else {
+        this.$refs[num][0].children[1].style.display = 'block';
+      }
+    },
+
+    hideSubMenu(num) {
+      if(num == this.menuLevels.length -1) {
+        this.$refs[num].children[1].style.display = 'none';
+      } else {
+        this.$refs[num][0].children[1].style.display = 'none';
+      }
+    },
+
     showMyMenu() { // 사용자 아이콘 클릭 이벤트
       this.user = useUserStore().getUser;
       if(this.user.mem_id == null || undefined || '') {
@@ -121,6 +144,16 @@ export default {
       }
     },
 
+    goBasket() {
+      this.user = useUserStore().getUser;
+      if(this.user.mem_id == null || undefined || '') {
+        // 로그인 정보가 없을 경우
+        this.$router.push({ path: '/Login' });      
+      } else {
+        this.$router.push({path: `Basket`});
+      }
+    },
+
     setSearchText(event) {
       this.$router.push({ path: '/Search', query: { searchText: `${event.target.value}` }});      
     },
@@ -130,6 +163,10 @@ export default {
 			userStore.setUser({});
       this.$router.push({ name: 'Main' })
       window.location.reload(true);
+    },
+
+    setUser() {
+      this.user = useUserStore().getUser;
     }
   }
 }

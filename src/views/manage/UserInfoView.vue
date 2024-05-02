@@ -25,7 +25,7 @@
         <div class="m_user_info_box_text">회원명 : {{ user.memName }}</div>
         <div class="m_user_info_box_text flex_grow4">총 연체 건 수 : {{ overdueCount }}건</div>
         <div class="m_user_info_box_text">
-          대여가능여부 : <input role="switch" type="checkbox" class="m_checkbox"/>
+          대여가능여부 : <input role="switch" type="checkbox" class="m_checkbox" :checked="user.rentYN" @change="setChecked()"/>
         </div>
       </div>
 
@@ -276,6 +276,19 @@ export default {
 
     goPrevView() { // 뒤로 돌아가기
       this.$router.go(-1);
+    },
+
+    setChecked() {
+      this.user.rentYN = !this.user.rentYN;
+
+      api.put(`/manage/user/userInfo/rent/${this.user.memNo}`, this.user.rentYN)
+        .then(res => {
+          if(res.common.res_code == 200 && res.data.rent == 1) {
+            console.log(res.data.rent);
+          } else {
+            console.log("UserListView user/userInfo/rent 응답실패");
+          }
+        })
     }
   },
 

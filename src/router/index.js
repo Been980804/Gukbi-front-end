@@ -5,6 +5,7 @@ import Login from "../views/user/LoginView.vue";
 import Join from "../views/user/JoinView.vue";
 import Search from "../views/common/SearchView.vue"; // 메인 도서검색
 import Detail from "../views/common/DetailView.vue"; // 메인 도서 상세
+import Basket from "../views/common/BasketView.vue"; // 책바구니
 
 // 마이페이지 import
 import UserInfo from "../views/mypage/UserInfoView.vue";
@@ -51,6 +52,7 @@ const routes = [
 	{ path: "/Join", name: "Join", component: Join, },
 	{ path: "/Search", name: "Search", component: Search, },
 	{ path: "/Detail", name: "Detail", component: Detail, },
+	{ path: "/Basket", name: "Basket", component: Basket, },
 
 	// 마이페이지
 	{ path: "/UserInfo", name: "UserInfo", component: UserInfo,},

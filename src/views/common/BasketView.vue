@@ -1,0 +1,98 @@
+<!-- 책바구니 화면 -->
+<template>
+  <div class="container">
+    <div class="main_container">
+      <div class="m_show_box">
+        <div class="m_show_box_title">책바구니</div>
+        <div class="inline_blank12"></div>
+        <div class="table_line_box">
+          <table class="m_table">
+            <colgroup>
+              <col v-for="range in columnRange" :key="range" :width="range">
+            </colgroup>
+            <thead class="m_thead">
+              <tr>
+                <th v-for="column in tableColumn" :key="column" class="m_th">{{ column }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="book in basketList" :key="book">
+                <td class="m_td">{{ book.book_title }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="m_line_box">
+          <div>대여한 도서는 지정된 기간 내에 반납되어야 합니다.</div>
+          <div>도서 반납시 도서의 상태는 대여 시와 동일하게 유지해주셔야 합니다.</div>
+          <div>대여기간: <span>대여일로부터 2주</span></div>
+        </div>
+
+        <div class="m_title_line_box"></div>
+
+        <div class="m_line_box">
+          <div>도서 대여 기간을 어길 경우, 회원 등급에 부정적인 영향을 끼칠 수 있음에 동의합니다.</div>
+          <div>반납 시 도서가 손상된 경우, 손상 정도에 따라 별도의 비용이 청구될 수 있음에 동의합니다.</div>
+          <div>대여하기</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+import api from "@/api/axios";
+import { useUserStore } from '@/stores/user.js';
+export default {
+  data() {
+    return {
+      user: useUserStore().getUser,
+      basketList: {},
+
+      columnRange: ["60%", "40%"],
+      tableColumn: ["도서명", "출판사"],
+    }
+  },
+
+  created() {
+    if(this.user.mem_id == null || undefined || '') {
+      this.$router.push({ name: 'Main' });
+    }
+    
+    // 사용자 책바구니 내역 가져오기
+    this.getBasket();
+  },
+
+  methods: {
+    getBasket() { // 책바구니 목록 가져오기
+      api.get(`/main/bookInfo/basketList/${this.user.mem_no}`)
+        .then(res => {
+          if (res.common.res_code == 200) { // 응답성공
+            this.basketList = res.data.basketList;
+          } else { // 응답실패
+            console.log("BookListView book/bookCount 응답실패");
+          }
+        })
+    },
+
+    basketDelete(bookNo) { // 책바구니 목록에서 빼기
+      this.user = useUserStore().getUser;
+      let sqlData = new Map();
+      sqlData.set("memNo", this.user.mem_no);
+      sqlData.set("bookNo", bookNo);
+
+      api.put(`/main/bookInfo/basketDelete`, Object.fromEntries(sqlData))
+        .then(res => {
+          if (res.common.res_code == 200) { // 응답성공
+            console.log(res.data.basket);
+          } else { // 응답실패
+            console.log("BasketView main/bookInfo/basketDelete 응답실패");
+          }
+        })
+    }
+  },
+}
+</script>
+<style>
+@import "../../assets/css/main/main.css";
+</style>

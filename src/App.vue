@@ -1,18 +1,25 @@
 <template>
-  <Header class="header"/>
+  <Header class="header" ref="header"/>
   <router-view class="router" :key="$route.fullPath"/>
   <Footer class="footer"/>
 </template>
 
 <script>
-import Header from './components/common/HeaderView.vue';
-import Footer from './components/common/FooterView.vue';
+import Header from '@/components/common/HeaderView.vue';
+import Footer from '@/components/common/FooterView.vue';
+
 
 export default {
   name: 'App',
   components: {
     Header,
     Footer,
+  },
+
+  mounted() {
+    this.$router.afterEach(() => {
+      this.$refs.header.setUser();
+    })
   }
 }
 </script>
