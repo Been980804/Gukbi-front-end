@@ -41,8 +41,8 @@
                 <td class="m_td">{{ appl.appl_author }}</td>
                 <td class="m_td">{{ appl.appl_publisher }}</td>
                 <td class="m_td">{{ appl.reg_date }}</td>
-                <select @change="change()" :class="changeColor(appl.appl_state)">
-                  <option v-for="status in selectStatus" :key="status" v-bind:selected="appl.appl_state == status" :class="changeColor(status)">
+                <select @change="change($event, appl)" :class="changeColor(appl.appl_state)" v-bind:selected="appl.appl_state == status">
+                  <option v-for="status in selectStatus" :key="status" :selected="appl.appl_state == status" :class="changeColor(status)">
                     {{ status }}
                   </option>
                 </select>
@@ -208,8 +208,20 @@ export default {
       }
     },
 
-    change() { // selectBox 선택 변경 시
+    change(event, appl) { // selectBox 선택 변경 시
+      let sqlData = new Map();
+      sqlData.set("memNo", appl.mem_no);
+      sqlData.set("applNo", appl.appl_no);
+      sqlData.set("status", event.target.value);
 
+      api.put(`/manage/board/appl/status`, Object.fromEntries(sqlData))
+        .then(res => {
+          if(res.common.res_code == 200 && res.data.status == 1) {
+            // console.log(res.data.status);
+          } else {
+            console.log("ApplListView appl/status 응답실패");
+          }
+        })
     }
   },
 
