@@ -41,10 +41,11 @@
                 <td class="m_td">{{ appl.appl_author }}</td>
                 <td class="m_td">{{ appl.appl_publisher }}</td>
                 <td class="m_td">{{ appl.reg_date }}</td>
-                <td class="m_td text_blue" v-if="appl.appl_state == `신청중`">{{ appl.appl_state }}</td>
-                <td class="m_td text_blue" v-else-if="appl.appl_state == `입고중`">{{ appl.appl_state }}</td>
-                <td class="m_td text_red" v-else-if="appl.appl_state == `반려`">{{ appl.appl_state }}</td>
-                <td class="m_td text_green" v-else>{{ appl.appl_state }}</td>
+                <select @change="change()">
+                  <option v-for="status in selectStatus" :key="status" v-bind:selected="appl.appl_state == status" :class="changeColor(status)">
+                    {{ status }}
+                  </option>
+                </select>
               </tr>
             </tbody>
           </table>
@@ -87,7 +88,8 @@ export default {
       pagingCount: 5, // pagination에 보여질 페이지 개수
 
       applList: {},
-      pageList: {}
+      pageList: {},
+      selectStatus: ["신청중", "입고중", "입고완료", "반려"]
     }
   },
 
@@ -192,6 +194,22 @@ export default {
     changePage(page) {
       this.currentPage = page;
       this.getBookInfo();
+    },
+
+    changeColor(state) { // selectBox 색상 변경
+      if(state == `신청중`) {
+        return "m_td text_blue";
+      } else if(state == `입고중`) {
+        return "m_td text_blue";
+      } else if(state == `반려`) {
+        return "m_td text_red";
+      } else {
+        return "m_td text_green";
+      }
+    },
+
+    change() { // selectBox 선택 변경 시
+
     }
   },
 
