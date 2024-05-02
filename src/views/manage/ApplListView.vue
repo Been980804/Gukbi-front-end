@@ -41,7 +41,7 @@
                 <td class="m_td">{{ appl.appl_author }}</td>
                 <td class="m_td">{{ appl.appl_publisher }}</td>
                 <td class="m_td">{{ appl.reg_date }}</td>
-                <select @change="change()">
+                <select @change="change()" :class="changeColor(appl.appl_state)">
                   <option v-for="status in selectStatus" :key="status" v-bind:selected="appl.appl_state == status" :class="changeColor(status)">
                     {{ status }}
                   </option>
