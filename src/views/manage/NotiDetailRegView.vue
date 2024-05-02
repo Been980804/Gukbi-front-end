@@ -13,11 +13,13 @@
         <div class="m_table_list">
           <div class="m_table_row">
             <div class="m_table_column">작성자</div>
-            <div class="m_table_column_result">{{ memName }}</div>
+            <div class="m_table_column_result" v-if="status == `수정`">{{ memName }}</div>
+            <div class="m_table_column_result" v-else>{{ user.mem_name }}</div>
           </div>
           <div class="m_table_row">
             <div class="m_table_column">등록일</div>
-            <div class="m_table_column_result">{{ notiInfo.reg_date }}</div>
+            <div class="m_table_column_result" v-if="status == `수정`">{{ notiInfo.reg_date }}</div>
+            <div class="m_table_column_result" v-else>{{ regDate }}</div>
           </div>
           <div class="m_table_row">
             <div class="m_table_column">제목</div>
@@ -47,6 +49,7 @@
   </div>
 </template>
 <script>
+import { useUserStore } from '@/stores/user.js';
 import Sidebar from "../../components/common/SidebarView.vue"
 export default {
   components: {
@@ -55,6 +58,9 @@ export default {
 
   data() {
     return {
+      user: useUserStore().getUser,
+      regDate: null,
+
       status: "등록",
       memName: this.$route.params.memName,
       notiInfo: []
@@ -66,6 +72,8 @@ export default {
     if(this.$route.params.notiInfo != "" || null) {
       this.status = "수정";
       this.notiInfo = JSON.parse(this.$route.params.notiInfo);
+    } else {
+      this.setDateFormat();
     }
   },
 
@@ -84,6 +92,20 @@ export default {
         return this.notiInfo.noti_subtitle + this.notiInfo.noti_content;  
       }
       return "";
+    },
+
+    setDateFormat() {
+      let now = new Date();
+
+      var year = now.getFullYear();
+      var month = ('0' + (now.getMonth() + 1)).slice(-2);
+      var day = ('0' + now.getDate()).slice(-2);
+      
+      var hours = ('0' + now.getHours()).slice(-2); 
+      var minutes = ('0' + now.getMinutes()).slice(-2);
+      var seconds = ('0' + now.getSeconds()).slice(-2); 
+
+      this.regDate = `${year}.${month}.${day} ${hours}:${minutes}:${seconds}`;
     }
   },
 }
