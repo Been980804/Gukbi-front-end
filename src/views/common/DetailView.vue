@@ -61,11 +61,17 @@
       </div>
     </div>
   </div>
+  <AddBookPly style="display: none;"></AddBookPly>
 </template>
 <script>
 import api from "@/api/axios";
 import { useUserStore } from '@/stores/user.js';
+import AddBookPly from "@/components/mypage/popup/AddBookPlyP.vue";
 export default {
+  components: {
+    AddBookPly
+  },
+
   data() {
     return {
       user: useUserStore().getUser,
