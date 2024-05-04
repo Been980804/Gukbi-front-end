@@ -11,12 +11,30 @@
   </div>
 </template>
 <script>
+import api from "@/api/axios";
 export default {
   data() {
     return {
       category: null
     }
-  }
+  },
+
+  created() {
+    this.getCategory();
+  },
+
+  methods: {
+    getCategory() { // 카테고리 목록 받아오기
+      api.get(`/main/category`)
+        .then(res => {
+          if (res.common.res_code == 200) { // 응답성공
+            console.log(res.data.category);
+          } else { // 응답실패
+            console.log("CategoryP user/category 응답실패");
+          }
+        })
+    }
+  },
 }
 </script>
 <style src="../../assets/css/common/index.css"></style>
