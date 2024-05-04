@@ -58,11 +58,17 @@
       <router-link to="/Login" class="underline_a">로그인</router-link>
     </div>
   </div>
+  <modal></modal>
 </template>
 <script>
 import api from "@/api/axios";
 import cUtil from "@/utils/commonUtil";
+import modal from "@/components/common/CategoryP.vue"
 export default {
+  components: {
+    modal
+  },
+
   data() {
     return {
       id: '',
