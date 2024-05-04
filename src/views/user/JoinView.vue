@@ -31,6 +31,13 @@
           생년월일을 확인하세요.
         </div>
       </div>
+      <div class="con" style="position: relative;">
+        <div class="m_gender_box">
+          성별<div class="margin_right20"></div>
+          <input type="radio" v-model="gender" value="M">남자
+          <input type="radio" v-model="gender" value="W" style="margin-left: 12px;">여자
+        </div>
+      </div>
       <div class="con">
         <input type="email" placeholder="이메일주소를 입력하세요." v-model="email">
         <div class="input-err" :style="{ display: errorMsg.isShowEmailErrMsg ? 'block' : 'none'}">
@@ -72,7 +79,9 @@ export default {
         isShowBirthErrMsg: false,
         isShowEmailErrMsg: false,
         isShowPhoneErrMsg: false
-      }
+      },
+
+      gender: "M" // 기본 값 M
     }
   },
 
