@@ -39,6 +39,15 @@
         </div>
       </div>
       <div class="con">
+        <div class="flex-sb">
+          <input class="wCalc-20" type="text" placeholder="관심분야를 선택하세요." v-model="prefer" disabled = 'true'>
+          <button class="btn_charcoal rad10 wCalc-80 h1rem f0-8rem" @click="showPrefer()">관심분야</button>
+        </div>
+        <div class="input-err" :style="{ display: errorMsg.isShowIdErrMsg ? 'block' : 'none'}">
+          아이디를 확인하세요.
+        </div>
+      </div>
+      <div class="con">
         <input type="email" placeholder="이메일주소를 입력하세요." v-model="email">
         <div class="input-err" :style="{ display: errorMsg.isShowEmailErrMsg ? 'block' : 'none'}">
           이메일 주소를 확인하세요.
@@ -58,7 +67,7 @@
       <router-link to="/Login" class="underline_a">로그인</router-link>
     </div>
   </div>
-  <modal></modal>
+  <modal :style="{display: isOpenPrefer ? 'block' : 'none'}" @selectCategory="selectPrefer"></modal>
 </template>
 <script>
 import api from "@/api/axios";
@@ -77,6 +86,7 @@ export default {
       birth: '',
       email: '',
       phone: '',
+      prefer: '',
 
       errorMsg: {
         isShowNameErrMsg: false,
@@ -87,7 +97,8 @@ export default {
         isShowPhoneErrMsg: false
       },
 
-      gender: "M" // 기본 값 M
+      gender: "M", // 기본 값 M
+      isOpenPrefer: false // 팝업화면이 보이는 상태인지
     }
   },
 
@@ -132,6 +143,15 @@ export default {
       } else {
         console.log("회원가입");
       }
+    },
+
+    showPrefer() { // 관심분야 선택 팝업 보이기
+      this.isOpenPrefer = true;
+    },
+
+    selectPrefer(result) { // 관심분야 선택 설정
+      this.isOpenPrefer = false;
+      this.prefer = result;
     }
   }
 }
