@@ -66,8 +66,8 @@
       <div class="gray">이미 계정이 있으신가요?</div>
       <router-link to="/Login" class="underline_a">로그인</router-link>
     </div>
+    <modal :style="{display: isOpenPrefer ? 'block' : 'none'}" @selectCategory="selectPrefer"></modal>
   </div>
-  <modal :style="{display: isOpenPrefer ? 'block' : 'none'}" @selectCategory="selectPrefer"></modal>
 </template>
 <script>
 import api from "@/api/axios";
