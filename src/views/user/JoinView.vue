@@ -43,8 +43,8 @@
           <input class="wCalc-20" type="text" placeholder="관심분야를 선택하세요." v-model="prefer" disabled = 'true'>
           <button class="btn_charcoal rad10 wCalc-80 h1rem f0-8rem" @click="showPrefer()">관심분야</button>
         </div>
-        <div class="input-err" :style="{ display: errorMsg.isShowIdErrMsg ? 'block' : 'none'}">
-          아이디를 확인하세요.
+        <div class="input-err" :style="{ display: errorMsg.isShowPreferMsg ? 'block' : 'none'}">
+          관심분야를 선택하세요.
         </div>
       </div>
       <div class="con">
@@ -94,7 +94,8 @@ export default {
         isShowPasswordErrMsg: false,
         isShowBirthErrMsg: false,
         isShowEmailErrMsg: false,
-        isShowPhoneErrMsg: false
+        isShowPhoneErrMsg: false,
+        isShowPreferMsg: false
       },
 
       gender: "M", // 기본 값 M
@@ -129,6 +130,11 @@ export default {
       this.errorMsg.isShowBirthErrMsg = cUtil.checkBirth(this.birth);
       this.errorMsg.isShowEmailErrMsg = cUtil.checkEmail(this.email);
       this.errorMsg.isShowPhoneErrMsg = cUtil.checkPhone(this.phone);
+      if(this.prefer != '') {
+        this.errorMsg.isShowPreferMsg = false;
+      } else {
+        this.errorMsg.isShowPreferMsg = true;
+      }
 
       let check = false;
       for(let msg in this.errorMsg) {
