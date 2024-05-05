@@ -147,7 +147,25 @@ export default {
       if(check == true) { // 회원가입 불가
         return;
       } else {
-        console.log("회원가입");
+        let sqlData = new Map();
+        sqlData.set("memName", this.name);
+        sqlData.set("memId", this.id);
+        sqlData.set("memPwd", this.password);
+        sqlData.set("memPhone", this.phone);
+        sqlData.set("memBirth", this.birth);
+        sqlData.set("memEmail", this.email);
+        sqlData.set("memGender", this.gender);
+        sqlData.set("memFavorite", this.prefer);
+
+        api.post(`/user/join`, Object.fromEntries(sqlData))
+          .then(res => {
+            if(res.common.res_code == 200) {
+              console.log("회원가입 완료");
+            } else {
+              console.log(res.common.res_msg);
+              console.log("JoinView user/join 응답실패");
+            }
+          })
       }
     },
 
