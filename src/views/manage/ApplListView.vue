@@ -35,16 +35,17 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="appl in applList" :key="appl" @click="goDetailView()">
+              <tr v-for="appl in applList" :key="appl">
                 <td class="m_td">{{ appl.mem_name }}</td>
                 <td class="m_td">{{ appl.appl_title }}</td>
                 <td class="m_td">{{ appl.appl_author }}</td>
                 <td class="m_td">{{ appl.appl_publisher }}</td>
                 <td class="m_td">{{ appl.reg_date }}</td>
-                <td class="m_td text_blue" v-if="appl.appl_state == `신청중`">{{ appl.appl_state }}</td>
-                <td class="m_td text_blue" v-else-if="appl.appl_state == `입고중`">{{ appl.appl_state }}</td>
-                <td class="m_td text_red" v-else-if="appl.appl_state == `반려`">{{ appl.appl_state }}</td>
-                <td class="m_td text_green" v-else>{{ appl.appl_state }}</td>
+                <select @change="change($event, appl)" :class="changeColor(appl.appl_state)" v-bind:selected="appl.appl_state == status">
+                  <option v-for="status in selectStatus" :key="status" :selected="appl.appl_state == status" :class="changeColor(status)">
+                    {{ status }}
+                  </option>
+                </select>
               </tr>
             </tbody>
           </table>
@@ -87,7 +88,8 @@ export default {
       pagingCount: 5, // pagination에 보여질 페이지 개수
 
       applList: {},
-      pageList: {}
+      pageList: {},
+      selectStatus: ["신청중", "입고중", "입고완료", "반려"]
     }
   },
 
@@ -192,6 +194,34 @@ export default {
     changePage(page) {
       this.currentPage = page;
       this.getBookInfo();
+    },
+
+    changeColor(state) { // selectBox 색상 변경
+      if(state == `신청중`) {
+        return "m_td text_blue";
+      } else if(state == `입고중`) {
+        return "m_td text_blue";
+      } else if(state == `반려`) {
+        return "m_td text_red";
+      } else {
+        return "m_td text_green";
+      }
+    },
+
+    change(event, appl) { // selectBox 선택 변경 시
+      let sqlData = new Map();
+      sqlData.set("memNo", appl.mem_no);
+      sqlData.set("applNo", appl.appl_no);
+      sqlData.set("status", event.target.value);
+
+      api.put(`/manage/board/appl/status`, Object.fromEntries(sqlData))
+        .then(res => {
+          if(res.common.res_code == 200 && res.data.status == 1) {
+            // console.log(res.data.status);
+          } else {
+            console.log("ApplListView appl/status 응답실패");
+          }
+        })
     }
   },
 

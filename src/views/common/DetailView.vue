@@ -36,11 +36,11 @@
             <div class="text_white">북플리 추가</div>
           </div>
           <div class="margin_right10"></div>
-          <div class="button" @click="setRental()">
+          <div class="button" @click="setRental()" v-show="bookStatus == '대여'">
             <div class="text_gray">도서대여</div>
           </div>
-          <div class="margin_right10"></div>
-          <div class="button" @click="setReserve()">
+          <div class="margin_right10" v-show="bookStatus == '예약'"></div>
+          <div class="button" @click="setReserve()" v-show="bookStatus == '예약'">
             <div class="text_gray">도서예약</div>
           </div>
         </div>
@@ -61,14 +61,21 @@
       </div>
     </div>
   </div>
+  <AddBookPly style="display: none;"></AddBookPly>
 </template>
 <script>
 import api from "@/api/axios";
 import { useUserStore } from '@/stores/user.js';
+import AddBookPly from "@/components/mypage/popup/AddBookPlyP.vue";
 export default {
+  components: {
+    AddBookPly
+  },
+
   data() {
     return {
       user: useUserStore().getUser,
+      bookStatus: null,
 
       isbn: this.$route.params.isbn,
       descript: null,
@@ -93,6 +100,7 @@ export default {
             this.bookInfo = res.data.bookInfo;
             console.log(this.bookInfo);
             // this.sumCategory();
+            this.setRentalStatus();
           } else {
             console.log("DetailView main/bookInfo 응답실패");
           }
@@ -105,7 +113,6 @@ export default {
         .then(res => {
           if(res.common.res_code == 200) {
             this.descript = res.data.descript;
-            console.log(this.descript);
           } else {
             console.log("DetailView main/descript 응답실패");
           }
@@ -155,6 +162,21 @@ export default {
       }
       return url;
     },
+
+    setRentalStatus() { // 도서 대여 상태에 따라 버튼 변경
+      api.get(`/main/bookInfo/status/${this.bookInfo.book_no}`)
+        .then(res => {
+          if(res.common.res_code == 200) {
+            if(res.data.status == 1) {
+              this.bookStatus = "예약";
+            } else if(res.data.status == 0) {
+              this.bookStatus = "대여";
+            }
+          } else {
+            console.log("DetailView main/bookInfo/status 응답실패");
+          }
+        })
+    }
   }
 }
 </script>
