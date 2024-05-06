@@ -1,0 +1,39 @@
+.hopeBookList_page{
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+}
+.hopeBookList_page_title{
+    margin-left: 20px;
+    color: black;
+}
+.hopeBookList{
+  margin-top: 20px;
+}
+.hopeBookList_table{
+    width: 100%;
+    margin-top: 20px;
+}
+.hbl_table_header{
+    border-bottom: 2px solid #e6edff;
+    margin-bottom: 10px;
+    height: 2rem;
+}
+.hbl_num, .hbl_userName{
+    width: 5%;
+}
+.hbl_bookTitle{
+    width: 20%;
+}
+.hbl_author, .hbl_publisher, .hbl_reqDate, .hbl_reqState{
+    width: 10%;
+}
+.hopeBook_create {
+    margin: 20px;
+    float: right;
+    button {
+      width: 5rem !important;
+      height: 2rem !important;
+    }
+  }
+  
