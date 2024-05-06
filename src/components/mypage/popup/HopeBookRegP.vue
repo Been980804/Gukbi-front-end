@@ -48,6 +48,7 @@
                 <input
                   type="text"
                   placeholder="도서명을 입력해주세요."
+                  autocomplete="off"
                   id="hbrReg_bookTitle"
                 />
               </td>
@@ -58,6 +59,7 @@
                 <input
                   type="text"
                   placeholder="작가명을 입력해주세요."
+                  autocomplete="off"
                   id="hbrReg_author"
                 />
               </td>
@@ -68,6 +70,7 @@
                 <input
                   type="text"
                   placeholder="출판사를 입력해주세요."
+                  autocomplete="off"
                   id="hbrReg_publisher"
                 />
               </td>
