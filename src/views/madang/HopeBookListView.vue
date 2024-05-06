@@ -69,7 +69,8 @@
           </table>
 
           <div class="hopeBook_create">
-            <button class="button button_charcoal text_white">신청하기</button>
+            <button class="button button_charcoal text_white" @click="open_hopeApplP">신청하기</button>
+            <HopeBookReg v-if="hopeApplP" @close="close_hopeApplP" />
           </div>
         </div>
 
@@ -99,9 +100,10 @@
 <script>
 import api from "@/api/axios";
 import Sidebar from "@/components/common/SidebarView.vue";
+import HopeBookReg from "@/components/mypage/popup/HopeBookRegP.vue";
 
 export default {
-  components: { Sidebar },
+  components: { Sidebar, HopeBookReg },
   data() {
     return {
       // 검색
@@ -120,6 +122,8 @@ export default {
 
       hopeBookList: [],
       pageList: [],
+
+      hopeApplP: false,
     };
   },
   created() {
@@ -146,7 +150,7 @@ export default {
     },
     setSearchText(event) {
       this.searchText = event.target.value;
-      this.getBookTradeCnt();
+      this.getHopeBookCnt();
     },
 
     getHopeBookCnt() {
@@ -242,6 +246,14 @@ export default {
         text_blue: state === "입고중" || "신청중",
         text_green: state === "입고완료",
       };
+    },
+    // 신청하기 팝업 열기
+    open_hopeApplP() {
+      this.hopeApplP = true;
+    },
+    //  신청하기 팝업 닫기
+    close_hopeApplP() {
+      this.hopeApplP = false;
     },
   },
   computed: {

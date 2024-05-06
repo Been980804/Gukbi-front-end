@@ -57,6 +57,7 @@
           >
             신청하기
           </button>
+          <HopeBookReg v-if="hopeApplP" @close="close_hopeApplP" />
         </div>
 
         <div class="page_line_box">
@@ -86,9 +87,10 @@
 import api from "@/api/axios";
 import { useUserStore } from "@/stores/user.js";
 import Sidebar from "@/components/common/SidebarView.vue";
+import HopeBookReg from "@/components/mypage/popup/HopeBookRegP.vue";
 
 export default {
-  components: { Sidebar },
+  components: { Sidebar, HopeBookReg },
   data() {
     return {
       user: useUserStore().getUser,
