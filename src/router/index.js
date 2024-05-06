@@ -45,6 +45,7 @@ import NotificationDetail from "../views/madang/NotificationDetailView.vue";
 import NotificationList from "../views/madang/NotificationListView.vue";
 import InquiryList from "../views/madang/InquiryListView.vue";
 import InquiryReg from "../views/madang/InquiryRegView.vue";
+import HopeBookList from "../views/madang/HopeBookListView.vue";
 
 const routes = [
 	{ path: "/", name: "Main", component: Main, },
@@ -92,6 +93,7 @@ const routes = [
 	{ path: "/NotificationList", name:"NotificationList", component: NotificationList},
 	{ path: "/InquiryList", name: "InquiryList", component: InquiryList},
 	{ path: "/InquiryReg", name: "InquiryReg", component: InquiryReg},
+	{ path: "/HopeBookList", name: "HopeBookList", component: HopeBookList},
 ];
 
 const router = createRouter({
