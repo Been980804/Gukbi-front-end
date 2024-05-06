@@ -28,10 +28,13 @@
 				<div class="notice_title">
 					<div class="title_text"><p>추천 북플리</p></div>
 				</div>
-				<div style="width: 100%; height: 80%; display: flex;">
+				<div style="width: 100%; height: 80%; display: flex;" v-if="user.mem_id != null">
 					<div v-for="bookPly of bookPlyList" :key="bookPly" style="width: 150px; border: 1px solid black; height: 80%;">
 						<img :src="replaceImg(bookPly.book_url)"/>
 					</div>
+				</div>
+				<div style="width: 100%; height: 80%; display: flex;" v-else>
+					<div>로그인을 해주세요.</div>
 				</div>
 			</div>
 		</div>
@@ -104,6 +107,10 @@ export default {
         return require("@/assets/images/default-img.png");
       }
       return url;
+    },
+
+		setUser() {
+      this.user = useUserStore().getUser;
     }
 	}
 }

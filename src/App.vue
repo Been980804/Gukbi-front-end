@@ -1,7 +1,7 @@
 <template>
   <Header class="header" ref="header"/>
   <router-view class="router" :key="$route.fullPath"/>
-  <Footer class="footer"/>
+  <Footer class="footer" ref="footer"/>
 </template>
 
 <script>
@@ -19,6 +19,7 @@ export default {
   mounted() {
     this.$router.afterEach(() => {
       this.$refs.header.setUser();
+      this.$refs.footer.setUser();
     })
   }
 }
