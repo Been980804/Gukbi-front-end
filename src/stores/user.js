@@ -24,7 +24,7 @@ export const useUserStore = defineStore('user', {
     enabled: true,
     strategies: [
       { 
-        storage: localStorage 
+        storage: sessionStorage,
       }
     ],
   },
