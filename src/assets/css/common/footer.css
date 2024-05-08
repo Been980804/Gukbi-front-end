@@ -83,3 +83,15 @@ a {
 .date {
   margin-left: 10px; /* 날짜와 내용 사이의 간격 조절 */
 }
+
+.footer_bookPly_div {
+  width: 40%;
+  height: 100%;
+  border: 1px solid black;
+}
+.footer_bookPly_div img {
+  height: 80px;
+}
+.footer_bookPly_div div {
+  font-size: 14px;
+}

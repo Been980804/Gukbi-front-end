@@ -29,8 +29,11 @@
 					<div class="title_text"><p>추천 북플리</p></div>
 				</div>
 				<div style="width: 100%; height: 80%; display: flex;" v-if="user.mem_id != null">
-					<div v-for="bookPly of bookPlyList" :key="bookPly" style="width: 150px; border: 1px solid black; height: 80%;">
+					<div class="footer_bookPly_div" v-for="bookPly of bookPlyList" :key="bookPly">
 						<img :src="replaceImg(bookPly.book_url)"/>
+						<div>{{ bookPly.bpl_name }}</div>
+						<div>카테고리: {{ bookPly.pf_name }}</div>
+						<div>도서수: {{ bookPly.book_cnt }}</div>
 					</div>
 				</div>
 				<div style="width: 100%; height: 80%; display: flex;" v-else>
