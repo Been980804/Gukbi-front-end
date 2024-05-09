@@ -17,7 +17,7 @@
             </ul>
           </li>
 
-          <li v-if="user.mem_id != null" :ref="`${menuLevels.length -1}`" @mouseover="showSubMenu(menuLevels.length -1)" @mouseleave="hideSubMenu(menuLevels.length -1)">
+          <li v-if="user.mem_id != null && user.mem_class == '9'" :ref="`${menuLevels.length -1}`" @mouseover="showSubMenu(menuLevels.length -1)" @mouseleave="hideSubMenu(menuLevels.length -1)">
             <a href="#">사서페이지</a>
             <ul>
               <template v-for="menu in largeMenus" :key="menu">
