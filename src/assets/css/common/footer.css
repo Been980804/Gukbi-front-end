@@ -12,6 +12,11 @@ a {
   color: black; /* 링크 색상 설정 */
 }
 
+.title_text {
+  font-size: 20px;
+  font-weight: 500;
+}
+
 /* footer start */
 .footer {
   min-height: 30vh;
@@ -64,6 +69,11 @@ a {
   justify-content: flex-end; /* span태그를 오른쪽에 위치하게 */
   align-items: flex-end; /* span태그를 아래에 위치하게 */
 }
+.notice_contents li {
+  border: 1px solid #e5e5e5;
+  padding: 0px 3px;
+  margin: 3px 0px;
+}
 /* footer end */
 .notice_contents ul {
   display: flex;
@@ -85,13 +95,23 @@ a {
 }
 
 .footer_bookPly_div {
-  width: 40%;
+  /* width: 40%; */
+  width: 20%;
   height: 100%;
-  border: 1px solid black;
+  /* height: auto; */
+  border: 1px solid #e5e5e5;
+  margin-left: 3px;
+  padding: 4px;
 }
 .footer_bookPly_div img {
   height: 80px;
+  margin: 0 auto;
+  display: block;
 }
 .footer_bookPly_div div {
-  font-size: 14px;
+  font-size: 0.8rem;
+  margin: 5px 0px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

@@ -1,5 +1,4 @@
 <template>
-
   <div class="footer">
 		<!-- footer contents -->
 		<div class="footer_contents">
@@ -31,20 +30,21 @@
 				<div style="width: 100%; height: 80%; display: flex;" v-if="user.mem_id != null">
 					<div class="footer_bookPly_div" v-for="bookPly of bookPlyList" :key="bookPly">
 						<img :src="replaceImg(bookPly.book_url)"/>
+						<div style="border: 1px solid #e5e5e5;"></div>
 						<div>{{ bookPly.bpl_name }}</div>
 						<div>카테고리: {{ bookPly.pf_name }}</div>
 						<div>도서수: {{ bookPly.book_cnt }}</div>
 					</div>
 				</div>
 				<div style="width: 100%; height: 80%; display: flex;" v-else>
-					<div>로그인을 해주세요.</div>
+					<div style="font-size: 36px; font-weight: 500;">로그인을 해주세요.</div>
 				</div>
 			</div>
 		</div>
 		
 		<!-- footer copyright -->
 		<div class="footer_copyright">
-				<span>Copyright © 2024. All rights reserved.</span>
+			<span>Copyright © 2024. All rights reserved.</span>
 		</div>
 	</div>
 		
