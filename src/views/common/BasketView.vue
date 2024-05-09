@@ -2,9 +2,10 @@
 <template>
   <div class="container">
     <div class="main_container">
-      <div class="m_show_box">
-        <div class="m_show_box_title">책바구니</div>
-        <div class="inline_blank12"></div>
+      <div class="m_show_box_title" style="width: 70%; margin: 0px auto;">책바구니</div>
+      <div class="inline_blank12"></div>
+
+      <div class="m_show_box" style="width: 70%; margin: 0px auto;">
         <div class="table_line_box">
           <table class="m_table">
             <colgroup>
@@ -17,11 +18,21 @@
             </thead>
             <tbody>
               <tr v-for="book in basketList" :key="book">
-                <img class="m_img_book" :src="replaceImg(book.book_url)">
-                <td class="m_td">{{ book.book_title }}</td>
-                <td class="m_td">{{ book.book_category_no }}</td>
-                <td class="m_td">{{ book.book_category_name }}</td>
-                <td class="m_td">{{ book.book_publisher }}</td>
+                <td class="m_td">
+                  <div style="display: flex;">
+                    <img style="width: 80px; height: 120px; border: 1px solid black;" :src="replaceImg(book.book_url)">
+                    <div class="basket_div_book">
+                      <div>{{ book.book_title }}</div>
+                      <div>{{ book.book_category_no }}. {{ book.book_category_name }}</div>
+                    </div>
+                  </div>
+                </td>
+                <td class="m_td">
+                  <div style="display: flex;">
+                    <div>{{ book.book_publisher }}</div>
+                    <div>X</div>
+                  </div>
+                </td>
               </tr>
             </tbody>
           </table>

@@ -41,13 +41,11 @@
 				</div>
 			</div>
 		</div>
-		
 		<!-- footer copyright -->
 		<div class="footer_copyright">
 			<span>Copyright © 2024. All rights reserved.</span>
 		</div>
 	</div>
-		
 </template>
 
 <script>
