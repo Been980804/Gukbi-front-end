@@ -17,7 +17,11 @@
             </thead>
             <tbody>
               <tr v-for="book in basketList" :key="book">
+                <img class="m_img_book" :src="replaceImg(book.book_url)">
                 <td class="m_td">{{ book.book_title }}</td>
+                <td class="m_td">{{ book.book_category_no }}</td>
+                <td class="m_td">{{ book.book_category_name }}</td>
+                <td class="m_td">{{ book.book_publisher }}</td>
               </tr>
             </tbody>
           </table>
@@ -89,8 +93,15 @@ export default {
             console.log("BasketView main/bookInfo/basketDelete 응답실패");
           }
         })
-    }
-  },
+    },
+
+    replaceImg(url) { // 이미지가 없을 경우 기본 이미지로 대체
+      if(url == undefined || url == '' || url == null) {
+        return require("@/assets/images/default-img.png");
+      }
+      return url;
+    },
+  }
 }
 </script>
 <style>
