@@ -90,8 +90,10 @@ export default {
 				return;
 			}
 
-			this.$router.push({ name: 'MgrNotiDetailReg', params: { notiInfo: "" },
+			if(this.user.mem_class == "9") { // 관리자 계정일 경우
+				this.$router.push({ name: 'MgrNotiDetailReg', params: { notiInfo: "" },
 				query: { path: `MgrNotiDetailReg`}, menuNo: `menu000005`} );
+			}
 		},
 
 		getBookPly() { // 북플리 추천 목록 가져오기
