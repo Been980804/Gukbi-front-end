@@ -112,7 +112,6 @@
 import { useUserStore } from "@/stores/user";
 import api from "@/api/axios";
 import Sidebar from "../../components/common/SidebarView.vue";
-
 export default {
   components: { Sidebar },
   data() {
@@ -280,6 +279,13 @@ export default {
       });
     },
     goRegView() {
+      this.user = useUserStore().getUser;
+      if(this.user.mem_id == null || undefined || '') {
+        // 사용자 정보가 없을 경우 띄우지 않기
+        // 로그인 후 이용이 필요하다는 팝업창 띄우기
+        return; 
+      }
+
       sessionStorage.setItem("nowPage", this.nowPage);
       this.$router.push({
         name: "BookTradeReg",
