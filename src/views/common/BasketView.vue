@@ -13,14 +13,15 @@
             </colgroup>
             <thead class="m_thead">
               <tr>
-                <th v-for="column in tableColumn" :key="column" class="m_th">{{ column }}</th>
+                <th v-for="column in tableColumn" :key="column" class="m_th"
+                  style="text-align: left;">{{ column }}</th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="book in basketList" :key="book">
                 <td class="m_td" style="cursor: default;">
                   <div style="display: flex;">
-                    <img style="width: 80px; height: 100px; border: 1px solid black;" :src="replaceImg(book.book_url)">
+                    <img style="width: 70px; height: 80px; border: 1px solid black;" :src="replaceImg(book.book_url)">
                     <div class="basket_div_book">
                       <div style="font-weight: 600; margin-bottom: 10px;">{{ book.book_category_no }}. {{ book.book_category_name }}</div>
                       <div>{{ book.book_title }}</div>
@@ -33,7 +34,8 @@
                       <div style="font-weight: 600; margin-bottom: 26px;"> </div>
                       <div style="display: flex;">
                         <div>{{ book.book_publisher }}</div>
-                        <div style="margin-left: auto;">X</div>
+                        <div style="margin-left: auto;"></div>
+                        <img src="../../assets/images/cross.svg" alt="cancel">
                       </div>
                     </div>
                   </div>
