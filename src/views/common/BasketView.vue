@@ -18,7 +18,7 @@
             </thead>
             <tbody>
               <tr v-for="book in basketList" :key="book">
-                <td class="m_td">
+                <td class="m_td" style="cursor: default;">
                   <div style="display: flex;">
                     <img style="width: 80px; height: 120px; border: 1px solid black;" :src="replaceImg(book.book_url)">
                     <div class="basket_div_book">
@@ -27,7 +27,7 @@
                     </div>
                   </div>
                 </td>
-                <td class="m_td">
+                <td class="m_td" style="cursor: default;">
                   <div style="display: flex;">
                     <div>{{ book.book_publisher }}</div>
                     <div>X</div>
