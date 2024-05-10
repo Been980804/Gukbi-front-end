@@ -59,6 +59,7 @@
 
 .basket_div_book {
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   flex-direction: column;
+  padding-left: 20px;
 }

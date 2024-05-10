@@ -20,17 +20,22 @@
               <tr v-for="book in basketList" :key="book">
                 <td class="m_td" style="cursor: default;">
                   <div style="display: flex;">
-                    <img style="width: 80px; height: 120px; border: 1px solid black;" :src="replaceImg(book.book_url)">
+                    <img style="width: 80px; height: 100px; border: 1px solid black;" :src="replaceImg(book.book_url)">
                     <div class="basket_div_book">
+                      <div style="font-weight: 600; margin-bottom: 10px;">{{ book.book_category_no }}. {{ book.book_category_name }}</div>
                       <div>{{ book.book_title }}</div>
-                      <div>{{ book.book_category_no }}. {{ book.book_category_name }}</div>
                     </div>
                   </div>
                 </td>
                 <td class="m_td" style="cursor: default;">
                   <div style="display: flex;">
-                    <div>{{ book.book_publisher }}</div>
-                    <div>X</div>
+                    <div class="basket_div_book" style="width: 100%;">
+                      <div style="font-weight: 600; margin-bottom: 26px;"> </div>
+                      <div style="display: flex;">
+                        <div>{{ book.book_publisher }}</div>
+                        <div style="margin-left: auto;">X</div>
+                      </div>
+                    </div>
                   </div>
                 </td>
               </tr>
