@@ -101,7 +101,7 @@
 import api from "@/api/axios";
 import Sidebar from "@/components/common/SidebarView.vue";
 import HopeBookReg from "@/components/mypage/popup/HopeBookRegP.vue";
-
+import { useUserStore } from '@/stores/user.js';
 export default {
   components: { Sidebar, HopeBookReg },
   data() {
@@ -249,6 +249,12 @@ export default {
     },
     // 신청하기 팝업 열기
     open_hopeApplP() {
+      const user = useUserStore().getUser;
+      if(user.mem_id == null || undefined || '') {
+        // 사용자 정보가 없을 경우 띄우지 않기
+        // 로그인 후 이용이 필요하다는 팝업창 띄우기
+        return; 
+      }
       this.hopeApplP = true;
     },
     //  신청하기 팝업 닫기
