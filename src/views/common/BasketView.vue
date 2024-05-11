@@ -35,7 +35,7 @@
                       <div style="display: flex;">
                         <div>{{ book.book_publisher }}</div>
                         <div style="margin-left: auto;"></div>
-                        <img src="../../assets/images/cross.svg" alt="cancel" style="cursor: pointer;" @click="basketDelete()">
+                        <img src="../../assets/images/cross.svg" alt="cancel" style="cursor: pointer;" @click="basketDelete(book.book_no)">
                       </div>
                     </div>
                   </div>
@@ -115,7 +115,7 @@ export default {
       sqlData.set("memNo", this.user.mem_no);
       sqlData.set("bookNo", bookNo);
 
-      api.put(`/main/bookInfo/basketDelete`, Object.fromEntries(sqlData))
+      api.delete(`/main/bookInfo/basketDelete`, {params: Object.fromEntries(sqlData)})
         .then(res => {
           if (res.common.res_code == 200) { // 응답성공
             console.log(res.data.basket);
