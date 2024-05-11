@@ -2,7 +2,7 @@
 <template>
   <div class="container">
     <div class="main_container">
-      <div class="m_show_box_title" style="width: 70%; margin: 0px auto;">책바구니</div>
+      <div class="m_show_box_title" style="width: 70%; margin: 0px auto; font-weight: bold;">책바구니</div>
       <div class="inline_blank12"></div>
 
       <div class="m_show_box" style="width: 70%; margin: 0px auto;">
@@ -44,20 +44,31 @@
             </tbody>
           </table>
         </div>
-
+        <div class="inline_blank24"></div>
         <div class="m_line_box">
-          <div>대여한 도서는 지정된 기간 내에 반납되어야 합니다.</div>
-          <div>도서 반납시 도서의 상태는 대여 시와 동일하게 유지해주셔야 합니다.</div>
-          <div>대여기간: <span>대여일로부터 2주</span></div>
+          <div>
+            <div>대여한 도서는 지정된 기간 내에 반납되어야 합니다.</div>
+            <div>도서 반납시 도서의 상태는 대여 시와 동일하게 유지해주셔야 합니다.</div>
+          </div>
+          <div class="basket_rental_period">
+            <div>대여기간: <span style="font-weight: 600;">대여일로부터 2주</span></div>
+          </div>
         </div>
-
-        <div class="m_title_line_box"></div>
-
+        <div class="m_title_line_box" style="border: 1px solid gray;"></div>
         <div class="m_line_box">
-          <div>도서 대여 기간을 어길 경우, 회원 등급에 부정적인 영향을 끼칠 수 있음에 동의합니다.</div>
-          <div>반납 시 도서가 손상된 경우, 손상 정도에 따라 별도의 비용이 청구될 수 있음에 동의합니다.</div>
-          <div>대여하기</div>
+          <div>
+            <input type="checkbox" v-model="agree" value="agree1">
+              <span style="margin-left: 5px;">도서 대여 기간을 어길 경우, 회원 등급에 부정적인 영향을 끼칠 수 있음에 동의합니다.</span><br>
+            <input type="checkbox" v-model="agree" value="agree2">
+              <span style="margin-left: 5px;">반납 시 도서가 손상된 경우, 손상 정도에 따라 별도의 비용이 청구될 수 있음에 동의합니다.</span>
+          </div>
+          <div class="basket_rental_period">
+            <div class="button button_purple">
+              <div class="text_white">대여하기</div>
+            </div>
+          </div>
         </div>
+        <div class="inline_blank24"></div>
       </div>
     </div>
   </div>
@@ -73,6 +84,7 @@ export default {
 
       columnRange: ["60%", "40%"],
       tableColumn: ["도서명", "출판사"],
+      agree: []
     }
   },
 
