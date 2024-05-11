@@ -63,7 +63,7 @@
               <span style="margin-left: 5px;">반납 시 도서가 손상된 경우, 손상 정도에 따라 별도의 비용이 청구될 수 있음에 동의합니다.</span>
           </div>
           <div class="basket_rental_period">
-            <div class="button button_purple">
+            <div class="button button_purple" @click="rent()">
               <div class="text_white">대여하기</div>
             </div>
           </div>
@@ -131,6 +131,16 @@ export default {
       }
       return url;
     },
+
+    rent() { // 대여하기
+      // 전체 동의사항에 체크가 되어 있는지 확인
+      if(this.agree.length != 2) {
+        // 전체 동의사항에 체크하라는 메시지 전달
+        alert("전체 동의사항에 대한 동의가 필요합니다.");
+        return;
+      }
+      
+    }
   }
 }
 </script>
