@@ -35,7 +35,7 @@
                       <div style="display: flex;">
                         <div>{{ book.book_publisher }}</div>
                         <div style="margin-left: auto;"></div>
-                        <img src="../../assets/images/cross.svg" alt="cancel">
+                        <img src="../../assets/images/cross.svg" alt="cancel" style="cursor: pointer;" @click="basketDelete()">
                       </div>
                     </div>
                   </div>
