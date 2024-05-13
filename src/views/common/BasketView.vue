@@ -149,12 +149,25 @@ export default {
       api.post(`/main/userInfo/bookRent`, Object.fromEntries(sqlData))
         .then(res => {
           if(res.common.res_code == 200) {
-            console.log(res.data.bookRent);
+            // 등록에 성공하면 기존 책바구니 리스트에서 제거
+            this.basketDeleteAll();
           } else {
             console.log("DetailView main/bookInfo/basket 응답실패");
           }
         })
-    } 
+    },
+
+    basketDeleteAll() { // 모든 책바구니 내역 삭제
+      this.user = useUserStore().getUser;
+      api.delete(`/main/bookInfo/basketDeleteAll/${this.user.mem_no}`)
+        .then(res => {
+          if (res.common.res_code == 200) { // 응답성공
+            console.log(res.data.delete);
+          } else { // 응답실패
+            console.log("BasketView main/bookInfo/basketDelete 응답실패");
+          }
+        })
+    }
   }
 }
 </script>
