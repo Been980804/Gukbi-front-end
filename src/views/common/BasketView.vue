@@ -162,7 +162,9 @@ export default {
       api.delete(`/main/bookInfo/basketDeleteAll/${this.user.mem_no}`)
         .then(res => {
           if (res.common.res_code == 200) { // 응답성공
-            console.log(res.data.delete);
+            console.log(res.data.basket);
+            // 메인화면으로 이동
+            this.$router.push({ name: 'Main' });
           } else { // 응답실패
             console.log("BasketView main/bookInfo/basketDelete 응답실패");
           }
