@@ -18,7 +18,8 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="book in basketList" :key="book">
+              <template v-if="basketList != null">
+                <tr v-for="book in basketList" :key="book">
                 <td class="m_td" style="cursor: default;">
                   <div style="display: flex;">
                     <img style="width: 70px; height: 80px; border: 1px solid black;" :src="replaceImg(book.book_url)">
@@ -41,6 +42,11 @@
                   </div>
                 </td>
               </tr>
+              </template>
+              <template v-else>
+                <div class="inline_blank12"></div>
+                <tr style="font-size: 36px; font-weight: 500;">책바구니 목록이 없습니다.</tr>
+              </template>
             </tbody>
           </table>
         </div>
@@ -80,7 +86,7 @@ export default {
   data() {
     return {
       user: useUserStore().getUser,
-      basketList: {},
+      basketList: null,
 
       columnRange: ["60%", "40%"],
       tableColumn: ["도서명", "출판사"],
