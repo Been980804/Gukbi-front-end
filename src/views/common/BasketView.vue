@@ -139,8 +139,22 @@ export default {
         alert("전체 동의사항에 대한 동의가 필요합니다.");
         return;
       }
+
+      this.user = useUserStore().getUser;
       
-    }
+      let sqlData = new Map();
+      sqlData.set("memNo", this.user.mem_no);
+      sqlData.set("basket", this.basketList);
+
+      api.post(`/main/userInfo/bookRent`, Object.fromEntries(sqlData))
+        .then(res => {
+          if(res.common.res_code == 200) {
+            console.log(res.data.bookRent);
+          } else {
+            console.log("DetailView main/bookInfo/basket 응답실패");
+          }
+        })
+    } 
   }
 }
 </script>
