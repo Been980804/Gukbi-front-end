@@ -14,10 +14,16 @@
 
       <div class="inline_blank24"></div>
 
-      <div class="aa m_content_box" style="flex-direction: column; background-color: white;">
+      <div class="m_content_box" style="flex-direction: column; background-color: white;">
         <div class="m_content_title" style="font-size: 24px; font-weight: bold;">현재 급상승 중인 도서!</div>
-        <div class="aa m_card_box">
-          
+        <div class="m_card_box">
+          <div class="trend_div" v-for="reserv of reservList" :key="reserv">
+						<img :src="replaceImg(reserv.book_url)"/>
+						<div style="border: 1px solid #e5e5e5;"></div>
+						<div>도서명</div>
+						<div>카테고리: </div>
+            <div>출판사: </div>
+					</div>
         </div>
       </div>
     </div>
@@ -33,7 +39,8 @@ export default {
     return {
       user: useUserStore().getUser,
 
-      sugBookInfo: {}
+      sugBookInfo: {},
+      reservList: {}
     }
   },
 
@@ -69,7 +76,7 @@ export default {
       api.get(`/main/bookInfo/reservation`)
         .then(res => {
           if (res.common.res_code == 200) { // 응답성공
-            console.log(res.data.reservation);
+            this.reservList = res.data.reservation;
           } else { // 응답실패
             console.log("BookSugView main/bookInfo/reservation 응답실패");
           }

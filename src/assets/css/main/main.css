@@ -35,6 +35,9 @@
 .m_card_box {
   width: 100%;
   height: 100%;
+  display: flex;
+  padding: 20px 0px;
+  justify-content: space-between;
 }
 
 .m_search_text {
@@ -71,4 +74,25 @@
   display: flex;
   justify-content: end;
   align-items: center;
+}
+
+.trend_div {
+  width: 15%;
+  height: 100%;
+  border: 1px solid #e5e5e5;
+  margin-left: 3px;
+  padding: 4px;
+}
+.trend_div img {
+  height: 150px;
+  width: 60%;
+  margin: 0 auto;
+  display: block;
+}
+.trend_div div {
+  font-size: 0.8rem;
+  margin: 5px 0px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
