@@ -39,6 +39,7 @@ export default {
 
   created() {
     this.getSugBook();
+    this.getReservaion();
   },
 
   methods: {
@@ -63,6 +64,17 @@ export default {
       }
       return url;
     },
+
+    getReservaion() { // 예약내역 가져오기
+      api.get(`/main/bookInfo/reservation`)
+        .then(res => {
+          if (res.common.res_code == 200) { // 응답성공
+            console.log(res.data.reservation);
+          } else { // 응답실패
+            console.log("BookSugView main/bookInfo/reservation 응답실패");
+          }
+        })
+    }
   }
 }
 </script>
