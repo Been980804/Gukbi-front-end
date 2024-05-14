@@ -95,12 +95,13 @@ export default {
 		},
 
 		getBookPly() { // 북플리 추천 목록 가져오기
-      api.get(`/main/bookPly`)
+			this.user = useUserStore().getUser;
+      api.get(`/main/bookPly/${this.user.mem_favorite}`)
         .then(res => {
           if (res.common.res_code == 200) { // 응답성공
 						this.bookPlyList = res.data.bookPlyList;
           } else { // 응답실패
-            console.log("BookListView book/bookCount 응답실패");
+            console.log("BookListView main/bookPly 응답실패");
           }
         })
 		},
