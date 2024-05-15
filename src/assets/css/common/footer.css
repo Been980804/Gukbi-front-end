@@ -102,6 +102,7 @@ a {
   border: 1px solid #e5e5e5;
   margin-left: 3px;
   padding: 4px;
+  cursor: pointer;
 }
 .footer_bookPly_div img {
   height: 80px;

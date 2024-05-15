@@ -28,7 +28,7 @@
 					<div class="title_text"><p>추천 북플리</p></div>
 				</div>
 				<div style="width: 100%; height: 80%; display: flex;" v-if="user.mem_id != null">
-					<div class="footer_bookPly_div" v-for="bookPly of bookPlyList" :key="bookPly">
+					<div class="footer_bookPly_div" v-for="bookPly of bookPlyList" :key="bookPly" @click="goBookPly()">
 						<img :src="replaceImg(bookPly.book_url)"/>
 						<div style="border: 1px solid #e5e5e5;"></div>
 						<div>{{ bookPly.bpl_name }}</div>
@@ -92,6 +92,10 @@ export default {
 				this.$router.push({ name: 'MgrNotiDetailReg', params: { notiInfo: "" },
 				query: { path: `MgrNotiDetailReg`}, menuNo: `menu000005`} );
 			}
+		},
+
+		goBookPly() { // 북플리 화면으로 이동
+			this.$router.push({ name: 'BookPly'});
 		},
 
 		getBookPly() { // 북플리 추천 목록 가져오기
