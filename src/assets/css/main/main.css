@@ -90,8 +90,8 @@
   display: block;
 }
 .trend_div div {
-  font-size: 0.8rem;
-  margin: 5px 0px;
+  font-size: 1rem;
+  margin: 15px 0px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

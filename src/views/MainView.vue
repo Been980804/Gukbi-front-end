@@ -20,9 +20,9 @@
           <div class="trend_div" v-for="reserv of reservList" :key="reserv">
 						<img :src="replaceImg(reserv.book_url)"/>
 						<div style="border: 1px solid #e5e5e5;"></div>
-						<div>도서명</div>
-						<div>카테고리: </div>
-            <div>출판사: </div>
+						<div style="font-weight: 600;">{{ reserv.book_title }}</div>
+						<div>카테고리: {{ reserv.book_category_no }}. {{ reserv.book_category_name }}</div>
+            <div>출판사: {{ reserv.book_publisher }}</div>
 					</div>
         </div>
       </div>
@@ -77,6 +77,7 @@ export default {
         .then(res => {
           if (res.common.res_code == 200) { // 응답성공
             this.reservList = res.data.reservation;
+            console.log(this.reservList);
           } else { // 응답실패
             console.log("BookSugView main/bookInfo/reservation 응답실패");
           }
