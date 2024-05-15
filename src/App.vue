@@ -20,6 +20,11 @@ export default {
     this.$router.afterEach(() => {
       this.$refs.header.setUser();
       this.$refs.footer.setUser();
+      this.$refs.footer.getBookPly();
+
+      if(this.$route.path == "/") { // 메인화면 이동 시
+
+      }
     })
   }
 }
