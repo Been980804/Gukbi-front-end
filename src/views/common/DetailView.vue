@@ -90,6 +90,8 @@ export default {
 
     this.getBookInfo();
     sessionStorage.setItem("isbn", this.isbn);
+
+    this.getReview();
   },
 
   methods: {
@@ -174,6 +176,17 @@ export default {
             }
           } else {
             console.log("DetailView main/bookInfo/status 응답실패");
+          }
+        })
+    },
+
+    getReview() {
+      api.get(`/main/bookInfo/review`)
+        .then(res => {
+          if(res.common.res_code == 200) {
+            console.log(res.data.review);
+          } else {
+            console.log("DetailView main/bookInfo/review 응답실패");
           }
         })
     }
