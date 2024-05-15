@@ -82,6 +82,7 @@
   border: 1px solid #e5e5e5;
   margin-left: 3px;
   padding: 4px;
+  cursor: pointer;
 }
 .trend_div img {
   height: 150px;

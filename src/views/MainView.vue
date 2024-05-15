@@ -17,7 +17,7 @@
       <div class="m_content_box" style="flex-direction: column; background-color: white;">
         <div class="m_content_title" style="font-size: 24px; font-weight: bold;">현재 급상승 중인 도서!</div>
         <div class="m_card_box">
-          <div class="trend_div" v-for="reserv of reservList" :key="reserv">
+          <div class="trend_div" v-for="reserv of reservList" :key="reserv" @click="goDetail(reserv.book_isbn)">
 						<img :src="replaceImg(reserv.book_url)"/>
 						<div style="border: 1px solid #e5e5e5;"></div>
 						<div style="font-weight: 600;">{{ reserv.book_title }}</div>
@@ -82,6 +82,10 @@ export default {
             console.log("BookSugView main/bookInfo/reservation 응답실패");
           }
         })
+    },
+
+    goDetail(isbn) {
+      this.$router.push({ name: 'Detail', params: { isbn: `${isbn}` }});
     }
   }
 }
