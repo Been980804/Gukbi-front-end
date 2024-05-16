@@ -181,7 +181,7 @@ export default {
     },
 
     getReview() {
-      api.get(`/main/bookInfo/review`)
+      api.get(`/main/bookInfo/review/${this.isbn}`)
         .then(res => {
           if(res.common.res_code == 200) {
             console.log(res.data.review);
