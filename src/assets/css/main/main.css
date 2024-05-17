@@ -97,3 +97,15 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.star {
+  font-size: 36px;
+}
+.star span {
+  margin: 0px 10px;
+}
+
+.review_text {
+  font-size: 18px;
+  margin: 10px 0px 10px 20px;
+}

@@ -57,6 +57,24 @@
         <div class="m_title_line_box"></div>
         <div>
           <div class="m_show_box_title">리뷰</div>
+          <div style="border: 1px solid black; width: 100%; margin: 20px 0px;">
+            <div style="display: flex;" v-if="reviewList != null">
+              <template v-for="review in reviewList" :key="review">
+                <div style="display: flex; width: 30%; justify-content: center;">
+                  <div v-for="star in 5" :key="star" class="star">
+                    <span v-if="star <= review.rev_scope">★</span>
+                    <span v-else>☆</span>
+                  </div>
+                </div>
+                <div style="width: 70%;">
+                  <div class="review_text">{{ review.mem_name }}</div>
+                  <div style="border: 1px solid #e5e5e5; width: 50%"></div>
+                  <div class="review_text">{{ review.rev_content }}</div>
+                </div>
+              </template>
+            </div>
+            <div style="margin: 20px; font-size: 24px;" v-else>리뷰 내역이 없습니다.</div>
+          </div>
         </div>
       </div>
     </div>
@@ -79,7 +97,8 @@ export default {
 
       isbn: this.$route.params.isbn,
       descript: null,
-      bookInfo: {}
+      bookInfo: {},
+      reviewList: null
     }
   },
 
@@ -184,7 +203,7 @@ export default {
       api.get(`/main/bookInfo/review/${this.isbn}`)
         .then(res => {
           if(res.common.res_code == 200) {
-            console.log(res.data.review);
+            this.reviewList = res.data.review;
           } else {
             console.log("DetailView main/bookInfo/review 응답실패");
           }
