@@ -15,6 +15,7 @@ import MyHopeBook from "../views/mypage/MyHopeBookView.vue";
 import MyBookPly from "../views/mypage/MyBookPlyView.vue";
 import MyInquiry from "../views/mypage/MyInquiryView.vue";
 import MyBookTrade from "../views/mypage/MyBookTradeView.vue";
+import Social from "../views/mypage/SocialView.vue";
 
 // 관리자화면 import
 import MgrBookList from "../views/manage/BookListView.vue";	// 도서관리
@@ -63,6 +64,7 @@ const routes = [
 	{ path: "/MyBookPly", name: "MyBookPly", component: MyBookPly},
 	{ path: "/MyInquiry", name: "MyInquiry", component: MyInquiry},
 	{ path: "/MyBookTrade", name: "MyBookTrade", component: MyBookTrade},
+	{ path: "/Social", name: "Social", component: Social},
 
 	// 관리자화면
 	{ path: "/MgrBookList", name: "MgrBookList", component: MgrBookList},
