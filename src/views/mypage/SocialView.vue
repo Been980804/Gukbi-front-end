@@ -9,20 +9,20 @@
         <div class="inline_blank12"></div>
         <div class="social mt1rem" style="flex-direction: column; width: 100%;">
           <div class="imgbtn social_btn">
-            <img src="@/assets/images/sns_google.svg" alt="google_login">
-            <div style="width: 200px;">구글 로그인 등록</div>
+            <img src="@/assets/images/sns_google.svg" alt="google_login" v-on:click="setGoogleLogin()">
+            <div style="width: 200px; cursor: pointer;" v-on:click="setGoogleLogin()">구글 로그인 등록</div>
             <div style="margin-right: 15px; font-weight: 600;">등록 상태:</div>
             <div>등록 안됨</div>
           </div>
           <div class="imgbtn social_btn">
             <img src="@/assets/images/sns_kakao.svg" alt="kakao_login">
-            <div style="width: 200px;">카카오 로그인 등록</div>
+            <div style="width: 200px; cursor: pointer;">카카오 로그인 등록</div>
             <div style="margin-right: 15px; font-weight: 600;">등록 상태:</div>
             <div>등록 안됨</div>
           </div>
           <div class="imgbtn social_btn">
             <img src="@/assets/images/sns_naver.svg" alt="naver_login">
-            <div style="width: 200px;">네이버 로그인 등록</div>
+            <div style="width: 200px; cursor: pointer;">네이버 로그인 등록</div>
             <div style="margin-right: 15px; font-weight: 600;">등록 상태:</div>
             <div>등록 안됨</div>
           </div>
@@ -32,10 +32,24 @@
   </div>
 </template>
 <script>
+import api from "@/api/axios";
 import Sidebar from "../../components/common/SidebarView.vue";
 export default {
   components: {
     Sidebar
+  },
+
+  methods: {
+    setGoogleLogin() { // 구글로그인 정보 등록
+      api.get(`/mypage/userInfo/googleLogin`)
+      .then(res => {
+        if (res.common.res_code == 200) {
+          console.log(res.data);
+        } else {
+          console.log("SocialView mypage/userInfo/googleLogin 응답실패");
+        }
+      });
+    }
   }
 }
 </script>
@@ -49,5 +63,6 @@ export default {
 }
 .social_btn > img {
   margin-right: 15px;
+  cursor: pointer;
 }
 </style>
