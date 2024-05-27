@@ -44,7 +44,8 @@ export default {
       api.get(`/mypage/userInfo/googleLogin`)
       .then(res => {
         if (res.common.res_code == 200) {
-          console.log(res.data);
+          // 구글로그인 팝업창 띄우기
+          window.open(res.data.google, "Google Login", "width=500, height=600, scrollbars=auto");
         } else {
           console.log("SocialView mypage/userInfo/googleLogin 응답실패");
         }
