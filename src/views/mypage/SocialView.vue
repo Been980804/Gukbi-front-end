@@ -15,8 +15,8 @@
             <div>등록 안됨</div>
           </div>
           <div class="imgbtn social_btn">
-            <img src="@/assets/images/sns_kakao.svg" alt="kakao_login">
-            <div style="width: 200px; cursor: pointer;">카카오 로그인 등록</div>
+            <img src="@/assets/images/sns_kakao.svg" alt="kakao_login" v-on:click="setKakaoLogin()">
+            <div style="width: 200px; cursor: pointer;" v-on:click="setKakaoLogin()">카카오 로그인 등록</div>
             <div style="margin-right: 15px; font-weight: 600;">등록 상태:</div>
             <div>등록 안됨</div>
           </div>
@@ -48,6 +48,18 @@ export default {
           window.open(res.data.google, "Google Login", "width=500, height=600, scrollbars=auto");
         } else {
           console.log("SocialView mypage/userInfo/googleLogin 응답실패");
+        }
+      });
+    },
+
+    setKakaoLogin() { // 카카오로그인 정보 등록
+      api.get(`/mypage/userInfo/kakaoLogin`)
+      .then(res => {
+        if (res.common.res_code == 200) {
+          // 카카오로그인 팝업창 띄우기
+          console.log(res.data.kakao);
+        } else {
+          console.log("SocialView mypage/userInfo/kakaoLogin 응답실패");
         }
       });
     }
